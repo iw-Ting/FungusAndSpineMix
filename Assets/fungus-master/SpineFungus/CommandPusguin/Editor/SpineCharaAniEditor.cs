@@ -162,15 +162,15 @@ public class SpineCharaAniEditor : CommandEditor
         EditorGUILayout.PropertyField(MovePro);
 
         SerializedProperty aMoveAni = tweenTime.FindPropertyRelative("aMoveAniDuration");
-        if (tar.Move)
-        {
-            CommandEditor.ObjectField<RectTransform>(FromPosPro,
-                            new GUIContent("From Position", "Move the portrait to this position"),
-                            new GUIContent("<Previous>"),
-                            s.Positions);
-            EditorGUILayout.PropertyField(aMoveAni);
+        // if (tar.Move)
+        // {
+        //     CommandEditor.ObjectField<RectTransform>(FromPosPro,
+        //                     new GUIContent("From Position", "Move the portrait to this position"),
+        //                     new GUIContent("<Previous>"),
+        //                     s.Positions);
+        //     EditorGUILayout.PropertyField(aMoveAni);
 
-        }
+        // }
         aMoveAni.floatValue = aMoveAni.floatValue <= 0 ? 0 : aMoveAni.floatValue;
 
         CommandEditor.ObjectField<RectTransform>(ToPosPro,
