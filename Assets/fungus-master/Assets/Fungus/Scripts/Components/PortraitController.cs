@@ -210,7 +210,7 @@ namespace Fungus
             // Use default stage settings
             if (options.aTween.aMoveAniDuration <= 0)
             {
-                options.aTween.aMoveAniDuration = 0.5f;
+                options.aTween.aMoveAniDuration = 0.4f;
             }
 
             if (options.aTween.aFadeAniDuration <= 0)
@@ -220,7 +220,9 @@ namespace Fungus
 
             if (options.CharaObj == null)
             {
-                CreatePortraitObject(options);
+
+                CreateSpineObject(options);
+                Debug.Log("生成角色");
             }
 
             return options;
@@ -291,15 +293,16 @@ namespace Fungus
             }
         }
 
-        protected virtual void CreatePortraitObject(SpineCharaAniOptions opt)
+        protected virtual void CreateSpineObject(SpineCharaAniOptions opt)
         {
             if (opt.CharaObj == null)//生成角色
             {
                 bool listIsHave = false;
                 foreach (var chara in stage.SpineCharaOnStageList)
                 {
-                    if (opt._SpineCharaPrefab.name == chara.name)
+                    if (opt._charaName == chara.name)
                     {
+
                         opt.CharaObj = chara;
                         listIsHave = true;
                     }
@@ -314,7 +317,7 @@ namespace Fungus
                 if (!listIsHave)
                 {
                     opt.CharaObj = Instantiate(opt._SpineCharaPrefab.gameObject);
-                    opt.CharaObj.name = opt._SpineCharaPrefab.gameObject.name;
+                    opt.CharaObj.name = opt._charaName;
 
                     // Set it to be a child of the stage
                     opt.CharaObj.transform.SetParent(stage.PortraitCanvas.transform, false);
@@ -404,9 +407,10 @@ namespace Fungus
             }
 
             SetRectTransform(options._SpineCharaPrefab.GetComponent<RectTransform>(), options._fromPosition);
-            if(options._reverse){
+            if (options._reverse)
+            {
 
-                options.CharaObj.transform.localEulerAngles = new Vector3(0, options.CharaObj.transform.localEulerAngles.y+180, 0);
+                options.CharaObj.transform.localEulerAngles = new Vector3(0, options.CharaObj.transform.localEulerAngles.y + 180, 0);
             }
 
         }
@@ -439,8 +443,8 @@ namespace Fungus
             // LeanTween doesn't handle 0 duration properly
 
             // LeanTween.move uses the anchoredPosition, so all position images must have the same anchor position
-            options._toPosition.localPosition = options._toPosition.localPosition + options._offest;
-            LeanTween.move(options.CharaObj, options._toPosition.position, options.aTween.aMoveAniDuration)
+            Vector3 toPos = options._toPosition.localPosition + options._offest;
+            LeanTween.moveLocal(options.CharaObj, toPos, options.aTween.aMoveAniDuration)
                 .setEase(stage.FadeEaseType);
 
         }
@@ -516,7 +520,7 @@ namespace Fungus
             }
         }
 
-        public virtual void RunPortraitCommand(SpineCharaAniOptions options)
+        public virtual void RunSpineCommand(SpineCharaAniOptions options)
         {
             waitTimer = 0f;
             // If no character specified, do nothing
@@ -532,8 +536,9 @@ namespace Fungus
                 options._OnComplete();
                 return;
             }
-
+            Debug.Log("執行1");
             options = CleanPortraitOptions(options);
+            Debug.Log("執行2");
 
             if (options._display == DisplayType.Hide && options.CharaObj == null)
             {
@@ -658,6 +663,7 @@ namespace Fungus
 
         public virtual IEnumerator Show(SpineCharaAniOptions options)//展現隱藏的角色(SpineChara)確認角色存在,展示角色
         {
+
             options = CleanPortraitOptions(options);//生成
 
             SetupPortrait(options);//鏡像設置
@@ -676,10 +682,7 @@ namespace Fungus
                 // LeanTween.color(options.CharaObj, Color.white, options.aTween.aMoveAniDuration)
                 //                     .setEase(stage.FadeEaseType)
                 //                     .setRecursive(false);
-
-
             }
-
 
             if (options._move || options._fade)
             {

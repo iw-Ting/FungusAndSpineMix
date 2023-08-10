@@ -107,10 +107,11 @@ namespace Fungus
 
             sayDialog.SetActive(true);
 
-            sayDialog.SetCharacter(character);
-            sayDialog.SetCharacterImage(portrait);
+            sayDialog.SetCharacter(character);//設置對話框角色
+            sayDialog.SetCharacterImage(portrait);//設置角色頭像
 
             string displayText = storyText;
+
 
             var activeCustomTags = CustomTag.activeCustomTags;
             for (int i = 0; i < activeCustomTags.Count; i++)
@@ -123,14 +124,18 @@ namespace Fungus
                 }
             }
 
+
+
             string subbedText = flowchart.SubstituteVariables(displayText);
+
+
 
             sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
                 Continue();
             });
         }
 
-        
+
 
         public override string GetSummary()
         {

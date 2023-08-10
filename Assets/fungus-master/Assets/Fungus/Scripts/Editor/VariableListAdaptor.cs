@@ -162,7 +162,7 @@ namespace Fungus.EditorUtils
             }
         }
 
-        public void DrawItem(Rect position, int index, bool selected, bool focused)
+        public void DrawItem(Rect position, int index, bool selected, bool focused)  //生成陣列
         {
             Variable variable = GetVarAt(index);// this[index].objectReferenceValue as Variable;
 
@@ -248,10 +248,11 @@ namespace Fungus.EditorUtils
 
 
             EditorGUI.BeginChangeCheck();
-            key = EditorGUI.TextField(itemRects[1], variable.Key);
+            key = EditorGUI.TextField(itemRects[1], variable.Key);//值的名稱
+
             if (EditorGUI.EndChangeCheck())
             {
-                keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
+                keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);//也更正flowChart腳本的value
             }
 
             bool isGlobal = scopeProp.enumValueIndex == (int)VariableScope.Global;
@@ -271,14 +272,14 @@ namespace Fungus.EditorUtils
                 }
             }
 
-
+            EditorGUILayout.Space(600);
             //variable.DrawProperty(rects[2], defaultProp, variableInfo);
-            VariableDrawProperty(variable, itemRects[2], defaultProp, variableInfo);
+            VariableDrawProperty(variable, itemRects[2], defaultProp, variableInfo);//中間的值
 
             GUI.enabled = prevEnabled;
 
 
-            scope = (VariableScope)EditorGUI.EnumPopup(itemRects[3], variable.Scope);
+            scope = (VariableScope)EditorGUI.EnumPopup(itemRects[3], variable.Scope);//選擇值的開放設定
             scopeProp.enumValueIndex = (int)scope;
 
             variableObject.ApplyModifiedProperties();

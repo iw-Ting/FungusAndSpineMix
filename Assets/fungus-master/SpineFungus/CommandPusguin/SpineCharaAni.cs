@@ -9,7 +9,7 @@ using Spine.Unity;
 
 
 [CommandInfo("Narrative",
-              "SpineCharaAni",
+              "SpineCharaAnie",//顯示名稱 類別是抓繼承command
               "Controls a Spine Animation.")]
 //flow command
 public class SpineCharaAni : ControlWithDisplay<DisplayType>
@@ -37,9 +37,11 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     [SerializeField] protected bool waitAnimationFinish = false;//等待動畫完成後,接著撥放
     [SerializeField] protected bool waitDialog = false;
 
+    [SerializeField] protected bool waitForClick = false;//點集才可進入下一段動畫
+
     [SerializeField] protected bool fade = false;
 
-    [SerializeField] protected TweenTime aTween=new TweenTime();
+    [SerializeField] protected TweenTime aTween = new TweenTime();
 
     public virtual RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value; } }
 
@@ -74,8 +76,8 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
         SpineCharaAniOptions opt = new SpineCharaAniOptions();
 
-
-        opt.aTween=aTween;
+        opt._charaName = aTarget.mSet.CharaName;
+        opt.aTween = aTween;
         opt._SpineCharaPrefab = aTarget.aSkeletonGraphic;
         opt._offest = offest + aTarget.mSet.Offest;
 
@@ -84,19 +86,47 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
         opt._waitAnimationFinish = waitAnimationFinish;
         opt._waitDialog = waitDialog;
 
-        opt._animation = aAnimation;
-        opt._skin = aInitialSkinName;
+
+
+        if (string.IsNullOrEmpty(aAnimation))//沒指定動畫
+        {
+
+            if (!string.IsNullOrEmpty(aTarget.DefaultAni))//有預設動畫
+            {
+                opt._animation=aTarget.DefaultAni;//使用預設動畫
+            }
+        }
+        else
+        {
+            opt._animation = aAnimation;//使用指定動畫
+        }
+
+        if (string.IsNullOrEmpty(aInitialSkinName))//沒指定造型
+        {
+
+            if (!string.IsNullOrEmpty(aTarget.DefaultSkin))//有預設造型
+            {
+                opt._skin=aTarget.DefaultSkin;//使用預設造型
+            }
+        }
+        else
+        {
+            opt._skin = aInitialSkinName;//使用指定造型
+        }
+
+
         opt._display = display;
         opt._reverse = IsReverse();
 
         opt._move = Move;
         opt._loop = loop;
         opt._fade = fade;
+        opt._waitForClick = waitForClick;
         opt._fromPosition = FromPosition;
         opt._toPosition = ToPosition;
 
 
-        stage.RunPortraitCommand(opt);
+        stage.RunSpineCommand(opt);
 
     }
 
@@ -112,11 +142,12 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
     public bool IsReverse()//偵測角色是否需要反轉
     {
-        if(aTarget.mSet.facing==FacingDirection.None){
-            aTarget.mSet.facing=FacingDirection.Right;
+        if (aTarget.mSet.Facing == FacingDirection.None)
+        {
+            aTarget.mSet.Facing = FacingDirection.Right;
         }
 
-        if (facing != aTarget.mSet.facing)
+        if (facing != aTarget.mSet.Facing)
         {
             return true;
         }

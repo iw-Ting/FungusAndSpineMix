@@ -25,18 +25,24 @@ public class EditorTest : PropertyDrawer
 
             Rect bb = new Rect(position.x, position.y + aa.height, position.width, 16);
 
-            Rect cc = new Rect(position.x, position.y + (aa.height*2), position.width, 16);
+            Rect cc = new Rect(position.x, position.y + (aa.height * 2), position.width, 16);
 
-            var lg= EditorGUI.BeginProperty(position,label,property);
-            
-           
+            var lg = EditorGUI.BeginProperty(position, label, property);
+
+
 
 
             // EditorGUI.LabelField(aa, label, lg);//顯示字串
 
             EditorGUI.LabelField(aa, label, new GUIContent(property.floatValue.ToString()));//顯示字串
 
-            EditorGUI.Slider(cc,property.floatValue,0,10);//滑動塊
+            EditorGUI.Slider(cc, property.floatValue, 0, 10);//滑動塊
+
+
+            if (EditorGUILayout.DropdownButton(new GUIContent("5566"), FocusType.Passive))
+            {
+                // EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, (int)(EditorGUIUtility.currentViewWidth - lastEventPopupPos.x), 200);
+            }
 
             // if (GUI.Button(bb, "fff"))
             // {
@@ -54,7 +60,7 @@ public class EditorTest : PropertyDrawer
         {
 
             EditorGUI.LabelField(position, "abc");
-            
+
         }
     }
 

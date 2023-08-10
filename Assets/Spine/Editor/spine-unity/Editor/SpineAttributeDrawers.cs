@@ -181,7 +181,7 @@ namespace Spine.Unity.Editor
                     EditorGUI.LabelField(position, "ERROR:", "Must have reference to a SkeletonDataAsset");
                 }
 
-                skeletonDataAsset = property.serializedObject.targetObject as SkeletonDataAsset;
+                skeletonDataAsset = property.serializedObject.targetObject as SkeletonDataAsset;//物件本身就是
 
                 if (skeletonDataAsset == null) return;
             }

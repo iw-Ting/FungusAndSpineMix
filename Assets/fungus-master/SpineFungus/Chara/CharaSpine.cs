@@ -17,11 +17,17 @@ namespace Fungus
     {
 
         public string CharaName;//顯示在對話框上的名字
+
+        // public Sprite DefaultSayDialogSprite;//名字底下的圖片
+
+        // public Color ColorName;
         public Vector2 Scale=Vector2.one;
 
         public Vector3 Offest=Vector3.zero;
 
-        public FacingDirection facing;
+        public FacingDirection Facing;
+
+        
 
     }
 
@@ -39,7 +45,9 @@ namespace Fungus
         public SkeletonGraphic aSkeletonGraphic;//skins 因為spine裡面已經有造型選擇 造理說只會有一個
 
 
+        public string DefaultSkin=null;
 
+        public string DefaultAni=null;
         // public IEnumerator LoadSkeletonAnimationPath()//確認加載
         // {
         //     if (aSkeletonGraphic == null)

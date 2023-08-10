@@ -60,14 +60,12 @@ public static class SpineTween
             Color origineC = data.color;
             float addColorA = origineC.a;
             float offValue = data.color.a / dur * Time.fixedDeltaTime;
-            Debug.Log("淡出的係數==>"+offValue);
 
             while (addColorA > 0)
             {
 
                 if (data != null)
                 {
-                    Debug.Log("淡出" + addColorA);
                     addColorA = addColorA - offValue < 0 ? 0 : addColorA - offValue;
 
                     data.color = new Color(origineC.r, origineC.g, origineC.b, addColorA);
@@ -76,11 +74,9 @@ public static class SpineTween
                 }
                 else
                 {
-                    Debug.Log("沒了" + data.color);
                     yield break;
                 }
             }
-            Debug.Log("最後的顏色==>" + data.color);
             data.color = new Color(origineC.r, origineC.g, origineC.b, 0);
 
 

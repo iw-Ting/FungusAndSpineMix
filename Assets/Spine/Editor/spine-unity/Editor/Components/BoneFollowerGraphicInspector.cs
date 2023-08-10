@@ -188,7 +188,7 @@ namespace Spine.Unity.Editor {
 				} else {
 					boneFollowerSkeletonGraphic.Initialize(false);
 
-					if (boneFollowerSkeletonGraphic.skeletonDataAsset == null)
+					if (boneFollowerSkeletonGraphic.SkeletonDataAsset == null)
 						EditorGUILayout.HelpBox("Assigned SkeletonGraphic does not have SkeletonData assigned to it.", MessageType.Warning);
 
 					if (!boneFollowerSkeletonGraphic.IsValid)

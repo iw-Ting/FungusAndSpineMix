@@ -232,7 +232,7 @@ namespace Fungus.EditorUtils
             get
             {
                 if (toolbarSeachTextFieldStyle == null)
-                    toolbarSeachTextFieldStyle = GUI.skin.FindStyle("ToolbarSeachTextField");
+                    toolbarSeachTextFieldStyle = GUI.skin.FindStyle("box");
 
                 return toolbarSeachTextFieldStyle;
             }
@@ -828,8 +828,11 @@ namespace Fungus.EditorUtils
             }
             catch (Exception)
             {
-                //Debug.Log("Failed to draw overlay in some way");
+                // Debug.Log("Failed to draw overlay in some way");
             }
+
+            // DrawOverlay(Event.current);//描繪附屬功能視窗
+            // Debug.Log("執行0");
 
             // Handle events for custom GUI
             base.HandleEvents(Event.current);//滑鼠事件
@@ -848,8 +851,9 @@ namespace Fungus.EditorUtils
 
         protected virtual void DrawOverlay(Event e)//描繪flow chart 四腳功能視窗
         {
+
             // Main toolbar group
-            GUILayout.BeginHorizontal(EditorStyles.toolbar);
+            GUILayout.BeginHorizontal();
             {
                 GUILayout.Space(2);
 
@@ -905,7 +909,12 @@ namespace Fungus.EditorUtils
                     popupRect.height = Mathf.Min(Mathf.Max(1, filteredBlocks.Count) * 16, position.height - 22);
                 }
 
-                if (GUILayout.Button("", ToolbarSeachCancelButtonStyle))
+                // if (GUILayout.Button("", ToolbarSeachCancelButtonStyle))
+                // {
+                //     CloseBlockPopup();
+                // }
+
+                if (GUILayout.Button("", new GUIStyle("box")))
                 {
                     CloseBlockPopup();
                 }
@@ -956,63 +965,82 @@ namespace Fungus.EditorUtils
             // Variables group
             GUILayout.BeginHorizontal();
             {
-                GUILayout.BeginVertical(GUILayout.Width(440));
+                GUILayout.BeginVertical(GUILayout.Width(1440));
                 {
                     GUILayout.FlexibleSpace();
 
-                    flowchart.VariablesScrollPos = GUILayout.BeginScrollView(flowchart.VariablesScrollPos);
+                    // flowchart.VariablesScrollPos = GUILayout.BeginScrollView(flowchart.VariablesScrollPos);
+                    // {
+                    //     GUILayout.Space(8);
+
+                    //     EditorGUI.BeginChangeCheck();
+
+                    //     if (variableListAdaptor != null)
+                    //     {
+                    //         if (variableListAdaptor.TargetFlowchart != null)
+                    //         {
+                    //             //440 - space for scrollbar
+                    //             variableListAdaptor.DrawVarList(400);
+                    //         }
+                    //         else
+                    //         {
+                    //             variableListAdaptor = null; 
+                    //         }
+                    //     }
+
+                    //     if (EditorGUI.EndChangeCheck())
+                    //     {
+                    //         EditorUtility.SetDirty(flowchart);
+                    //     }
+                    // }
+                    // GUILayout.EndScrollView();
+
+
+
+                    GUILayout.Space(800);
+
+                    EditorGUI.BeginChangeCheck();
+
+                    if (variableListAdaptor != null)
                     {
-                        GUILayout.Space(8);
-
-                        EditorGUI.BeginChangeCheck();
-
-                        if (variableListAdaptor != null)
+                        if (variableListAdaptor.TargetFlowchart != null)
                         {
-                            if (variableListAdaptor.TargetFlowchart != null)
-                            {
-                                //440 - space for scrollbar
-                                variableListAdaptor.DrawVarList(400);
-                            }
-                            else
-                            {
-                                variableListAdaptor = null;
-                            }
+                            //440 - space for scrollbar
+                            variableListAdaptor.DrawVarList(400);
                         }
-
-                        if (EditorGUI.EndChangeCheck())
+                        else
                         {
-                            EditorUtility.SetDirty(flowchart);
+                            variableListAdaptor = null;
                         }
                     }
-                    GUILayout.EndScrollView();
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        EditorUtility.SetDirty(flowchart);
+                    }
 
 
                     // Eat mouse events
-                    if (e.type == EventType.MouseDown)
-                    {
-                        Rect variableWindowRect = GUILayoutUtility.GetLastRect();
-                        if (flowchart.VariablesExpanded && flowchart.Variables.Count > 0)
-                        {
-                            variableWindowRect.y -= 20;
-                            variableWindowRect.height += 20;
-                        }
+                    // if (e.type == EventType.MouseDown)
+                    // {
+                    //     Rect variableWindowRect = GUILayoutUtility.GetLastRect();
+                    //     if (flowchart.VariablesExpanded && flowchart.Variables.Count > 0)
+                    //     {
+                    //         variableWindowRect.y -= 20;
+                    //         variableWindowRect.height += 20;
+                    //     }
 
-                        if (variableWindowRect.Contains(e.mousePosition))
-                        {
-                            e.Use();
-                        }
-
-                    }
+                    //     if (variableWindowRect.Contains(e.mousePosition))
+                    //     {
+                    //         e.Use();
+                    //     }
+                    // }
                 }
-
                 GUILayout.EndVertical();
 
                 GUILayout.FlexibleSpace();
-
             }
-
             GUILayout.EndHorizontal();
-
         }
 
         protected virtual void DrawBlockPopup(Event e)
@@ -2207,7 +2235,7 @@ namespace Fungus.EditorUtils
                 nodeStyle.normal.background = tmpNormBg;
 
                 // Draw Event Handler labels
-                if (block._EventHandler != null)
+                if (block._EventHandler != null)//flowchart window 上 block的標題
                 {
                     string handlerLabel = "";
                     EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());

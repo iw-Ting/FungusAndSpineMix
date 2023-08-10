@@ -271,7 +271,7 @@ namespace Spine.Unity.Editor {
 
 		public static void ReloadSkeletonDataAssetAndComponent (SkeletonGraphic component) {
 			if (component == null) return;
-			ReloadSkeletonDataAsset(component.skeletonDataAsset);
+			ReloadSkeletonDataAsset(component.SkeletonDataAsset);
 			// Reinitialize.
 			ReinitializeComponent(component);
 		}

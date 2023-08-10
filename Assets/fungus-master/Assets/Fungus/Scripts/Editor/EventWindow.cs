@@ -36,7 +36,7 @@ namespace Fungus.EditorUtils
 				{ EventType.ValidateCommand, e => OnValidateCommand(e) },
 				{ EventType.ExecuteCommand,  e => OnExecuteCommand(e)  },
 			};
-			rawEventTable = new Dictionary<EventType, EventAction> {
+			rawEventTable = new Dictionary<EventType, EventAction> {//優先觸發事件
 				{ EventType.MouseDown,       e => OnRawMouseDown(e)    },
 				{ EventType.MouseUp,         e => OnRawMouseUp(e)      },
 				{ EventType.MouseDrag,       e => OnRawMouseDrag(e)    },
@@ -60,7 +60,7 @@ namespace Fungus.EditorUtils
 		protected virtual void OnRawMouseDrag(Event e) { }
 		protected virtual void OnRawMouseMove(Event e) { }
 		
-		protected virtual void HandleEvents(Event e)
+		protected virtual void HandleEvents(Event e)//獲取事件event.EventType 執行相應的方法
 		{
 			EventAction handler;
 			if (rawEventTable.TryGetValue(e.rawType, out handler))

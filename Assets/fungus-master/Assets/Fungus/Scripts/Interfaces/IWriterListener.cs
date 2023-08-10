@@ -8,7 +8,7 @@ namespace Fungus
     /// <summary>
     /// Implement this interface to be notified about Writer events.
     /// </summary>
-    public interface IWriterListener
+    public interface IWriterListener //打字音效
     {
         ///
         /// Called when a user input event (e.g. a click) has been handled by the Writer.

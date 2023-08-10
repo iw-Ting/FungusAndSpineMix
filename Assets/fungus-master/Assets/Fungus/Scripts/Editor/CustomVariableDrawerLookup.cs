@@ -17,8 +17,7 @@ namespace Fungus.EditorUtils
     public static class CustomVariableDrawerLookup
     {
         //If you create new types that require custom singleline drawers, add them here
-        public static Dictionary<System.Type, System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty, GUIContent>> typeToDrawer =
-            new Dictionary<System.Type, System.Action<Rect, UnityEditor.SerializedProperty, GUIContent>>()
+        public static Dictionary<System.Type, System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty, GUIContent>> typeToDrawer =new Dictionary<System.Type, System.Action<Rect, UnityEditor.SerializedProperty, GUIContent>>()
             {
                 {
                     typeof(QuaternionVariable),

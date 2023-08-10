@@ -485,11 +485,11 @@ namespace Spine.Unity.Editor {
 			SkeletonGraphic[] skeletonGraphicObjects = Resources.FindObjectsOfTypeAll(typeof(SkeletonGraphic)) as SkeletonGraphic[];
 			foreach (SkeletonGraphic skeletonGraphic in skeletonGraphicObjects) {
 
-				if (skeletonGraphic.skeletonDataAsset == null) {
+				if (skeletonGraphic.SkeletonDataAsset == null) {
 					int skeletonGraphicID = skeletonGraphic.GetInstanceID();
 					if (SpineEditorUtilities.DataReloadHandler.savedSkeletonDataAssetAtSKeletonGraphicID.ContainsKey(skeletonGraphicID)) {
 						string assetPath = SpineEditorUtilities.DataReloadHandler.savedSkeletonDataAssetAtSKeletonGraphicID[skeletonGraphicID];
-						skeletonGraphic.skeletonDataAsset = (SkeletonDataAsset)AssetDatabase.LoadAssetAtPath<SkeletonDataAsset>(assetPath);
+						skeletonGraphic.SkeletonDataAsset = (SkeletonDataAsset)AssetDatabase.LoadAssetAtPath<SkeletonDataAsset>(assetPath);
 					}
 				}
 			}

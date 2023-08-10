@@ -20,6 +20,8 @@ namespace Fungus
         [Tooltip("Color to display the character name in Say Dialog.")]
         [SerializeField] protected Color nameColor = Color.white;
 
+        [SerializeField] protected Sprite defaultSayDialogNameSprite = null;//名字底下的圖片
+
         [Tooltip("Sound effect to play when this character is speaking.")]
         [SerializeField] protected AudioClip soundEffect;
 
@@ -33,7 +35,7 @@ namespace Fungus
         [SerializeField] protected SayDialog setSayDialog;
 
         [FormerlySerializedAs("notes")]
-        [TextArea(5,10)]
+        [TextArea(5, 10)]
         [SerializeField] protected string description;
 
         protected PortraitState portaitState = new PortraitState();
@@ -70,6 +72,12 @@ namespace Fungus
         /// Color to display the character name in Say Dialog.
         /// </summary>
         public virtual Color NameColor { get { return nameColor; } }
+
+
+        /// <summary>
+        /// Sound effect to play when this character is speaking.
+        /// </summary>
+        public virtual Sprite NameSprite { get { return defaultSayDialogNameSprite; } }
 
         /// <summary>
         /// Sound effect to play when this character is speaking.
@@ -144,7 +152,7 @@ namespace Fungus
             return x.name.CompareTo(y.name);
         }
 
-        
+
 
         /// <summary>
         /// Looks for a portrait by name on a character

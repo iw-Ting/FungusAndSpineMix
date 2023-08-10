@@ -14,7 +14,7 @@ namespace Fungus.EditorUtils
     /// </summary>
     public class CommandSelectorPopupWindowContent : BasePopupWindowContent// block inspector下方的下拉式選單按下block的加號
     {
-        
+
         static List<System.Type> _commandTypes;
         static List<System.Type> CommandTypes
         {
@@ -29,7 +29,9 @@ namespace Fungus.EditorUtils
 
         static void CacheCommandTypes()
         {
+            //獲得擁有command類別的物件
             _commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).Where(x => !x.IsAbstract).ToList();
+
         }
 
         [UnityEditor.Callbacks.DidReloadScripts]
@@ -58,7 +60,7 @@ namespace Fungus.EditorUtils
 
             foreach (var item in filteredAttributes)
             {
-                //force lookup to orig index here to account for commmand lists being filtered by users
+                //force lookup to orig index here to account for commmand lists being filtered by users  編號      位置   ex:           Narrative      /                  SpineCharaAnie              提示文字
                 var newFilteredItem = new FilteredListItem(CommandTypes.IndexOf(item.Key), (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText);
                 allItems.Add(newFilteredItem);
             }
@@ -68,11 +70,19 @@ namespace Fungus.EditorUtils
         {
             curBlock = block;
 
+            // foreach (var tt in _commandTypes)
+            // {
+
+            //     Debug.Log("類別的名稱==>" + tt.Name);
+
+            // }
 
             if (!FungusEditorPreferences.useLegacyMenus)
             {
+                //base 繼承呼叫函數會獲取陣列
                 var win = new CommandSelectorPopupWindowContent(currentHandlerName,
                     width, (int)(height - EditorGUIUtility.singleLineHeight * 3));
+
                 PopupWindow.Show(position, win);
             }
             else
@@ -85,6 +95,9 @@ namespace Fungus.EditorUtils
             DoOlderMenu();
         }
 
+        /// <summary>
+        ///獲得所有command的type和他的attribute
+        /// </summary>
         protected static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredSupportedCommands(Flowchart flowchart)
         {
             List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = BlockEditor.GetFilteredCommandInfoAttribute(CommandTypes);
@@ -95,7 +108,7 @@ namespace Fungus.EditorUtils
 
             return filteredAttributes;
         }
-        
+
 
         static protected void DoOlderMenu()
         {

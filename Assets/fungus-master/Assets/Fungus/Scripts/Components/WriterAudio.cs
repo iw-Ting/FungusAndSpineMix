@@ -59,11 +59,11 @@ namespace Fungus
         protected float nextBeepTime;
 
 
-        public float GetSecondsRemaining()
+        public float GetSecondsRemaining()//讀取剩餘撥放幾秒
         {
             if (IsPlayingVoiceOver)
             {
-                return targetAudioSource.isPlaying ? targetAudioSource.clip.length - targetAudioSource.time : 0f;
+                return targetAudioSource.isPlaying ? targetAudioSource.clip.length - targetAudioSource.time : 0f;//總秒數-當前秒數
             }
             else
             {
@@ -111,8 +111,7 @@ namespace Fungus
                 targetAudioSource.loop = loop;
                 targetAudioSource.Play();
             }
-            else if (audioMode == AudioMode.SoundEffect &&
-                     soundEffect != null)
+            else if (audioMode == AudioMode.SoundEffect && soundEffect != null)
             {
                 // Use sound effects defined in WriterAudio
                 targetAudioSource.clip = soundEffect;
@@ -252,7 +251,6 @@ namespace Fungus
             }
 
             playingVoiceover = true;
-
             targetAudioSource.volume = volume;
             targetVolume = volume;
             targetAudioSource.loop = false;

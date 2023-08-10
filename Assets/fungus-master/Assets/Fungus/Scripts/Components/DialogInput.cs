@@ -60,6 +60,7 @@ namespace Fungus
         protected virtual void CheckEventSystem()
         {
             EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
+            
             if (eventSystem == null)
             {
                 // Auto spawn an Event System from the prefab
@@ -89,7 +90,7 @@ namespace Fungus
                 if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
                     (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
                 {
-                    SetNextLineFlag();
+                    SetNextLineFlag();//偵測點擊後block command執行
                 }
             }
 
@@ -100,13 +101,13 @@ namespace Fungus
             case ClickMode.ClickAnywhere:
                 if (Input.GetMouseButtonDown(0))
                 {
-                    SetClickAnywhereClickedFlag();
+                    SetClickAnywhereClickedFlag();//偵測點擊後block command執行
                 }
                 break;
-            case ClickMode.ClickOnDialog:
+            case ClickMode.ClickOnDialog://必須點擊在話框上
                 if (dialogClickedFlag)
                 {
-                    SetNextLineFlag();
+                    SetNextLineFlag();//偵測點擊後block command執行
                     dialogClickedFlag = false;
                 }
                 break;
@@ -193,7 +194,7 @@ namespace Fungus
         /// <summary>
         /// Sets the button clicked flag.
         /// </summary>
-        public virtual void SetButtonClickedFlag()
+        public virtual void SetButtonClickedFlag()//點擊按紐繼續對話
         {
             // Only applies if clicking is not disabled
             if (clickMode != ClickMode.Disabled)

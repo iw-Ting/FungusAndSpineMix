@@ -81,7 +81,7 @@ namespace Spine.Unity.Editor {
 				// to restore it later.
 				SkeletonGraphic[] activeSkeletonGraphics = GameObject.FindObjectsOfType<SkeletonGraphic>();
 				foreach (SkeletonGraphic skeletonGraphic in activeSkeletonGraphics) {
-					SkeletonDataAsset skeletonDataAsset = skeletonGraphic.skeletonDataAsset;
+					SkeletonDataAsset skeletonDataAsset = skeletonGraphic.SkeletonDataAsset;
 					if (skeletonDataAsset != null) {
 						string assetPath = AssetDatabase.GetAssetPath(skeletonDataAsset);
 						int sgID = skeletonGraphic.GetInstanceID();
@@ -113,7 +113,7 @@ namespace Spine.Unity.Editor {
 
 				SkeletonGraphic[] activeSkeletonGraphics = GameObject.FindObjectsOfType<SkeletonGraphic>();
 				foreach (SkeletonGraphic graphic in activeSkeletonGraphics) {
-					if (graphic.isActiveAndEnabled && graphic.skeletonDataAsset == skeletonDataAsset)
+					if (graphic.isActiveAndEnabled && graphic.SkeletonDataAsset == skeletonDataAsset)
 						graphic.Initialize(true);
 				}
 			}

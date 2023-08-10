@@ -20,8 +20,11 @@ public class SpineCharaAniEditor : CommandEditor
     private SerializedProperty DisplayProp;
 
     private SerializedProperty aInitialSkinName;
+
+    /////////////////////////// condition bool /////////////////
     private SerializedProperty WaitAnimationFinishPro;
     private SerializedProperty WaitDialogPro;
+    private SerializedProperty WaitForClick;
     private SerializedProperty OffestPro;
     private SerializedProperty FadePro;
 
@@ -40,6 +43,7 @@ public class SpineCharaAniEditor : CommandEditor
         aInitialSkinName = serializedObject.FindProperty("aInitialSkinName");
         WaitAnimationFinishPro = serializedObject.FindProperty("waitAnimationFinish");
         WaitDialogPro = serializedObject.FindProperty("waitDialog");
+        WaitForClick=serializedObject.FindProperty("waitForClick");
         OffestPro = serializedObject.FindProperty("offest");
         FadePro = serializedObject.FindProperty("fade");
         tweenTime = serializedObject.FindProperty("aTween");
@@ -56,9 +60,9 @@ public class SpineCharaAniEditor : CommandEditor
         if (Stage.ActiveStages.Count > 1)//有複數才會顯示
         {
             CommandEditor.ObjectField<Stage>(StagePro,
-                                        new GUIContent("Portrait Stage", "Stage to display the character portraits on"),
-                                        new GUIContent("<Default>"),
-                                        Stage.ActiveStages);
+                                    new GUIContent("Portrait Stage", "Stage to display the character portraits on"),
+                                    new GUIContent("<Default>"),
+                                    Stage.ActiveStages);
         }
         else
         {
@@ -106,12 +110,12 @@ public class SpineCharaAniEditor : CommandEditor
                     CommandEditor.StringField(aInitialSkinName,
                                 new GUIContent("Skin", "Change representing Skin"),
                                 new GUIContent("<None>"),
-                                GetSkinStrings(tar));
+                                tar.aTarget.aSkeletonGraphic.GetSkinStrings());
 
                     CommandEditor.StringField(aAnimationPro,
                                             new GUIContent("Animation", "Animation representing character"),
                                             new GUIContent("<None>"),
-                                             GetSkeletonStrings(tar));
+                                             tar.aTarget.aSkeletonGraphic.GetSkeletonStrings());
                     EditorGUILayout.PropertyField(LoopPro);
                 }
                 else if (tar.Display == DisplayType.Hide)
@@ -125,10 +129,15 @@ public class SpineCharaAniEditor : CommandEditor
 
                 if (DisplayProp.enumValueIndex > 0 && aAnimationPro.stringValue != null)
                 {
+
                     EditorGUILayout.PropertyField(WaitAnimationFinishPro);
+                    
                     EditorGUILayout.PropertyField(WaitDialogPro);
 
+                    EditorGUILayout.PropertyField(WaitForClick);
+
                 }
+
 
                 string[] facingArrows = new string[]
                     {
@@ -144,21 +153,33 @@ public class SpineCharaAniEditor : CommandEditor
         }
 
 
+
+        
         serializedObject.ApplyModifiedProperties();
 
     }
 
     public void SetMoveProperty(SpineCharaAni tar)
     {
+        if (tar._Stage == null)
+        {
+
+            tar._Stage = GameObject.FindObjectOfType<Stage>();
+
+        }else{
+            Debug.Log("not have stage script in hierarchy");
+        }
         Stage s = tar._Stage;
 
-        if (tar._Stage == null)            // If default portrait stage selected
-        {
-            if (tar._Stage == null)        // If no default specified, try to get any portrait stage in the scene
+
+            if (s == null)        // If no default specified, try to get any portrait stage in the scene
             {
-                s = GameObject.FindObjectOfType<Stage>();
+                EditorGUILayout.HelpBox("No portrait stage has been set.", MessageType.Error);
+                return;
             }
-        }
+
+
+
         EditorGUILayout.PropertyField(MovePro);
 
         SerializedProperty aMoveAni = tweenTime.FindPropertyRelative("aMoveAniDuration");
@@ -171,6 +192,7 @@ public class SpineCharaAniEditor : CommandEditor
             EditorGUILayout.PropertyField(aMoveAni);
 
         }
+
         aMoveAni.floatValue = aMoveAni.floatValue <= 0 ? 0 : aMoveAni.floatValue;
 
         CommandEditor.ObjectField<RectTransform>(ToPosPro,
@@ -183,31 +205,34 @@ public class SpineCharaAniEditor : CommandEditor
 
 
 
-    public List<string> GetSkeletonStrings(SpineCharaAni tar)
-    {
-        // Debug.Log("測試==>" + tar.aSkeletonGraphic);
-        List<string> CollectAniName = new List<string>();
-        // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
-        foreach (var ani in tar.aTarget.aSkeletonGraphic.skeletonDataAsset.GetAnimationStateData().SkeletonData.Animations)
-        {
-            CollectAniName.Add(ani.Name);
-        }
+    // public List<string> GetSkeletonStrings(SpineCharaAni tar)//獲得骨架數據的動作陣列
+    // {
+    //     // Debug.Log("測試==>" + tar.aSkeletonGraphic);
+    //     List<string> CollectAniName = new List<string>();
+    //     // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
 
-        return CollectAniName;
-    }
 
-    public List<string> GetSkinStrings(SpineCharaAni tar)
-    {
-        // Debug.Log("測試==>" + tar.aSkeletonGraphic);
-        List<string> CollectAniName = new List<string>();
-        // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
-        foreach (var ani in tar.aTarget.aSkeletonGraphic.skeletonDataAsset.GetAnimationStateData().SkeletonData.Skins)
-        {
-            CollectAniName.Add(ani.Name);
-        }
+    //     foreach (var ani in tar.aTarget.aSkeletonGraphic.SkeletonDataAsset.GetAnimationStateData().SkeletonData.Animations)
+    //     {
 
-        return CollectAniName;
-    }
+    //         CollectAniName.Add(ani.Name);
+    //     }
+
+    //     return CollectAniName;
+    // }
+
+    // public List<string> GetSkinStrings(SpineCharaAni tar)//獲得骨架數據的造型陣列
+    // {
+    //     // Debug.Log("測試==>" + tar.aSkeletonGraphic);
+    //     List<string> CollectAniName = new List<string>();
+    //     // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
+    //     foreach (var ani in tar.aTarget.aSkeletonGraphic.SkeletonDataAsset.GetAnimationStateData().SkeletonData.Skins)
+    //     {
+    //         CollectAniName.Add(ani.Name);
+    //     }
+
+    //     return CollectAniName;
+    // }
 
 
 

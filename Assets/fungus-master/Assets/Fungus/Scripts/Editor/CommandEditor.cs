@@ -276,7 +276,9 @@ namespace Fungus.EditorUtils
 
             // First option in list is <None>
             objectNames.Add(nullLabel);
-            if (selectedObject == null)
+
+
+            if (string.IsNullOrEmpty(selectedObject))
             {
                 selectedIndex = 0;
             }
@@ -292,26 +294,23 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            string result = null;
-
             selectedIndex = EditorGUILayout.Popup(label, selectedIndex, objectNames.ToArray());
 
-            if (selectedIndex == -1)
+            if (selectedIndex <= 0)
             {
                 // Currently selected object is not in list, but nothing else was selected so no change.
-                result = null;
-                return;
-            }
-            else if (selectedIndex == 0)
-            {
-                result = null; // Null option
+
+                property.stringValue = null;
+                // return;
             }
             else
             {
-                result = objectList[selectedIndex - 1];
+
+                property.stringValue = objectList[selectedIndex - 1];
             }
 
-            property.stringValue = result;
+
+
         }
 
         // When modifying custom editor code you can occasionally end up with orphaned editor instances.

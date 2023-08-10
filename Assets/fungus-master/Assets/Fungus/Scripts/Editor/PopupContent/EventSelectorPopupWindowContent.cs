@@ -50,7 +50,7 @@ namespace Fungus.EditorUtils
             this.block = block;
         }
 
-        protected override void PrepareAllItems()
+        protected override void PrepareAllItems()//allitems 所有選項類的參數
         {
             int i = 0;
             foreach (System.Type type in EventHandlerTypes)
@@ -87,7 +87,7 @@ namespace Fungus.EditorUtils
                 PopupWindow.Show(position, win);
             }
             //old method
-            DoOlderMenu(block);
+            // DoOlderMenu(block);
         }
 
         static protected void DoOlderMenu(Block block)

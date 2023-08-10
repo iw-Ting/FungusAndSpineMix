@@ -54,8 +54,8 @@ namespace Spine.Unity {
 			skeletonGraphic = GetComponent<SkeletonGraphic>();
 
 			// Populate material list
-			if (skeletonGraphic != null && skeletonGraphic.skeletonDataAsset != null) {
-				AtlasAssetBase[] atlasAssets = skeletonGraphic.skeletonDataAsset.atlasAssets;
+			if (skeletonGraphic != null && skeletonGraphic.SkeletonDataAsset != null) {
+				AtlasAssetBase[] atlasAssets = skeletonGraphic.SkeletonDataAsset.atlasAssets;
 
 				List<AtlasMaterialOverride> initialAtlasMaterialOverrides = new List<AtlasMaterialOverride>();
 				foreach (AtlasAssetBase atlasAsset in atlasAssets) {
@@ -72,8 +72,8 @@ namespace Spine.Unity {
 			}
 
 			// Populate texture list
-			if (skeletonGraphic != null && skeletonGraphic.skeletonDataAsset != null) {
-				AtlasAssetBase[] atlasAssets = skeletonGraphic.skeletonDataAsset.atlasAssets;
+			if (skeletonGraphic != null && skeletonGraphic.SkeletonDataAsset != null) {
+				AtlasAssetBase[] atlasAssets = skeletonGraphic.SkeletonDataAsset.atlasAssets;
 
 				List<AtlasTextureOverride> initialAtlasTextureOverrides = new List<AtlasTextureOverride>();
 				foreach (AtlasAssetBase atlasAsset in atlasAssets) {

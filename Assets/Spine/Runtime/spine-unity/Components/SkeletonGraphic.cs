@@ -57,7 +57,7 @@ namespace Spine.Unity
 
         #region Inspector
         public SkeletonDataAsset skeletonDataAsset;
-        public SkeletonDataAsset SkeletonDataAsset { get { return skeletonDataAsset; } }
+        public SkeletonDataAsset SkeletonDataAsset { get { return skeletonDataAsset; } set { skeletonDataAsset = value; } }
 
         public static List<SkeletonGraphic> SkeletonGraphicList = new List<SkeletonGraphic>();
 
@@ -451,7 +451,38 @@ namespace Spine.Unity
         protected void UpdateAnimationStatus(float deltaTime)
         {
             deltaTime *= timeScale;
+            // state.GetCurrent(0).TrackEnd=0;
             state.Update(deltaTime);
+
+        }
+
+        public List<string> GetSkeletonStrings()//獲得骨架數據的動作陣列
+        {
+            // Debug.Log("測試==>" + tar.aSkeletonGraphic);
+            List<string> CollectAniName = new List<string>();
+            // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
+
+
+            foreach (var ani in SkeletonDataAsset.GetAnimationStateData().SkeletonData.Animations)
+            {
+
+                CollectAniName.Add(ani.Name);
+            }
+
+            return CollectAniName;
+        }
+
+        public List<string> GetSkinStrings()//獲得骨架數據的造型陣列
+        {
+            // Debug.Log("測試==>" + tar.aSkeletonGraphic);
+            List<string> CollectAniName = new List<string>();
+            // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
+            foreach (var ani in SkeletonDataAsset.GetAnimationStateData().SkeletonData.Skins)
+            {
+                CollectAniName.Add(ani.Name);
+            }
+
+            return CollectAniName;
         }
 
         protected void ApplyAnimation()
@@ -830,20 +861,12 @@ namespace Spine.Unity
 
         }
 
-        public float PlayAnimation()
+        public float GetPlayAnimationTime()//設置Graphic可以切換動畫
         {
 
             if (!string.IsNullOrEmpty(startingAnimation))
             {
                 Spine.Animation animationObject = skeletonDataAsset.GetSkeletonData(false).FindAnimation(startingAnimation);
-                if (animationObject != null)
-                {
-                    state.SetAnimation(0, animationObject, startingLoop);
-#if UNITY_EDITOR
-                    if (!Application.isPlaying)
-                        Update(0f);
-#endif
-                }
 
                 return animationObject.Duration;
             }
@@ -855,14 +878,71 @@ namespace Spine.Unity
 
         }
 
+        public void SetPlayAnimation()
+        {
+            Debug.Log("值行動畫");
+            SetPlayAnimation(startingAnimation);
+        }
+
+
+        public void SetPlayAnimation(string aniName)
+        {
+
+
+            if (!string.IsNullOrEmpty(aniName))
+            {
+                Spine.Animation animationObject = skeletonDataAsset.GetSkeletonData(false).FindAnimation(aniName);
+                if (animationObject != null)
+                {
+                    state.SetAnimation(0, animationObject, startingLoop);
+#if UNITY_EDITOR
+                    if (!Application.isPlaying)
+                        Update(0f);
+#endif
+                }
+
+            }
+        }
+
+
         public float GetAnimationTime()
         {
             float aniTime = 0;
             Spine.Animation animationObject = skeletonDataAsset.GetSkeletonData(false).FindAnimation(startingAnimation);
-            if(animationObject!=null){
-                aniTime=animationObject.Duration;
+            if (animationObject != null)
+            {
+                aniTime = animationObject.Duration;
             }
             return aniTime;
+        }
+
+        public Spine.Animation GetCurAnimation()
+        {
+
+            Spine.Animation animationObject = skeletonDataAsset.GetSkeletonData(false).FindAnimation(startingAnimation);
+
+            return animationObject;
+
+        }
+
+        public List<Spine.Animation> GetAllAnimations()
+        {
+
+            List<Spine.Animation> animationObjects = new List<Animation>();
+
+            skeletonDataAsset.GetSkeletonData(false).Animations.ForEach(ani => { animationObjects.Add(ani); });
+            return animationObjects;
+
+        }
+
+        public List<string> GetAllAnimationsStringName()
+        {
+
+            List<Spine.Animation> animationObjects = GetAllAnimations();
+            List<string> strList = new List<string>();
+            animationObjects.ForEach(ani => { strList.Add(ani.Name); });
+            return strList;
+
         }
 
         public void PrepareInstructionsAndRenderers(bool isInRebuild = false)

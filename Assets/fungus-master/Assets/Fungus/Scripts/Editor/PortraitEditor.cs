@@ -100,10 +100,12 @@ namespace Fungus.EditorUtils
                     if (t._Stage == null)        // If no default specified, try to get any portrait stage in the scene
                     {
                         s = GameObject.FindObjectOfType<Stage>();
+                        // Debug.Log("Portrait找stage"+s.name);
                     }
                 }
                 if (s == null)
                 {
+                    Debug.Log("執行2");
                     EditorGUILayout.HelpBox("No portrait stage has been set.", MessageType.Error);
                     showOptionalFields = false;
                 }

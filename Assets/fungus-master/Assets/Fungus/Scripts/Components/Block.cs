@@ -205,7 +205,7 @@ namespace Fungus
         /// <summary>
         /// Start a coroutine which executes all commands in the Block. Only one running instance of each Block is permitted.
         /// </summary>
-        public virtual void StartExecution()
+        public virtual void StartExecution()//為了給flowChart Window 執行
         {
             StartCoroutine(Execute());
         }

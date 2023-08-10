@@ -72,7 +72,7 @@ namespace Fungus
 
     public class SpineCharaAniOptions
     {
-
+        public string _charaName="";
         public DisplayType _display;
         public SkeletonGraphic _SpineCharaPrefab;
         public SkeletonGraphic _ReplacedCharacter;
@@ -95,6 +95,7 @@ namespace Fungus
 
         public bool _waitAnimationFinish=false;//等待動畫完成後,接著撥放
         public bool _waitDialog=false;//等待對話完成
+        public bool _waitForClick = false;//點集才可進入下一段動畫
         public Vector2 _scale=Vector2.zero;
         public Vector3 _offest=Vector3.zero;
 
@@ -120,7 +121,7 @@ namespace Fungus
             skeleG.startingLoop = _loop;
             skeleG.transform.localScale = _scale;
             // skeleG.startingAnimation = "<None>";
-            //  skeleG.PlayAnimation();
+            //   skeleG.;
 
 
 
@@ -133,10 +134,12 @@ namespace Fungus
                 Debug.Log("No Chara ");
                 return;
             }
+            Debug.Log("設置動畫");
             SkeletonGraphic skeleG = CharaObj.GetComponent<SkeletonGraphic>();
 
             skeleG.startingAnimation = _animation;
-            aTween.aAnimationPlayRoundTime=skeleG.PlayAnimation();
+            skeleG.SetPlayAnimation();
+            aTween.aAnimationPlayRoundTime=skeleG.GetPlayAnimationTime();
 
         }
 

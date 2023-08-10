@@ -26,7 +26,7 @@ namespace Fungus.EditorUtils
         /// Called during Base Ctor, must fill allItems list so the ctor can continue to fill
         /// the visible items and current selected index.
         /// </summary>
-        abstract protected void PrepareAllItems();
+        abstract protected void PrepareAllItems();//這個方法是獲取全部的參數
 
         /// <summary>
         /// Internal representation of 1 row of our popup list
@@ -66,7 +66,7 @@ namespace Fungus.EditorUtils
             this.size = new Vector2(width, height);
             hasNoneOption = showNoneOption;
 
-            PrepareAllItems();
+            PrepareAllItems();// 獲得 相應的參數 陣列
 
             allItems.Sort((lhs, rhs) => 
             {

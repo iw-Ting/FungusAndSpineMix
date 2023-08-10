@@ -11,6 +11,8 @@ namespace Fungus.EditorUtils
     {
         protected SerializedProperty nameTextProp;
         protected SerializedProperty nameColorProp;
+        protected SerializedProperty SayDialogNameSpriteProp;
+
         protected SerializedProperty soundEffectProp;
         protected SerializedProperty portraitsProp;
         protected SerializedProperty portraitsFaceProp;
@@ -26,6 +28,7 @@ namespace Fungus.EditorUtils
             portraitsFaceProp = serializedObject.FindProperty("portraitsFace");
             descriptionProp = serializedObject.FindProperty("description");
             setSayDialogProp = serializedObject.FindProperty("setSayDialog");
+            SayDialogNameSpriteProp = serializedObject.FindProperty("defaultSayDialogNameSprite");
         }
 
         public override void OnInspectorGUI()
@@ -37,6 +40,7 @@ namespace Fungus.EditorUtils
 
             EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
             EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
+            EditorGUILayout.PropertyField(SayDialogNameSpriteProp, new GUIContent("Name Sprite", "Name Sprite in the dialog"));
             EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
             EditorGUILayout.PropertyField(setSayDialogProp);
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
@@ -58,7 +62,7 @@ namespace Fungus.EditorUtils
 
                 Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
 
-                if (characterTexture != null) 
+                if (characterTexture != null)
                 {
                     GUI.DrawTexture(previewRect, characterTexture, ScaleMode.ScaleToFit, true, aspect);
                     // EditorGUI.DrawTextureTransparent(previewRect, characterTexture,ScaleMode.ScaleToFit,aspect);
@@ -85,7 +89,7 @@ namespace Fungus.EditorUtils
             if (EditorGUI.EndChangeCheck())
                 EditorUtility.SetDirty(t);
 
-            serializedObject.ApplyModifiedProperties(); 
+            serializedObject.ApplyModifiedProperties();
         }
 
     }

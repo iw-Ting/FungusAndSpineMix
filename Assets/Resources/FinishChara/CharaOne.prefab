@@ -48,5 +48,7 @@ MonoBehaviour:
     CharaName: Lady
     Scale: {x: 0.5, y: 0.5}
     Offest: {x: 0, y: 0, z: 0}
-    facing: 1
+    Facing: 1
   aSkeletonGraphic: {fileID: 2866504165959206200, guid: 34fdb31e381c91543a5fa211517e94f1, type: 3}
+  DefaultSkin: 01
+  DefaultAni: worry

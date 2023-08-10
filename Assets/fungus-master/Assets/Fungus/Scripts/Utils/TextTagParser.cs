@@ -31,9 +31,10 @@ namespace Fungus
             {
                 return;
             }
+
             
             string tag = tagText.Substring(1, tagText.Length - 2);
-            
+
             var type = TokenType.Invalid;
             List<string> parameters = ExtractParameters(tag);
             
@@ -244,6 +245,7 @@ namespace Fungus
         /// </summary>
         public static List<TextTagToken> Tokenize(string storyText)
         {
+
             List<TextTagToken> tokens = new List<TextTagToken>();
 
             Regex myRegex = new Regex(TextTokenRegexString);

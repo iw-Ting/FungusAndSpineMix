@@ -421,11 +421,17 @@ namespace Fungus.EditorUtils
                 lastEventPopupPos.y += EditorGUIUtility.singleLineHeight;
             }
             EditorGUILayout.BeginHorizontal();
+            
             EditorGUILayout.PrefixLabel(new GUIContent("Execute On Event"));
+            // Debug.Log("呈現的字串=>"+currentHandlerName);
+
             if (EditorGUILayout.DropdownButton(new GUIContent(currentHandlerName), FocusType.Passive))
             {
-                EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, (int)(EditorGUIUtility.currentViewWidth - lastEventPopupPos.x), 200);
+                 EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, (int)(EditorGUIUtility.currentViewWidth - lastEventPopupPos.x), 200);
             }
+
+
+
             EditorGUILayout.EndHorizontal();
 
             if (block._EventHandler != null)
@@ -916,13 +922,13 @@ namespace Fungus.EditorUtils
 
 
 
-        public static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
+        public static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)//顯示在command上的menu
         {
             Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = new Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>>();
 
             foreach (System.Type type in menuTypes)
             {
-                object[] attributes = type.GetCustomAttributes(false);
+                object[] attributes = type.GetCustomAttributes(false);//獲得所有 繼承menutype(command)的type的attributes
                 foreach (object obj in attributes)
                 {
                     CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;

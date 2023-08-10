@@ -78,7 +78,7 @@ namespace Spine.Unity
         }
         #endregion
 
-        SkeletonData skeletonData;//數據!!
+        SkeletonData skeletonData;//spine總數據!!
         AnimationStateData stateData;
 
         #region Runtime Instantiation

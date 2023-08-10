@@ -1304,7 +1304,7 @@ namespace Fungus
         /// with public variables in all Flowcharts in the scene (and any component
         /// in the scene that implements StringSubstituter.ISubstitutionHandler).
         /// </summary>
-        public virtual string SubstituteVariables(string input)
+        public virtual string SubstituteVariables(string input)//input 匯入文本
         {
             if (stringSubstituer == null)
             {
@@ -1347,10 +1347,12 @@ namespace Fungus
 
             if (changed)
             {
+
                 return sb.ToString();
             }
             else
             {
+
                 return input;
             }
         }

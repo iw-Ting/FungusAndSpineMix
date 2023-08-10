@@ -139,6 +139,7 @@ namespace Fungus
             {
                 var component = allComponents[i];
                 IWriterListener writerListener = component as IWriterListener;
+
                 if (writerListener != null)
                 {
                     writerListeners.Add(writerListener);
@@ -278,13 +279,18 @@ namespace Fungus
                 // Pause between tokens if Paused is set
                 while (Paused)
                 {
-                    yield return null;
+                    yield return null;//如果暫停則空轉
                 }
 
                 var token = tokens[i];
 
                 // Notify listeners about new token
                 WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
+
+
+                // for(int a=0;a<token.paramList.Count;a++){
+                //     Debug.Log("裡面的參數=>"+token.paramList[a]);
+                // }
                 
                 // Update the read ahead string buffer. This contains the text for any 
                 // Word tags which are further ahead in the list. 
@@ -293,10 +299,10 @@ namespace Fungus
                     readAheadString.Length = 0;
                     for (int j = i + 1; j < tokens.Count; ++j)
                     {
+
                         var readAheadToken = tokens[j];
 
-                        if (readAheadToken.type == TokenType.Words &&
-                            readAheadToken.paramList.Count == 1)
+                        if (readAheadToken.type == TokenType.Words && readAheadToken.paramList.Count == 1)
                         {
                             readAheadString.Append(readAheadToken.paramList[0]);
                         }
@@ -369,11 +375,11 @@ namespace Fungus
                     yield return StartCoroutine(DoWait(token.paramList));
                     break;
                     
-                case TokenType.WaitForInputNoClear:
+                case TokenType.WaitForInputNoClear://等待點擊
                     yield return StartCoroutine(DoWaitForInput(false));
                     break;
                     
-                case TokenType.WaitForInputAndClear:
+                case TokenType.WaitForInputAndClear://等待點擊
                     yield return StartCoroutine(DoWaitForInput(true));
                     break;
 
@@ -772,7 +778,7 @@ namespace Fungus
             NotifyResume();
         }
 
-        protected virtual IEnumerator DoWaitForInput(bool clear)
+        protected virtual IEnumerator DoWaitForInput(bool clear)//等待點擊
         {
             NotifyPause();
 
@@ -850,7 +856,7 @@ namespace Fungus
             for (int i = 0; i < writerListeners.Count; i++)
             {
                 var writerListener = writerListeners[i];
-                writerListener.OnInput();
+                writerListener.OnInput();//打字音特效
             }
         }
 
@@ -957,7 +963,7 @@ namespace Fungus
         /// <param name="audioClip">Audio clip to play when text starts writing.</param>
         /// <param name="onComplete">Callback to call when writing is finished.</param>
         public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete)
-        {
+        {// 根據tag
             if (clear)
             {
                 textAdapter.Text = "";
@@ -971,21 +977,22 @@ namespace Fungus
 
             // If this clip is null then WriterAudio will play the default sound effect (if any)
             NotifyStart(audioClip);
+            
 
             string tokenText = TextVariationHandler.SelectVariations(content);
             
-            if (waitForInput)
+            if (waitForInput)//等待點擊
             {
                 tokenText += "{wi}";
             }
 
-            if(waitForVO)
+            if(waitForVO)//等待動畫
             {
                 tokenText += "{wvo}";
             }
 
 
-            List<TextTagToken> tokens = TextTagParser.Tokenize(tokenText);
+            List<TextTagToken> tokens = TextTagParser.Tokenize(tokenText);//獲得相應的功能 tag 
 
             gameObject.SetActive(true);
 
