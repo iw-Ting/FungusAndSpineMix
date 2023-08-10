@@ -15,7 +15,6 @@ namespace Fungus
     [Serializable]
     public class SpineSetting
     {
-
         public string CharaName;//顯示在對話框上的名字
 
         // public Sprite DefaultSayDialogSprite;//名字底下的圖片

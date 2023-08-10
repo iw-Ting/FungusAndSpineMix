@@ -255,6 +255,13 @@ namespace Fungus
             return false;
         }
 
+        public IEnumerator WaitForClick()//動畫的中止發生在動畫結束後撥放
+        {
+
+            yield return DoWaitForInput(true);
+
+        }
+
         protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
         {
             // Reset control members

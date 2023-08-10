@@ -87,7 +87,7 @@ namespace Fungus
 
             if (writer != null)
             {
-                if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
+                if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||//鍵盤
                     (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
                 {
                     SetNextLineFlag();//偵測點擊後block command執行
@@ -101,7 +101,7 @@ namespace Fungus
             case ClickMode.ClickAnywhere:
                 if (Input.GetMouseButtonDown(0))
                 {
-                    SetClickAnywhereClickedFlag();//偵測點擊後block command執行
+                    SetClickAnywhereClickedFlag();//偵測點擊任一位置後block command執行
                 }
                 break;
             case ClickMode.ClickOnDialog://必須點擊在話框上

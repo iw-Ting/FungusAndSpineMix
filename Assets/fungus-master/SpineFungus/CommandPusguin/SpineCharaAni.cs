@@ -80,17 +80,13 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
         opt.aTween = aTween;
         opt._SpineCharaPrefab = aTarget.aSkeletonGraphic;
         opt._offest = offest + aTarget.mSet.Offest;
-
         opt._scale = aTarget.mSet.Scale;
         opt._OnComplete = Continue;
         opt._waitAnimationFinish = waitAnimationFinish;
         opt._waitDialog = waitDialog;
 
-
-
         if (string.IsNullOrEmpty(aAnimation))//沒指定動畫
         {
-
             if (!string.IsNullOrEmpty(aTarget.DefaultAni))//有預設動畫
             {
                 opt._animation=aTarget.DefaultAni;//使用預設動畫
@@ -103,7 +99,6 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
         if (string.IsNullOrEmpty(aInitialSkinName))//沒指定造型
         {
-
             if (!string.IsNullOrEmpty(aTarget.DefaultSkin))//有預設造型
             {
                 opt._skin=aTarget.DefaultSkin;//使用預設造型
@@ -113,7 +108,6 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
         {
             opt._skin = aInitialSkinName;//使用指定造型
         }
-
 
         opt._display = display;
         opt._reverse = IsReverse();

@@ -115,7 +115,7 @@ namespace Fungus
             activeSayDialogs.Remove(this);
         }
 
-        protected virtual Writer GetWriter()
+        public virtual Writer GetWriter()
         {
             if (writer != null)
             {

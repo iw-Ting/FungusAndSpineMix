@@ -6455,7 +6455,8 @@ MonoBehaviour:
     height: 2818.8503
   selectedBlocks:
   - {fileID: 1390555298}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1390555445}
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
   stepPause: 0
@@ -6540,10 +6541,10 @@ MonoBehaviour:
   commandList:
   - {fileID: 1390555334}
   - {fileID: 1390555451}
-  - {fileID: 1390555345}
   - {fileID: 1390555445}
   - {fileID: 1390555366}
   - {fileID: 1390555442}
+  - {fileID: 1390555345}
   - {fileID: 1390555330}
   - {fileID: 1390555449}
   - {fileID: 1390555342}
@@ -9149,14 +9150,14 @@ MonoBehaviour:
   facing: 1
   fromPosition: {fileID: 1450780515}
   toPosition: {fileID: 1450780515}
-  aAnimation: action
-  aInitialSkinName: default
+  aAnimation: 
+  aInitialSkinName: 
   offest: {x: 0, y: 0, z: 0}
   move: 0
   loop: 1
   waitAnimationFinish: 0
   waitDialog: 0
-  waitForClick: 0
+  waitForClick: 1
   fade: 0
   aTween:
     aMoveAniDuration: 0

@@ -711,6 +711,12 @@ namespace Fungus
                 yield return new WaitForSeconds(options.aTween.aAnimationPlayRoundTime);//等待一輪動畫結束
             }
 
+            SayDialog sayDia = SayDialog.GetSayDialog();
+
+            if (options._waitForClick) {
+                yield return sayDia.GetWriter().WaitForClick();
+            }
+
             FinishCommand(options);
 
         }
