@@ -40,7 +40,7 @@ namespace Fungus
         [SerializeField] protected bool extendPrevious = false;
 
         [Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
-        [SerializeField] protected bool fadeWhenDone = true;
+        [SerializeField] protected bool fadeWhenDone = false;
 
         [Tooltip("Wait for player to click before continuing.")]
         [SerializeField] protected bool waitForClick = true;

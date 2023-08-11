@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fungus;
 using Spine.Unity;
+using System;
 
 
 
@@ -25,6 +26,8 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
     [SerializeField] protected RectTransform toPosition;
 
+    [SerializeField] protected RectTransform ClickPos;
+
     [SerializeField] protected string aAnimation;//要執行的動畫
     [SerializeField] protected string aInitialSkinName;//裝備
 
@@ -37,7 +40,11 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     [SerializeField] protected bool waitAnimationFinish = false;//等待動畫完成後,接著撥放
     [SerializeField] protected bool waitDialog = false;
 
-    [SerializeField] protected bool waitForClick = false;//點集才可進入下一段動畫
+    //[SerializeField] protected bool waitForClick = false;//點集才可進入下一段動畫
+
+   // [SerializeField] protected bool waitForButton = false;//必須點擊某處才會進入下一階段
+
+    [SerializeField] protected ClickMode clickMode = ClickMode.Disabled;//必須點擊某處才會進入下一階段
 
     [SerializeField] protected bool fade = false;
 
@@ -46,6 +53,8 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     public virtual RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value; } }
 
     public virtual RectTransform ToPosition { get { return toPosition; } set { toPosition = value; } }
+
+    public virtual ClickMode mClickMode { get { return clickMode; } set { clickMode = value; } }
 
     public virtual Stage _Stage { get { return stage; } set { stage = value; } }
 
@@ -65,7 +74,6 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
                 Continue();
                 return;
             }
-
         }
 
         if (IsDisplayNone(display))
@@ -115,9 +123,17 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
         opt._move = Move;
         opt._loop = loop;
         opt._fade = fade;
-        opt._waitForClick = waitForClick;
+
+
+        opt._clickMode = clickMode;
+
+       // opt._waitForButton = waitForButton;
+       // opt._waitForClick = waitForClick;
+
+
         opt._fromPosition = FromPosition;
         opt._toPosition = ToPosition;
+        opt._clickPosition = ClickPos;
 
 
         stage.RunSpineCommand(opt);

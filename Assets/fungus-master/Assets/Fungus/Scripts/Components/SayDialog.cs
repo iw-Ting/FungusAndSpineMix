@@ -200,8 +200,9 @@ namespace Fungus
             }
         }
 
-        protected virtual void UpdateAlpha()
+        protected virtual void UpdateAlpha()//對話框的透明度(淡入淡出)
         {
+
             if (GetWriter().IsWriting)
             {
                 targetAlpha = 1f;
@@ -219,7 +220,7 @@ namespace Fungus
             }
 
             CanvasGroup canvasGroup = GetCanvasGroup();
-            if (fadeDuration <= 0f)
+            if (fadeDuration <= 0f)//沒有過渡下，直接設置透明度
             {
                 canvasGroup.alpha = targetAlpha;
             }
@@ -493,7 +494,13 @@ namespace Fungus
 
             }
             nameImage.enabled=true;
-            nameImage.sprite = chara.NameSprite;
+            if (chara.NameSprite!=null) {
+                nameImage.sprite = chara.NameSprite;
+            }
+            else
+            {
+
+            }
             nameImage.preserveAspect=true;
 
 

@@ -261,10 +261,16 @@ namespace Fungus.EditorUtils
             property.objectReferenceValue = result;
         }
 
+
+
         public static void StringField(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<string> objectList)
         {
+
             if (property == null)
             {
+                return;
+            }
+            if (objectList==null||objectList.Count<=0) {
                 return;
             }
 

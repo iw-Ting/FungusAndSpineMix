@@ -556,6 +556,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\InteropAccessMode.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Scripts\Components\LuaUtils.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\BasicDescriptors\IMemberDescriptor.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\SupportFungusUI\InputUISupportScript.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\DataTypes\CallbackArguments.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Interfaces\IFungusCollection.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Components\Parallax.cs" />

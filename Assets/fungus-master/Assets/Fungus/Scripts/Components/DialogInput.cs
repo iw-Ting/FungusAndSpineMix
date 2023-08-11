@@ -72,10 +72,18 @@ namespace Fungus
                 }
             }
         }
+
+        public ClickMode SetDialogInputModle(ClickMode mode)//設置dialog mode 並返回原本的(觸發完後再改回來
+        {
+            var origineMode= clickMode;
+            clickMode = mode;
+            return origineMode;
+
+        }
             
         protected virtual void Update()
         {
-            if (EventSystem.current == null)
+            if (EventSystem.current == null||clickMode==ClickMode.ClickOnButton)
             {
                 return;
             }
@@ -84,6 +92,8 @@ namespace Fungus
             {
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
+
+            
 
             if (writer != null)
             {

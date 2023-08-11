@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Fungus.EditorUtils;
+using Spine.Unity;
 
 
 
@@ -25,31 +26,49 @@ namespace Fungus
             SkeletonGraphicPro = serializedObject.FindProperty("aSkeletonGraphic");
             SkeletonSkin = serializedObject.FindProperty("DefaultSkin");
             SkeletonAni = serializedObject.FindProperty("DefaultAni");
-            mCharaSpine = target as CharaSpine;
 
         }
         public override void OnInspectorGUI()
         {
             // EditorGUI.PropertyField(MainSkeletonData);
-
-
             EditorGUILayout.PropertyField(SkeletonGraphicPro);
+            mCharaSpine = target as CharaSpine;
 
-            EditorGUILayout.PropertyField(SpineSettingPro);
+            if (SkeletonGraphicPro.objectReferenceValue==null) {
+                EditorGUILayout.HelpBox(new GUIContent("Can Not Have a SkeletonGraphic"));
+                serializedObject.ApplyModifiedProperties();
+                return;
+            }
 
-            CommandEditor.StringField(SkeletonSkin,
-                                    new GUIContent("Skin", "Change representing Skin"),
-                                    new GUIContent("<None>"),
-                                    mCharaSpine.aSkeletonGraphic.GetSkinStrings());
-
-            CommandEditor.StringField(SkeletonAni,
-                                    new GUIContent("Ani", "Change representing Ani"),
-                                    new GUIContent("<None>"),
-                                    mCharaSpine.aSkeletonGraphic.GetSkeletonStrings());
-            
+            SkeletonGraphic aSkele = SkeletonGraphicPro.objectReferenceValue as SkeletonGraphic;
 
 
+            if (aSkele.skeletonDataAsset==null) {
+                EditorGUILayout.HelpBox(new GUIContent("Can Not Have a skeletonDataAsset"));
+                serializedObject.ApplyModifiedProperties();
+                return;
+            }
+            else
+            {
 
+
+                EditorGUILayout.PropertyField(SpineSettingPro);
+
+  
+
+                CommandEditor.StringField(SkeletonSkin,
+                                        new GUIContent("Skin", "Change representing Skin"),
+                                        new GUIContent("<None>"),
+                                        aSkele.GetSkinStrings());
+
+                CommandEditor.StringField(SkeletonAni,
+                                        new GUIContent("Ani", "Change representing Ani"),
+                                        new GUIContent("<None>"),
+                                        aSkele.GetSkeletonStrings());
+            }
+
+
+           
 
             serializedObject.ApplyModifiedProperties();
 

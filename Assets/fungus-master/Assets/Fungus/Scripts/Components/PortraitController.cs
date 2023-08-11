@@ -222,7 +222,6 @@ namespace Fungus
             {
 
                 CreateSpineObject(options);
-                Debug.Log("生成角色");
             }
 
             return options;
@@ -536,9 +535,9 @@ namespace Fungus
                 options._OnComplete();
                 return;
             }
-            Debug.Log("執行1");
+
             options = CleanPortraitOptions(options);
-            Debug.Log("執行2");
+
 
             if (options._display == DisplayType.Hide && options.CharaObj == null)
             {
@@ -709,13 +708,43 @@ namespace Fungus
             if (options._waitAnimationFinish)
             {
                 yield return new WaitForSeconds(options.aTween.aAnimationPlayRoundTime);//等待一輪動畫結束
+                Debug.Log("動畫等待結束" + options.aTween.aAnimationPlayRoundTime);
             }
 
             SayDialog sayDia = SayDialog.GetSayDialog();
 
-            if (options._waitForClick) {
-                yield return sayDia.GetWriter().WaitForClick();
+            /* if (options._waitForClick)
+           {
+               Debug.Log("Spine的等待點擊");
+               yield return sayDia.GetWriter().WaitForClick();
+           }*/
+
+            ClickMode origineMode;
+            switch (options._clickMode)
+            {
+
+                case ClickMode.ClickAnywhere:
+                    origineMode=  sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
+                    yield return sayDia.GetWriter().WaitForClick();
+
+                    break;
+                case ClickMode.ClickOnDialog:
+                    origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickOnDialog);
+                    yield return sayDia.GetWriter().WaitForClick();
+
+                    break;
+                case ClickMode.ClickOnButton:
+
+                    origineMode= sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickOnButton);
+                    yield return sayDia.GetWriter().WaitForClickButton(options._clickPosition);
+                    break;
+
+                default:
+                    origineMode=sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
+                    break;
+
             }
+            sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(origineMode);
 
             FinishCommand(options);
 

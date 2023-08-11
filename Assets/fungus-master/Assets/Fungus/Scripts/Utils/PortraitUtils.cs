@@ -78,6 +78,7 @@ namespace Fungus
         public SkeletonGraphic _ReplacedCharacter;
         public RectTransform _fromPosition = null;
         public RectTransform _toPosition = null;
+        public RectTransform _clickPosition = null;
         public System.Action _OnComplete;
 
         // public Color _color;
@@ -93,9 +94,13 @@ namespace Fungus
 
         public bool _fade=false;
 
+        public bool _waitForButton = false;
         public bool _waitAnimationFinish=false;//等待動畫完成後,接著撥放
+        public ClickMode _clickMode;
+
+
         public bool _waitDialog=false;//等待對話完成
-        public bool _waitForClick = false;//點集才可進入下一段動畫
+       // public bool _waitForClick = false;//點集才可進入下一段動畫
         public Vector2 _scale=Vector2.zero;
         public Vector3 _offest=Vector3.zero;
 
@@ -134,7 +139,6 @@ namespace Fungus
                 Debug.Log("No Chara ");
                 return;
             }
-            Debug.Log("設置動畫");
             SkeletonGraphic skeleG = CharaObj.GetComponent<SkeletonGraphic>();
 
             skeleG.startingAnimation = _animation;

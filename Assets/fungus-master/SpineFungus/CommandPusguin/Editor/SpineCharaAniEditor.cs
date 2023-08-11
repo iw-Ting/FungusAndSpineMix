@@ -5,16 +5,18 @@ using UnityEditor;
 using Fungus.EditorUtils;
 using Spine.Unity;
 using Fungus;
+using System;
 [CustomEditor(typeof(SpineCharaAni))]
 //flow command editor
 public class SpineCharaAniEditor : CommandEditor
 {
-    private SerializedProperty aSkeletonGraphic;
+    private SerializedProperty aSkeletonGraphicPro;
     private SerializedProperty StagePro;
     private SerializedProperty FacingPro;
     private SerializedProperty aAnimationPro;
     private SerializedProperty FromPosPro;
     private SerializedProperty ToPosPro;
+    private SerializedProperty clickPositionPro;
     private SerializedProperty MovePro;
     private SerializedProperty LoopPro;
     private SerializedProperty DisplayProp;
@@ -24,14 +26,16 @@ public class SpineCharaAniEditor : CommandEditor
     /////////////////////////// condition bool /////////////////
     private SerializedProperty WaitAnimationFinishPro;
     private SerializedProperty WaitDialogPro;
-    private SerializedProperty WaitForClick;
+    //  private SerializedProperty WaitForClick;
+    private SerializedProperty clickModlePro;
+
     private SerializedProperty OffestPro;
     private SerializedProperty FadePro;
 
     private SerializedProperty tweenTime;
     public override void OnEnable()
     {
-        aSkeletonGraphic = serializedObject.FindProperty("aTarget");
+        aSkeletonGraphicPro = serializedObject.FindProperty("aTarget");
         DisplayProp = serializedObject.FindProperty("display");
         StagePro = serializedObject.FindProperty("stage");
         FacingPro = serializedObject.FindProperty("facing");
@@ -43,7 +47,9 @@ public class SpineCharaAniEditor : CommandEditor
         aInitialSkinName = serializedObject.FindProperty("aInitialSkinName");
         WaitAnimationFinishPro = serializedObject.FindProperty("waitAnimationFinish");
         WaitDialogPro = serializedObject.FindProperty("waitDialog");
-        WaitForClick=serializedObject.FindProperty("waitForClick");
+        clickModlePro = serializedObject.FindProperty("clickMode");
+        clickPositionPro = serializedObject.FindProperty("ClickPos");
+        // WaitForClick=serializedObject.FindProperty("waitForClick");
         OffestPro = serializedObject.FindProperty("offest");
         FadePro = serializedObject.FindProperty("fade");
         tweenTime = serializedObject.FindProperty("aTween");
@@ -77,7 +83,7 @@ public class SpineCharaAniEditor : CommandEditor
         //                         new GUIContent("<None>")
         //                         , SkeletonGraphic.SkeletonGraphicList);
 
-        EditorGUILayout.PropertyField(aSkeletonGraphic, new GUIContent("SkeletonGraphic", "SkeletonGraphic representing character"));
+        EditorGUILayout.PropertyField(aSkeletonGraphicPro, new GUIContent("SkeletonGraphic", "SkeletonGraphic representing character"));
 
         if (EditorGUI.EndChangeCheck())
         {
@@ -85,8 +91,15 @@ public class SpineCharaAniEditor : CommandEditor
         }
 
 
-        if (aSkeletonGraphic.objectReferenceValue != null)
+        if (aSkeletonGraphicPro.objectReferenceValue != null)
         {
+            CharaSpine cs=aSkeletonGraphicPro.objectReferenceValue as CharaSpine;
+
+            if (cs.aSkeletonGraphic==null) {
+                EditorGUILayout.HelpBox(new GUIContent("Can Not Have a Chara"));
+                return;
+            }
+
 
             string[] displayLabels = StringFormatter.FormatEnumNames(tar.Display, "<None>");
             DisplayProp.enumValueIndex = EditorGUILayout.Popup("Display", (int)DisplayProp.enumValueIndex, displayLabels);
@@ -129,12 +142,32 @@ public class SpineCharaAniEditor : CommandEditor
 
                 if (DisplayProp.enumValueIndex > 0 && aAnimationPro.stringValue != null)
                 {
+                    EditorGUILayout.LabelField("Animation  Judge", EditorStyles.boldLabel);
+
+                    EditorGUILayout.PropertyField(clickModlePro);
 
                     EditorGUILayout.PropertyField(WaitAnimationFinishPro);
                     
                     EditorGUILayout.PropertyField(WaitDialogPro);
 
-                    EditorGUILayout.PropertyField(WaitForClick);
+                    
+                    //  EditorGUILayout.PropertyField(WaitForClick);
+
+                }
+
+                if (tar.mClickMode == ClickMode.ClickOnButton)
+                {
+                    if (tar._Stage == null)
+                    {
+
+                        tar._Stage = GameObject.FindObjectOfType<Stage>();
+
+                    }
+
+                    CommandEditor.ObjectField<RectTransform>(clickPositionPro,
+                        new GUIContent("ButtonCreatePos", "CreateTouchButton"),
+                        new GUIContent("<Previous>"),
+                        tar._Stage.Positions);
 
                 }
 
@@ -166,8 +199,6 @@ public class SpineCharaAniEditor : CommandEditor
 
             tar._Stage = GameObject.FindObjectOfType<Stage>();
 
-        }else{
-            Debug.Log("not have stage script in hierarchy");
         }
         Stage s = tar._Stage;
 

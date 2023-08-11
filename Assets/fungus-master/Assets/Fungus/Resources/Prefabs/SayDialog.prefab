@@ -32,20 +32,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 22488900}
-<<<<<<< HEAD
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -178.5, y: 263.13}
-  m_SizeDelta: {x: 357, y: 435}
-=======
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -125.36, y: 189.31}
   m_SizeDelta: {x: 250.717, y: 378.62}
->>>>>>> FungusAndSpineMix/master
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22248914
 CanvasRenderer:
@@ -136,10 +127,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 22433354}
-<<<<<<< HEAD
-=======
-  m_RootOrder: 0
->>>>>>> FungusAndSpineMix/master
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -200,10 +187,7 @@ GameObject:
   - component: {fileID: 22268826}
   - component: {fileID: 11493918}
   - component: {fileID: 11419088}
-<<<<<<< HEAD
-=======
   - component: {fileID: 648826680925661892}
->>>>>>> FungusAndSpineMix/master
   m_Layer: 5
   m_Name: Continue
   m_TagString: Untagged
@@ -225,20 +209,11 @@ RectTransform:
   m_Children:
   - {fileID: 22443574}
   m_Father: {fileID: 22488896}
-<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -38.900024, y: 38.074993}
-  m_SizeDelta: {x: 77.900024, y: 77}
-=======
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -15.398987, y: 19.3}
-  m_SizeDelta: {x: 30.797, y: 30.44}
->>>>>>> FungusAndSpineMix/master
+  m_AnchoredPosition: {x: 220, y: 15}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22268826
 CanvasRenderer:
@@ -268,11 +243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD
-  m_Sprite: {fileID: 21300000, guid: 226248ac6f184e448af731df91b91958, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: d7a1181476cad8444bdf42a449e34425, type: 3}
->>>>>>> FungusAndSpineMix/master
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -338,8 +309,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-<<<<<<< HEAD
-=======
 --- !u!95 &648826680925661892
 Animator:
   serializedVersion: 5
@@ -360,7 +329,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
->>>>>>> FungusAndSpineMix/master
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &188894
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,20 +363,11 @@ RectTransform:
   m_Children:
   - {fileID: 22433354}
   m_Father: {fileID: 22488900}
-<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.78700006}
-  m_AnchoredPosition: {x: 3, y: 14.130005}
-  m_SizeDelta: {x: -61, y: -63}
-=======
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.78700006}
-  m_AnchoredPosition: {x: 3, y: 15.0479}
-  m_SizeDelta: {x: -61, y: -54.8523}
->>>>>>> FungusAndSpineMix/master
+  m_AnchoredPosition: {x: -110, y: 15}
+  m_SizeDelta: {x: -280, y: -30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22288894
 CanvasRenderer:
@@ -439,17 +399,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 79197ecfbc3a4294a89ce589dac02cf2, type: 3}
-<<<<<<< HEAD
-    m_FontSize: 45
+    m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 4
-=======
-    m_FontSize: 30
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
->>>>>>> FungusAndSpineMix/master
+    m_BestFit: 1
+    m_MinSize: 15
     m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -478,89 +431,6 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
-<<<<<<< HEAD
-=======
---- !u!1 &188898
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 22488894}
-  - component: {fileID: 22288898}
-  - component: {fileID: 11488900}
-  m_Layer: 5
-  m_Name: NameText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &22488894
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188898}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 22488900}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 354.1, y: -29.4}
-  m_SizeDelta: {x: 641.2, y: 48.4}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &22288898
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188898}
-  m_CullTransparentMesh: 1
---- !u!114 &11488900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
-    m_FontSize: 36
-    m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 50
-    m_Alignment: 3
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Character Name
->>>>>>> FungusAndSpineMix/master
 --- !u!1 &188900
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,28 +463,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-<<<<<<< HEAD
-  - {fileID: 3898554844016226666}
   - {fileID: 22448914}
+  - {fileID: 5894187349468105595}
   - {fileID: 22488896}
   m_Father: {fileID: 22488902}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -865}
-=======
-  - {fileID: 22448914}
-  - {fileID: 22488894}
-  - {fileID: 22488896}
-  m_Father: {fileID: 22488902}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -337.35, y: 0}
   m_SizeDelta: {x: 674.7, y: 270.874}
->>>>>>> FungusAndSpineMix/master
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &22288900
 CanvasRenderer:
@@ -644,11 +501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD
-  m_Sprite: {fileID: 21300000, guid: e8ab00ef0d9684dcb9deb52811d91218, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: c11b7ccae18516046abe1cbbca4ec64d, type: 3}
->>>>>>> FungusAndSpineMix/master
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -738,10 +591,6 @@ RectTransform:
   m_Children:
   - {fileID: 22488900}
   m_Father: {fileID: 0}
-<<<<<<< HEAD
-=======
-  m_RootOrder: 0
->>>>>>> FungusAndSpineMix/master
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -765,17 +614,11 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-<<<<<<< HEAD
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
-=======
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
   m_SortingOrder: 1
->>>>>>> FungusAndSpineMix/master
   m_TargetDisplay: 0
 --- !u!114 &11488906
 MonoBehaviour:
@@ -844,12 +687,8 @@ MonoBehaviour:
   fadeDuration: 0.25
   continueButton: {fileID: 11419088}
   dialogCanvas: {fileID: 22388894}
-<<<<<<< HEAD
-  nameText: {fileID: 7488011454875246340}
-  nameImage: {fileID: 7683622779995989610}
-=======
-  nameText: {fileID: 11488900}
->>>>>>> FungusAndSpineMix/master
+  nameText: {fileID: 316185566097160955}
+  nameImage: {fileID: 8701430421284799149}
   nameTextGO: {fileID: 0}
   storyText: {fileID: 11488896}
   storyTextGO: {fileID: 0}
@@ -1011,8 +850,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-<<<<<<< HEAD
---- !u!1 &2557917624297139598
+--- !u!1 &4181231406472423944
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1020,9 +858,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 542190881413212375}
-  - component: {fileID: 4094778180205237446}
-  - component: {fileID: 7488011454875246340}
+  - component: {fileID: 1960906856065229310}
+  - component: {fileID: 9102365089963017146}
+  - component: {fileID: 316185566097160955}
   m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
@@ -1030,40 +868,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &542190881413212375
+--- !u!224 &1960906856065229310
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557917624297139598}
+  m_GameObject: {fileID: 4181231406472423944}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3898554844016226666}
+  m_Father: {fileID: 5894187349468105595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4094778180205237446
+--- !u!222 &9102365089963017146
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557917624297139598}
+  m_GameObject: {fileID: 4181231406472423944}
   m_CullTransparentMesh: 1
---- !u!114 &7488011454875246340
+--- !u!114 &316185566097160955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557917624297139598}
+  m_GameObject: {fileID: 4181231406472423944}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -1079,11 +917,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
-    m_FontSize: 20
+    m_FontSize: 40
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 20
-    m_MaxSize: 50
+    m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1091,7 +929,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Character Name
---- !u!1 &3710811018664000955
+--- !u!1 &7254975590528861693
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1099,9 +937,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3898554844016226666}
-  - component: {fileID: 7950849624045621391}
-  - component: {fileID: 7683622779995989610}
+  - component: {fileID: 5894187349468105595}
+  - component: {fileID: 8527458186500741264}
+  - component: {fileID: 8701430421284799149}
+  - component: {fileID: 8689762720061628860}
   m_Layer: 5
   m_Name: NameImage
   m_TagString: Untagged
@@ -1109,42 +948,42 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3898554844016226666
+--- !u!224 &5894187349468105595
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3710811018664000955}
+  m_GameObject: {fileID: 7254975590528861693}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 56.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 542190881413212375}
+  - {fileID: 1960906856065229310}
   m_Father: {fileID: 22488900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 210, y: -33}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: 131, y: 8}
+  m_SizeDelta: {x: 237.10555, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7950849624045621391
+--- !u!222 &8527458186500741264
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3710811018664000955}
+  m_GameObject: {fileID: 7254975590528861693}
   m_CullTransparentMesh: 1
---- !u!114 &7683622779995989610
+--- !u!114 &8701430421284799149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3710811018664000955}
-  m_Enabled: 0
+  m_GameObject: {fileID: 7254975590528861693}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1167,5 +1006,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-=======
->>>>>>> FungusAndSpineMix/master
+--- !u!114 &8689762720061628860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254975590528861693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 0

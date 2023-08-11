@@ -50,3 +50,5 @@ MonoBehaviour:
     Offest: {x: 0, y: 0, z: 0}
     Facing: 1
   aSkeletonGraphic: {fileID: 3630250552490600157, guid: f6ff67403d326e34a97b799ca4993416, type: 3}
+  DefaultSkin: default
+  DefaultAni: idle

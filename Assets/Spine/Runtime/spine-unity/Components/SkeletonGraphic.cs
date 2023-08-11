@@ -461,7 +461,10 @@ namespace Spine.Unity
             // Debug.Log("測試==>" + tar.aSkeletonGraphic);
             List<string> CollectAniName = new List<string>();
             // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
-
+            if (SkeletonDataAsset == null)
+            {
+                return null;
+            }
 
             foreach (var ani in SkeletonDataAsset.GetAnimationStateData().SkeletonData.Animations)
             {
@@ -477,6 +480,12 @@ namespace Spine.Unity
             // Debug.Log("測試==>" + tar.aSkeletonGraphic);
             List<string> CollectAniName = new List<string>();
             // Debug.Log("偵測動畫=>" + tar.aSkeletonGraphic.skeletonDataAsset.toAnimation);
+            //Debug.Log("測試2=>" + SkeletonDataAsset.GetAnimationStateData());
+            if (SkeletonDataAsset == null)
+            {
+                return null;
+            }
+
             foreach (var ani in SkeletonDataAsset.GetAnimationStateData().SkeletonData.Skins)
             {
                 CollectAniName.Add(ani.Name);
@@ -880,7 +889,6 @@ namespace Spine.Unity
 
         public void SetPlayAnimation()
         {
-            Debug.Log("值行動畫");
             SetPlayAnimation(startingAnimation);
         }
 

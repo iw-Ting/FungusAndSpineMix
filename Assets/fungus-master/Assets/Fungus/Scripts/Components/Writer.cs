@@ -259,7 +259,20 @@ namespace Fungus
         {
 
             yield return DoWaitForInput(true);
+            Debug.Log("spine等待點擊觸發");
 
+        }
+
+        public IEnumerator WaitForClickButton(RectTransform pos)
+        {
+            var sp = InputUISupportScript.CreateButtonArea(pos, OnNextLineEvent);
+            sp.GetComponent<Button>().onClick.AddListener(() => { Destroy(sp); });
+            yield return DoWaitForInput(true);
+
+            
+           // inputUISupport
+
+            //產生button
         }
 
         protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
