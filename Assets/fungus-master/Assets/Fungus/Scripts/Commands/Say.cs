@@ -148,7 +148,7 @@ namespace Fungus
         {
             SayDialog sd= SayDialog.GetSayDialog();
             StoryControl sc = ParentBlock.GetFlowchart().mStoryControl;
-            sc.SaveDialogRecord(new DialogInfo(sd.NameText,InputUISupportScript.RemoveAllRichText( sd.StoryText)));
+            sc.SaveDialogRecord(new DialogInfo(sd.NameText,InputUISupportScript.RemoveAllRichText( sd.StoryText),voiceOverClip));
         }
 
 

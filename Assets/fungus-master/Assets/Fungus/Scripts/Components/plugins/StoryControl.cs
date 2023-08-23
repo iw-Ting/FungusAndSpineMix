@@ -160,12 +160,14 @@ namespace Fungus
         {
             public string CharaName;
             public string DialogContent;
-            public DialogInfo(string charaName, string dialogContent)
-            {
-                CharaName = charaName;
-                DialogContent = dialogContent;
-            }
+            public AudioClip aAudioClip=null;
+            public DialogInfo(string charaName, string dialogContent, AudioClip audioClip=null)
+        {
+            CharaName = charaName;
+            DialogContent = dialogContent;
+            aAudioClip = audioClip;
         }
+    }
 
     }
 
