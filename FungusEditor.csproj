@@ -74,12 +74,14 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\EditorZoomArea.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\BlockEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\GameObjectVariableDrawer.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\CharaSpineEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\Collider2DVariableDrawer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\BasePopupWindowContent.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\PopupContent\CommandSelectorPopupWindowContent.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\LabelEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\HierarchyIcons.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\TransformVariableDrawer.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\MenuImageEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\DialogInputEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\MenuTimerEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\AssetModProcessor.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\WriteEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\CustomVariableDrawerLookup.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SetVariableEditor.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SpineCharaAniEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\GenerateVariableHelper.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\Matrix4x4VariableDrawer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\FungusEditorPreferences.cs" />
@@ -825,6 +828,10 @@
     <ProjectReference Include="Fungus.csproj">
       <Project>{C8BEA6B7-9CA6-ABF4-2B3D-8CDA198D9CC4}</Project>
       <Name>Fungus</Name>
+    </ProjectReference>
+    <ProjectReference Include="spine-unity.csproj">
+      <Project>{E83AD6F5-C7AA-20A5-C01D-A37760EF950F}</Project>
+      <Name>spine-unity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

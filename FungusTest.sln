@@ -29,8 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spine-unity-examples-editor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FungusPlayModeTests", "FungusPlayModeTests.csproj", "{7C6BFF2C-826F-C3D0-FDD3-BD8A38329D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{7B83D57C-6924-9144-CF05-74A2D2BA04E6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fungus.LineEndingsEditor", "Fungus.LineEndingsEditor.csproj", "{55A0A2B7-5637-419D-E35F-8E913138BA1B}"
 EndProject
 Global
@@ -95,10 +93,6 @@ Global
 		{7C6BFF2C-826F-C3D0-FDD3-BD8A38329D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C6BFF2C-826F-C3D0-FDD3-BD8A38329D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C6BFF2C-826F-C3D0-FDD3-BD8A38329D2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B83D57C-6924-9144-CF05-74A2D2BA04E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B83D57C-6924-9144-CF05-74A2D2BA04E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B83D57C-6924-9144-CF05-74A2D2BA04E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B83D57C-6924-9144-CF05-74A2D2BA04E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55A0A2B7-5637-419D-E35F-8E913138BA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55A0A2B7-5637-419D-E35F-8E913138BA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A0A2B7-5637-419D-E35F-8E913138BA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU

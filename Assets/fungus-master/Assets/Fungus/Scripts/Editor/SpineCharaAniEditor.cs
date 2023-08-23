@@ -7,9 +7,12 @@ using Spine.Unity;
 using Fungus;
 using System;
 [CustomEditor(typeof(SpineCharaAni))]
+
+
 //flow command editor
 public class SpineCharaAniEditor : CommandEditor
 {
+    
     private SerializedProperty aSkeletonGraphicPro;
     private SerializedProperty StagePro;
     private SerializedProperty FacingPro;
@@ -20,7 +23,8 @@ public class SpineCharaAniEditor : CommandEditor
     private SerializedProperty MovePro;
     private SerializedProperty LoopPro;
     private SerializedProperty DisplayProp;
-
+    private SerializedProperty aClickButtonSizeProp;
+    private SerializedProperty aClickButtonSizeSettingProp;
     private SerializedProperty aInitialSkinName;
 
     /////////////////////////// condition bool /////////////////
@@ -49,10 +53,16 @@ public class SpineCharaAniEditor : CommandEditor
         WaitDialogPro = serializedObject.FindProperty("waitDialog");
         clickModlePro = serializedObject.FindProperty("clickMode");
         clickPositionPro = serializedObject.FindProperty("ClickPos");
+        aClickButtonSizeProp = serializedObject.FindProperty("ClickButtonSize");
+        aClickButtonSizeSettingProp = serializedObject.FindProperty("aClickButtonSizeSetting");
+        //aClickButtonSizeSetting
         // WaitForClick=serializedObject.FindProperty("waitForClick");
         OffestPro = serializedObject.FindProperty("offest");
         FadePro = serializedObject.FindProperty("fade");
         tweenTime = serializedObject.FindProperty("aTween");
+
+
+
 
     }
 
@@ -118,7 +128,10 @@ public class SpineCharaAniEditor : CommandEditor
                 if (tar.Display != DisplayType.Hide)
                 {
                     EditorGUILayout.PropertyField(FadePro, new GUIContent("FadeIn", "淡入"));
-                    EditorGUILayout.PropertyField(aFadeAni);
+
+                    if (tar.Fade) {
+                        EditorGUILayout.PropertyField(aFadeAni);
+                    }
 
                     CommandEditor.StringField(aInitialSkinName,
                                 new GUIContent("Skin", "Change representing Skin"),
@@ -164,10 +177,35 @@ public class SpineCharaAniEditor : CommandEditor
 
                     }
 
-                    CommandEditor.ObjectField<RectTransform>(clickPositionPro,
-                        new GUIContent("ButtonCreatePos", "CreateTouchButton"),
-                        new GUIContent("<Previous>"),
-                        tar._Stage.Positions);
+
+                    if (tar._Stage != null)
+                    {
+                        CommandEditor.ObjectField<RectTransform>(clickPositionPro,
+                            new GUIContent("ButtonCreatePos", "CreateTouchButton"),
+                            new GUIContent("<Previous>"),
+                            tar._Stage.Positions);
+                    }
+
+                    EditorGUILayout.PropertyField(aClickButtonSizeSettingProp);
+
+                    string[] enumName = aClickButtonSizeSettingProp.enumNames;
+                    string clickSetting = enumName[ aClickButtonSizeSettingProp.enumValueIndex]; 
+
+                    var enumStatus=(EnumSetting)Enum.Parse(typeof(EnumSetting), clickSetting);
+
+                    switch (enumStatus)
+                    {
+                        case EnumSetting.Default:
+
+                            break;
+                        case EnumSetting.Customize:
+                            EditorGUILayout.PropertyField(aClickButtonSizeProp);
+                            break;
+                    }
+
+
+
+
 
                 }
 

@@ -71,6 +71,7 @@ namespace Fungus
 
         [SerializeField] bool suppressAllAutoSelections = false;
 
+        
 
         protected virtual void Awake()
         {
@@ -262,7 +263,7 @@ namespace Fungus
             int i = 0;
             while (true)
             {
-                
+
                 // Executing commands specify the next command to skip to by setting jumpToCommandIndex using Command.Continue()
                 if (jumpToCommandIndex > -1)
                 {
@@ -493,6 +494,29 @@ namespace Fungus
             }
 
             return -1;
+        }
+
+        public static Block FindBlockByName(string findName)
+        {
+            //FindObjectsSortMode
+            Flowchart[] fc=GameObject.FindObjectsByType<Flowchart>(FindObjectsSortMode.None);
+            foreach (Flowchart myFc in fc) {
+                Block[] blocks = myFc.GetComponents<Block>();
+
+                foreach (Block b in blocks)
+                {
+                    if (b.BlockName == findName)
+                    {
+                        return b;
+                    }
+                }
+
+            }
+
+
+            return null;
+
+
         }
 
         #endregion

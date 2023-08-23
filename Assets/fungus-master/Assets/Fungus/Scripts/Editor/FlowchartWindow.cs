@@ -1729,9 +1729,9 @@ namespace Fungus.EditorUtils
                     boundRect.yMin = Mathf.Min(startRect.yMin, endRect.yMin);
                     boundRect.yMax = Mathf.Max(startRect.yMax, endRect.yMax);
 
-
                     if (boundRect.Overlaps(scriptViewRect))//是否有在邊界
                     {
+
                         DrawRectConnection(startRect, endRect, highlight);//畫線
                     }
 

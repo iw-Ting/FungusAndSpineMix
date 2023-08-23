@@ -3,6 +3,9 @@
 
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections;
+using System;
 
 namespace Fungus
 {
@@ -44,6 +47,8 @@ namespace Fungus
 
         protected float ignoreClickTimer;
 
+        private GameObject ButtonInputArea = null;
+
         protected StandaloneInputModule currentStandaloneInputModule;
 
         protected Writer writer;
@@ -80,8 +85,8 @@ namespace Fungus
             return origineMode;
 
         }
-            
-        protected virtual void Update()
+
+        /*protected virtual void Update()
         {
             if (EventSystem.current == null||clickMode==ClickMode.ClickOnButton)
             {
@@ -92,8 +97,6 @@ namespace Fungus
             {
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
-
-            
 
             if (writer != null)
             {
@@ -109,15 +112,17 @@ namespace Fungus
             case ClickMode.Disabled:
                 break;
             case ClickMode.ClickAnywhere:
-                if (Input.GetMouseButtonDown(0))
-                {
-                    SetClickAnywhereClickedFlag();//偵測點擊任一位置後block command執行
-                }
-                break;
+         if (Input.GetMouseButtonDown(0))
+                      {
+                          SetClickAnywhereClickedFlag();//偵測點擊任一位置後block command執行
+                      }
+                    ButtonAllScreenClickSetting();
+
+                    break;
             case ClickMode.ClickOnDialog://必須點擊在話框上
                 if (dialogClickedFlag)
                 {
-                    SetNextLineFlag();//偵測點擊後block command執行
+                    SetNextLineFlag();//偵測點擊後block command執行    
                     dialogClickedFlag = false;
                 }
                 break;
@@ -151,9 +156,87 @@ namespace Fungus
                 }
                 nextLineInputFlag = false;
             }
+        }*/
+
+        public IEnumerator OpenDetectInput()
+        {
+            if (EventSystem.current == null || clickMode == ClickMode.ClickOnButton)
+            {
+               yield break;
+            }
+
+            if (currentStandaloneInputModule == null)
+            {
+                currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
+            }
+
+            if (writer != null)
+            {
+                if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||//鍵盤
+                    (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+                {
+                    SetNextLineFlag();//偵測點擊後block command執行
+                }
+            }
+            Debug.Log("等待觸發");
+            switch (clickMode)
+            {
+                case ClickMode.Disabled:
+                    break;
+                case ClickMode.ClickAnywhere:
+
+                    ButtonAllScreenClickSetting();
+
+                    break;
+                case ClickMode.ClickOnDialog://必須點擊在話框上
+                    if (dialogClickedFlag)
+                    {
+                        SetNextLineFlag();//偵測點擊後block command執行    
+                        dialogClickedFlag = false;
+                    }
+                    break;
+            }
+
+            if (ignoreClickTimer > 0f)
+            {
+                ignoreClickTimer = Mathf.Max(ignoreClickTimer - Time.deltaTime, 0f);
+            }
+
+            if (ignoreMenuClicks)
+            {
+                // Ignore input events if a Menu is being displayed
+                if (MenuDialog.ActiveMenuDialog != null &&
+                    MenuDialog.ActiveMenuDialog.IsActive() &&
+                    MenuDialog.ActiveMenuDialog.DisplayedOptionsCount > 0)
+                {
+                    dialogClickedFlag = false;
+                    nextLineInputFlag = false;
+                }
+            }
+
+            // Tell any listeners to move to the next line
+
+            yield return new WaitUntil(() => nextLineInputFlag);
+
+                var inputListeners = gameObject.GetComponentsInChildren<IDialogInputListener>();
+                for (int i = 0; i < inputListeners.Length; i++)
+                {
+                    var inputListener = inputListeners[i];
+                    inputListener.OnNextLineEvent();
+                }
+                nextLineInputFlag = false;
+            
+
         }
 
+
+
+
+
+
         #region Public members
+
+
 
         /// <summary>
         /// Trigger next line input event from script.
@@ -185,7 +268,7 @@ namespace Fungus
         /// <summary>
         /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
         /// </summary>
-        public virtual void SetDialogClickedFlag()
+        public virtual void SetDialogClickedFlag()//editor 點選
         {
             // Ignore repeat clicks for a short time to prevent accidentally clicking through the character dialogue
             if (ignoreClickTimer > 0f)
@@ -198,6 +281,45 @@ namespace Fungus
             if (clickMode == ClickMode.ClickOnDialog)
             {
                 dialogClickedFlag = true;
+            }
+        }
+
+
+        public void ButtonAllScreenClickSetting()
+        {
+
+            if (ButtonInputArea==null) {
+
+                InputCallBack.InputOptions inpOpt = new InputCallBack.InputOptions();
+                inpOpt.pos = gameObject.GetComponent<RectTransform>();
+                inpOpt.touchSize = new Vector2(Screen.width, Screen.height);
+                inpOpt.SetLocalPos = true;
+
+                ButtonInputArea = InputUISupportScript.CreateButtonArea(inpOpt, () => {
+                    SetNextLineFlag();
+                });
+
+            }
+            else
+            {
+                OpenInputButtonArea();
+                return;
+            }
+
+        }
+
+        public void OpenInputButtonArea()
+        {
+            if (ButtonInputArea!=null) {
+                ButtonInputArea.GetComponent<Image>().raycastTarget = true;
+            }
+
+        }
+        public void CloseInputButtonArea()
+        {
+            if (ButtonInputArea != null)
+            {
+                ButtonInputArea.GetComponent<Image>().raycastTarget = false;
             }
         }
 

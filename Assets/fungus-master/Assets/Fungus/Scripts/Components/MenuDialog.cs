@@ -236,7 +236,7 @@ namespace Fungus
                 StopAllCoroutines();
                 // Stop timeout
                 Clear();
-                HideSayDialog();
+                HideSayDialog();//¡Ù¬√πÔ∏‹
                 if (block != null)
                 {
                     var flowchart = block.GetFlowchart();
@@ -296,7 +296,9 @@ namespace Fungus
             }
             //if first option notify that a menu has started
             if(nextOptionIndex == 0)
+            {
                 MenuSignals.DoMenuStart(this);
+            }
 
             var button = cachedButtons[nextOptionIndex];
             
@@ -305,7 +307,9 @@ namespace Fungus
 
             //don't need to set anything on it
             if (hideOption)
+            {
                 return true;
+            }
 
             button.gameObject.SetActive(true);
             button.interactable = interactable;

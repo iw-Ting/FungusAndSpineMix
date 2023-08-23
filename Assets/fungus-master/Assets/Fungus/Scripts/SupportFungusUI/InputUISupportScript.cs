@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -10,35 +11,78 @@ namespace Fungus{
     public static class InputUISupportScript
     {
 
-        public static GameObject CreateButtonArea(RectTransform createPos, Action clickAction)
+        
+
+        public static GameObject CreateButtonArea(InputCallBack.InputOptions opt,Action clickAction,Color color)
         {
-            Debug.Log("生成觸控區");
             RectTransform sp = new GameObject("Touch Area", typeof(RectTransform), typeof(Button),typeof(Image)).GetComponent<RectTransform>();
-            sp.SetParent(createPos);
-            sp.sizeDelta = createPos.sizeDelta;
-            sp.anchoredPosition = Vector3.zero;
-            sp.rotation = createPos.rotation;
+
+            sp.sizeDelta = opt.touchSize;
+
+            if (opt.SetLocalPos)
+            {
+                //Prevent full-screen buttons from being affected by the offest of the parent object
+                if (opt.pos.GetComponentInParent<Canvas>()) {
+                    sp.SetParent(opt.pos.GetComponentInParent<Canvas>().transform);
+                }
+                else
+                {
+                    sp.SetParent(opt.pos);
+                }
+
+                sp.localPosition = Vector2.zero;
+                sp.SetParent(opt.pos);
+            }
+            else
+            {
+                sp.SetParent(opt.pos);
+                sp.anchoredPosition = Vector2.zero;
+               // sp.localPosition = Vector2.zero;
+                    
+            }
+
+            sp.rotation = opt.pos.rotation;
             sp.localScale = Vector3.one;
+            Image spImage = sp.GetComponent<Image>();
+            spImage.color = color;
+                
+          
+            
             
             sp.GetComponent<Button>().onClick.AddListener(() => {
-                Debug.Log("觸控成功!!!");
                 clickAction();
             });
+
 
 
             return sp.gameObject;
         }
 
+        public static GameObject CreateButtonArea(InputCallBack.InputOptions opt, Action clickAction)
+        {
+            
+            return CreateButtonArea(opt,clickAction, new Color(1,1,1,0));
+        }
 
 
 
-
-
-
-
-
+        private static Regex m_richRegex = new Regex("<.*?>");
+        public static string RemoveAllRichText(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return str;
+            return m_richRegex.Replace(str, string.Empty);
+        }
 
 
 
     }
+
+
+
+
+
+
 }
+
+
+

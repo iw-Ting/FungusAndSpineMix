@@ -7,7 +7,7 @@ namespace Fungus
 {
     /// <summary>
     /// Controls a character portrait.
-    /// </summary>
+    /// </summary> 
     [CommandInfo("Narrative", 
                  "Portrait", 
                  "Controls a character portrait.")]

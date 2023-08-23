@@ -155,11 +155,20 @@ namespace Fungus
         /// <param name="nextCommandIndex">Next command index.</param>
         public virtual void Continue(int nextCommandIndex)
         {
-            OnExit();
-            if (ParentBlock != null)
-            {
-                ParentBlock.JumpToCommandIndex = nextCommandIndex;
+            Flowchart fc=GetFlowchart();
+            if (fc._storyEnabled) {
+                OnExit();
+                if (ParentBlock != null)
+                {
+                    ParentBlock.JumpToCommandIndex = nextCommandIndex;
+                }
             }
+
+        }
+
+        public Type GetNextCommand()
+        {
+            return ParentBlock.CommandList[CommandIndex + 1].GetType();    
         }
 
         /// <summary>

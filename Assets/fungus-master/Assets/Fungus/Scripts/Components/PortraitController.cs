@@ -69,6 +69,12 @@ namespace Fungus
 
         protected Stage stage;
 
+        [SerializeField] private bool WaitUserInput = false;
+
+        [SerializeField] private bool AutoPlay=false;
+
+        private SpineCharaAniOptions aOptions;
+
         protected virtual void Awake()
         {
             stage = GetComponentInParent<Stage>();
@@ -271,6 +277,7 @@ namespace Fungus
                     pi.preserveAspect = true;
                     pi.sprite = item;
                     pi.color = new Color(1f, 1f, 1f, 0f);
+                    pi.raycastTarget = false;
 
                     if (item == character.ProfileSprite)
                     {
@@ -662,7 +669,7 @@ namespace Fungus
 
         public virtual IEnumerator Show(SpineCharaAniOptions options)//展現隱藏的角色(SpineChara)確認角色存在,展示角色
         {
-
+            aOptions = options;
             options = CleanPortraitOptions(options);//生成
 
             SetupPortrait(options);//鏡像設置
@@ -718,33 +725,44 @@ namespace Fungus
                Debug.Log("Spine的等待點擊");
                yield return sayDia.GetWriter().WaitForClick();
            }*/
+            if (!AutoPlay) {
+                WaitUserInput = true;
+                InputCallBack.InputOptions setting = new InputCallBack.InputOptions();
 
-            ClickMode origineMode;
-            switch (options._clickMode)
-            {
+                ClickMode origineMode = ClickMode.Disabled;
+                switch (options._clickMode)//返回舊有的對話模式
+                {
 
-                case ClickMode.ClickAnywhere:
-                    origineMode=  sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
-                    yield return sayDia.GetWriter().WaitForClick();
+                    case ClickMode.ClickAnywhere:
+                        //origineMode=  sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
+                        // yield return sayDia.GetWriter().WaitForClick();
+                        setting.pos = options._toPosition;
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, options._OnComplete, setting);
 
-                    break;
-                case ClickMode.ClickOnDialog:
-                    origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickOnDialog);
-                    yield return sayDia.GetWriter().WaitForClick();
+                        break;
+                    case ClickMode.ClickOnDialog:
+                        origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickOnDialog);
+                        yield return sayDia.GetWriter().WaitForClick();
 
-                    break;
-                case ClickMode.ClickOnButton:
+                        break;
+                    case ClickMode.ClickOnButton:
 
-                    origineMode= sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickOnButton);
-                    yield return sayDia.GetWriter().WaitForClickButton(options._clickPosition);
-                    break;
+                        setting.pos = options._clickPosition;
+                        setting.touchSize = options._clickButtonSize;
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, options._OnComplete, setting);
 
-                default:
-                    origineMode=sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
-                    break;
+                        break;
 
-            }
-            sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(origineMode);
+                    default:
+                        origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
+                        break;
+                }
+                if (origineMode != ClickMode.Disabled) {
+                    sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(origineMode);
+
+                }
+                WaitUserInput = false;
+            }   
 
             FinishCommand(options);
 
@@ -857,6 +875,27 @@ namespace Fungus
             float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
 
             LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
+        }
+
+        public void SetAutoPlay() {
+
+            if (!AutoPlay)
+            {
+                AutoPlay = true;
+                InputCallBack.GetInputCallBack().InitInputList();
+                if (WaitUserInput) {
+                    aOptions._OnComplete();
+                    WaitUserInput = false;
+                }
+                
+            }
+            else
+            {
+                AutoPlay = false;
+            }
+
+        
+        
         }
 
         #region Overloads and Helpers

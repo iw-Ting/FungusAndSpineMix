@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Globalization;
+using System;
 
 namespace Fungus
 {
@@ -60,6 +61,8 @@ namespace Fungus
 
         [SerializeField] protected bool doReadAheadText = true;
 
+        public event Func<bool,IEnumerator> SetDialogStatusAction = null;
+
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
 
@@ -80,6 +83,7 @@ namespace Fungus
         protected float sizeValue = 16f;
         protected bool inputFlag;
         protected bool exitFlag;
+        public  bool AutoPlay = false;
 
         //holds number of Word tokens in the currently running Write
         public int WordTokensFound { get; protected set; }
@@ -263,10 +267,13 @@ namespace Fungus
 
         }
 
-        public IEnumerator WaitForClickButton(RectTransform pos)
+        public IEnumerator WaitForClickButton(RectTransform pos,Vector2 size)
         {
-            var sp = InputUISupportScript.CreateButtonArea(pos, OnNextLineEvent);
+
+            var sp = InputUISupportScript.CreateButtonArea(new InputCallBack.InputOptions() { pos=pos,touchSize=size}, OnNextLineEvent);
+
             sp.GetComponent<Button>().onClick.AddListener(() => { Destroy(sp); });
+
             yield return DoWaitForInput(true);
 
             
@@ -274,6 +281,8 @@ namespace Fungus
 
             //產生button
         }
+
+
 
         protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
         {
@@ -291,7 +300,6 @@ namespace Fungus
 
             exitFlag = false;
             isWriting = true;
-
             TokenType previousTokenType = TokenType.Invalid;
 
             for (int i = 0; i < tokens.Count; ++i)
@@ -549,6 +557,7 @@ namespace Fungus
 
             if (onComplete != null)
             {
+                Debug.Log("完成對話");
                 onComplete();
             }
         }
@@ -804,9 +813,17 @@ namespace Fungus
 
             inputFlag = false;
             isWaitingForInput = true;
+            StartCoroutine(GetComponent<DialogInput>().OpenDetectInput());  
 
             while (!inputFlag && !exitFlag)
             {
+                if (AutoPlay) {
+                    yield return new WaitForSeconds(1);
+                    if (AutoPlay)
+                    {
+                        yield break;
+                    }
+                }
                 yield return null;
             }
         

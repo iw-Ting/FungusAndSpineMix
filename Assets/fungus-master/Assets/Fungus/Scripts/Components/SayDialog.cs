@@ -188,53 +188,88 @@ namespace Fungus
                 // Character image is hidden by default.
                 SetCharacterImage(null);
             }
+            GetWriter().SetDialogStatusAction += ReactionAlpha;
         }
 
-        protected virtual void LateUpdate()
+      /*  protected virtual void LateUpdate()
         {
-            UpdateAlpha();
 
             if (continueButton != null)
             {
                 continueButton.gameObject.SetActive(GetWriter().IsWaitingForInput);
             }
-        }
+        }*/
 
-        protected virtual void UpdateAlpha()//對話框的透明度(淡入淡出)
+        /* protected virtual void UpdateAlpha()//對話框的透明度(淡入淡出)
+         {
+
+             if (GetWriter().IsWriting)//正在寫
+             {
+                 targetAlpha = 1f;
+                 fadeCoolDownTimer = 0.1f;
+             }
+             else if (fadeWhenDone && Mathf.Approximately(fadeCoolDownTimer, 0f))
+             {
+                 Debug.Log("設置關閉");
+                 targetAlpha = 0f;
+             }
+             else
+             {
+                 // Add a short delay before we start fading in case there's another Say command in the next frame or two.
+                 // This avoids a noticeable flicker between consecutive Say commands.
+                 fadeCoolDownTimer = Mathf.Max(0f, fadeCoolDownTimer - Time.deltaTime);
+             }
+
+             CanvasGroup canvasGroup = GetCanvasGroup();
+             if (fadeDuration <= 0f)//沒有過渡下，直接設置透明度
+             {
+                 canvasGroup.alpha = targetAlpha;
+             }
+             else
+             {
+                 float delta = (1f / fadeDuration) * Time.deltaTime;
+                 float alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, delta);
+                 canvasGroup.alpha = alpha;
+
+                 if (alpha <= 0f)
+                 {
+                     // Deactivate dialog object once invisible
+                     gameObject.SetActive(false);
+                 }
+             }
+         }*/
+
+        public IEnumerator ReactionAlpha( bool isDisplay)//對話框的透明度(淡入淡出)
         {
 
-            if (GetWriter().IsWriting)
+            if (isDisplay)//正在寫
             {
                 targetAlpha = 1f;
-                fadeCoolDownTimer = 0.1f;
             }
-            else if (fadeWhenDone && Mathf.Approximately(fadeCoolDownTimer, 0f))
+            else 
             {
                 targetAlpha = 0f;
             }
-            else
-            {
-                // Add a short delay before we start fading in case there's another Say command in the next frame or two.
-                // This avoids a noticeable flicker between consecutive Say commands.
-                fadeCoolDownTimer = Mathf.Max(0f, fadeCoolDownTimer - Time.deltaTime);
-            }
+
 
             CanvasGroup canvasGroup = GetCanvasGroup();
             if (fadeDuration <= 0f)//沒有過渡下，直接設置透明度
             {
                 canvasGroup.alpha = targetAlpha;
+
             }
             else
             {
-                float delta = (1f / fadeDuration) * Time.deltaTime;
-                float alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, delta);
-                canvasGroup.alpha = alpha;
+                if (canvasGroup.alpha<targetAlpha) {
 
-                if (alpha <= 0f)
-                {
-                    // Deactivate dialog object once invisible
-                    gameObject.SetActive(false);
+                    yield return LeanTweenManager.FadeIn(gameObject);
                 }
+                else if (canvasGroup.alpha > targetAlpha)
+                {
+                    yield return LeanTweenManager.FadeOut(gameObject);
+                }
+
+
             }
         }
 
@@ -324,6 +359,19 @@ namespace Fungus
         public virtual void SetActive(bool state)
         {
             gameObject.SetActive(state);
+        }
+
+        public bool NowAlphaStatus()
+        {
+            CanvasGroup cg = gameObject.GetComponent<CanvasGroup>();
+            if (cg.alpha>0) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -560,7 +608,7 @@ namespace Fungus
 
             this.fadeWhenDone = fadeWhenDone;
 
-            // Voice over clip takes precedence over a character sound effect if provided
+            // Voice over clip takes precedence over a character sound effect if provided  
 
             AudioClip soundEffectClip = null;
             if (voiceOverClip != null)
@@ -576,6 +624,7 @@ namespace Fungus
             writer.AttachedWriterAudio = writerAudio;
 
             yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, waitForVO, soundEffectClip, onComplete));
+            StartCoroutine(ReactionAlpha(fadeWhenDone));
         }
 
         /// <summary>

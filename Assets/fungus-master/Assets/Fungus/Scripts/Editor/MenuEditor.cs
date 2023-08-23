@@ -32,6 +32,7 @@ namespace Fungus.EditorUtils
         
         public override void DrawCommandGUI()
         {
+            
             var flowchart = FlowchartWindow.GetFlowchart();
             if (flowchart == null)
             {
@@ -45,12 +46,14 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(descriptionProp);
 
             EditorGUILayout.BeginHorizontal();
+
             BlockEditor.BlockField(targetBlockProp,
                                    new GUIContent("Target Block", "Block to call when option is selected"), 
                                    new GUIContent("<None>"), 
                                    flowchart);
             const int popupWidth = 17;
-            if(targetBlockProp.objectReferenceValue == null && GUILayout.Button("+",GUILayout.MaxWidth(popupWidth)))
+
+           if(targetBlockProp.objectReferenceValue == null && GUILayout.Button("+",GUILayout.MaxWidth(popupWidth)))
             {
                 var fw = EditorWindow.GetWindow<FlowchartWindow>();
                 var t = (Menu)target;

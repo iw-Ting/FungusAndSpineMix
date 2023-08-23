@@ -6,11 +6,15 @@ using Spine.Unity;
 using System;
 
 
-
+public enum EnumSetting
+{
+    Default,
+    Customize
+}
 
 
 [CommandInfo("Narrative",
-              "SpineCharaAnie",//顯示名稱 類別是抓繼承command
+              "SpineCharaAni",//顯示名稱 類別是抓繼承command
               "Controls a Spine Animation.")]
 //flow command
 public class SpineCharaAni : ControlWithDisplay<DisplayType>
@@ -27,6 +31,11 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     [SerializeField] protected RectTransform toPosition;
 
     [SerializeField] protected RectTransform ClickPos;
+
+    [SerializeField] protected  Vector2 ClickButtonSize=new Vector2(300,300);
+
+    [SerializeField] protected EnumSetting aClickButtonSizeSetting = EnumSetting.Default;
+    
 
     [SerializeField] protected string aAnimation;//要執行的動畫
     [SerializeField] protected string aInitialSkinName;//裝備
@@ -60,9 +69,11 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
     public virtual bool Move { get { return move; } set { move = value; } }
 
+    public virtual bool Fade { get { return fade; } set { fade = value; } }
+
     public override void OnEnter()//Cammand執行邏輯
     {
-
+        
         if (stage == null)
         {
             // If no default specified, try to get any portrait stage in the scene
@@ -92,6 +103,12 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
         opt._OnComplete = Continue;
         opt._waitAnimationFinish = waitAnimationFinish;
         opt._waitDialog = waitDialog;
+
+       
+
+        
+
+        opt._clickButtonSize = ClickButtonSize;
 
         if (string.IsNullOrEmpty(aAnimation))//沒指定動畫
         {
@@ -133,7 +150,30 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
         opt._fromPosition = FromPosition;
         opt._toPosition = ToPosition;
-        opt._clickPosition = ClickPos;
+
+        switch (clickMode)
+        {
+            case ClickMode.Disabled:
+                break;
+            case ClickMode.ClickAnywhere:
+                break;
+            case ClickMode.ClickOnDialog:
+                break;
+            case ClickMode.ClickOnButton:
+                opt._clickPosition = ClickPos;
+
+                switch (aClickButtonSizeSetting)
+                {
+                    case EnumSetting.Default:
+                        opt._clickButtonSize = ClickPos.sizeDelta;
+                        break;
+                    case EnumSetting.Customize:
+                        opt._clickButtonSize = ClickButtonSize;
+                        break;
+                }
+                break;
+        }
+
 
 
         stage.RunSpineCommand(opt);

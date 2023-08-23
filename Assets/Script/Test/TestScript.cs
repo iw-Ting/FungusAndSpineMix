@@ -1,48 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using Fungus;
 
 public class TestScript : MonoBehaviour
 {
-    //    public List<TestData> mData=new List<TestData>();
 
-    // [HideInInspector]public TestData[] mData;
-    public string myText = "";
-    public string detect = "";
-
-    public char qwe;
 
     public void Start()
     {
-
+        StartCoroutine(test());
     }
 
 
-    public void test()
+    public IEnumerator test()
     {
-        // if (myText.StartsWith(detect))
-        // {
-        //     Debug.Log("start有該文字");
-        // }
+        bool input = false;
+        while (!input)
+        {
+            if (Input.GetKeyDown(KeyCode.A)) {
+            
+            input = true;
+                Debug.Log("���\�F we did it");
+            }
+            else
+            {
+                yield return null;
+            }
 
-        // if (myText.EndsWith(detect))
-        // {
-        //     Debug.Log("end有該文字");
-        // }
+        }
 
-       myText=myText.Trim(qwe);
 
-       myText.Split("asd");
 
-        Debug.Log("測試==>"+myText);
-        //   yield return null;
     }
+
+
+    
 
 
     public void Update()
     {
 
-        test();
+
 
     }
 }

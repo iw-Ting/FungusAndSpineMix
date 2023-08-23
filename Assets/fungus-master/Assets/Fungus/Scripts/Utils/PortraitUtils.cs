@@ -79,6 +79,7 @@ namespace Fungus
         public RectTransform _fromPosition = null;
         public RectTransform _toPosition = null;
         public RectTransform _clickPosition = null;
+        public Vector2 _clickButtonSize;
         public System.Action _OnComplete;
 
         // public Color _color;

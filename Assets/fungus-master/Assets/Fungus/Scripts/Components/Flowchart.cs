@@ -53,6 +53,10 @@ namespace Fungus
         [HideInInspector]
         [SerializeField] protected List<Variable> variables = new List<Variable>();
 
+       [SerializeField] protected StoryControl _storyControl=null;
+
+        [SerializeField] public bool _storyEnabled = true;
+
         [TextArea(3, 5)]
         [Tooltip("Description text displayed in the Flowchart editor window")]
         [SerializeField] protected string description = "";
@@ -84,6 +88,8 @@ namespace Fungus
 
         [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
         [SerializeField] protected string luaBindingName = "flowchart";
+
+        public StoryControl mStoryControl { get { return _storyControl; } }
 
         protected static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
 
@@ -118,11 +124,22 @@ namespace Fungus
         // This method will automatically instantiate one if none exists.
         protected virtual void CheckEventSystem()
         {
+            _storyEnabled=true;
             if (eventSystemPresent)
             {
                 return;
             }
-
+            _storyControl=GetComponentInChildren<StoryControl>();
+            if (_storyControl==null) {
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/StorySettingWindow");
+                if (prefab != null)
+                {
+                    GameObject sp = Instantiate(prefab) as GameObject;
+                    sp.name = "StoryControl";
+                    sp.transform.SetParent(transform);
+                }
+            }
+            _storyControl.Fc = this;
             EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
             if (eventSystem == null)
             {

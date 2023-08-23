@@ -13,8 +13,11 @@ namespace Fungus
 
         protected virtual bool IsDisplayNone<TEnum>(TEnum enumValue)
         {
+
             string displayTypeStr = Enum.GetName(typeof (TEnum), enumValue);
+
             return displayTypeStr == "None";
+
         }
 
         #region Public members

@@ -1,7 +1,9 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fungus
 {
@@ -125,14 +127,28 @@ namespace Fungus
             }
 
 
-
             string subbedText = flowchart.SubstituteVariables(displayText);
 
+            //sayDialog.GetWriter().SetAutoPlay
+            Debug.Log("開始執行對話");
 
+            if (GetNextCommand()==typeof(Say)) {
+                Debug.Log("依然是對話");
+                fadeWhenDone = true;
+            }
+            
 
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
+           StartCoroutine(  sayDialog.ReactionAlpha(true));
+            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, ()=> {
                 Continue();
             });
+        }
+
+        public override void OnExit()
+        {
+            SayDialog sd= SayDialog.GetSayDialog();
+            StoryControl sc = ParentBlock.GetFlowchart().mStoryControl;
+            sc.SaveDialogRecord(new DialogInfo(sd.NameText,InputUISupportScript.RemoveAllRichText( sd.StoryText)));
         }
 
 

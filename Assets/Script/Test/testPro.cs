@@ -15,12 +15,12 @@ public class testPro : MonoBehaviour
 
     void Start()
     {
-        GameObject sp = Instantiate(skin.gameObject);
+        /*GameObject sp = Instantiate(skin.gameObject);
         sp.name="lady";
         sp.transform.SetParent(par);
         var skele=sp.GetComponent<SkeletonGraphic>();
         skele.startingAnimation="action";
-        skele.SetPlayAnimation();
+        skele.SetPlayAnimation();*/
 
         // StartCoroutine(startRun());
 

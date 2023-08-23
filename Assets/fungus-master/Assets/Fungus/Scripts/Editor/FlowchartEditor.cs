@@ -23,6 +23,8 @@ namespace Fungus.EditorUtils
         protected SerializedProperty hideCommandsProp;
         protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty luaBindingNameProp;
+        protected SerializedProperty _storyControlProp;
+        protected SerializedProperty _storyEnableProp;
 
         protected Texture2D addTexture;
 
@@ -41,7 +43,8 @@ namespace Fungus.EditorUtils
             hideComponentsProp = serializedObject.FindProperty("hideComponents");
             stepPauseProp = serializedObject.FindProperty("stepPause");
             saveSelectionProp = serializedObject.FindProperty("saveSelection");
-
+            _storyControlProp = serializedObject.FindProperty("_storyControl");
+            _storyEnableProp = serializedObject.FindProperty("_storyEnabled");
             localizationIdProp = serializedObject.FindProperty("localizationId");
             
             variablesProp = serializedObject.FindProperty("variables");
@@ -77,13 +80,15 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(hideCommandsProp, new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip), true);
             EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(luaBindingNameProp);
+            EditorGUILayout.PropertyField(_storyControlProp);
+            EditorGUILayout.PropertyField(_storyEnableProp);
 
             // Show list of commands to hide in Add Command menu    
             //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
             //ReorderableListGUI.ListField(hideCommandsProp);
             // EditorGUILayout.PropertyField(hideCommandsProp, new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip), true);
 
-            if(EditorGUI.EndChangeCheck())
+            if (EditorGUI.EndChangeCheck())
             {
                 FlowchartDataStale = true;
             }
