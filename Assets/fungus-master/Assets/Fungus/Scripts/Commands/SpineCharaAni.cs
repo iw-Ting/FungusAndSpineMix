@@ -26,11 +26,11 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     [SerializeField] protected Stage stage;
     [SerializeField] protected FacingDirection facing;
 
-    [SerializeField] protected RectTransform fromPosition;
+    [SerializeField] protected RectTransform fromPosition=null;
 
-    [SerializeField] protected RectTransform toPosition;
+    [SerializeField] protected RectTransform toPosition=null;
 
-    [SerializeField] protected RectTransform ClickPos;
+    [SerializeField] protected RectTransform ClickPos=null;
 
     [SerializeField] protected  Vector2 ClickButtonSize=new Vector2(300,300);
 
@@ -144,10 +144,15 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
         opt._clickMode = clickMode;
 
-       // opt._waitForButton = waitForButton;
-       // opt._waitForClick = waitForClick;
+        // opt._waitForButton = waitForButton;
+        // opt._waitForClick = waitForClick;
 
-
+        if (toPosition==null) {
+            toPosition = stage.DefaultPosition.GetComponent<RectTransform>();
+        }
+        if (fromPosition==null) {
+            fromPosition = stage.DefaultPosition.GetComponent<RectTransform>();
+        }
         opt._fromPosition = FromPosition;
         opt._toPosition = ToPosition;
 
@@ -160,6 +165,9 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
             case ClickMode.ClickOnDialog:
                 break;
             case ClickMode.ClickOnButton:
+                if (ClickPos==null) {
+                ClickPos= stage.DefaultPosition.GetComponent<RectTransform>();
+                }
                 opt._clickPosition = ClickPos;
 
                 switch (aClickButtonSizeSetting)

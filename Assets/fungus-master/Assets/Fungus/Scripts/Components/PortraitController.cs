@@ -249,7 +249,7 @@ namespace Fungus
                                                    ).GetComponent<RectTransform>();
 
                 // Set it to be a child of the stage
-                character.State.holder.transform.SetParent(stage.PortraitCanvas.transform, false);
+                character.State.holder.transform.SetParent(stage.CharaParent, false);
 
                 SetRectTransform(character.State.holder, stage.DefaultPosition.GetComponent<RectTransform>());
             }
@@ -271,7 +271,6 @@ namespace Fungus
 
                     // Set it to be a child of the stage
                     po.transform.SetParent(character.State.holder, false);
-
                     // Configure the portrait image
                     Image pi = po.GetComponent<Image>();
                     pi.preserveAspect = true;
@@ -289,7 +288,7 @@ namespace Fungus
                     rt.sizeDelta = Vector2.zero;
                     rt.anchorMin = Vector2.zero;
                     rt.anchorMax = Vector2.one;
-                    rt.pivot = Vector2.one * 0.5f;
+                    rt.pivot = new Vector2(0.5f, 0);
                     rt.ForceUpdateRectTransforms();
 
                     po.SetActive(false);
@@ -326,7 +325,7 @@ namespace Fungus
                     opt.CharaObj.name = opt._charaName;
 
                     // Set it to be a child of the stage
-                    opt.CharaObj.transform.SetParent(stage.PortraitCanvas.transform, false);
+                    opt.CharaObj.transform.SetParent(stage.CharaParent, false);
 
                     stage.SpineCharaOnStageList.Add(opt.CharaObj);
 

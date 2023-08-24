@@ -6,6 +6,7 @@ using UnityEngine.UI;
 namespace Fungus
 {
 
+    [ExecuteInEditMode]
     public class StoryControl : MonoBehaviour
     {
         // Start is called before the first frame update
@@ -24,12 +25,26 @@ namespace Fungus
 
         private GameObject mLogWindowPopup = null;
 
+        [SerializeField]private GameObject TopFuncListParent=null;
+
         private bool PlayAni = false;
 
         private bool recordDialogOrigineDisplayStatus=false;
 
 
+        private void OnEnable()
+        {
+            FindCameraRender();
+        }
+        private void FindCameraRender()
+        {
+            if (GetComponent<Canvas>().worldCamera == null)
+            {
+                GetComponent<Canvas>().worldCamera = Camera.main;
+            }
 
+
+        }
 
 
         void Start()
@@ -42,6 +57,7 @@ namespace Fungus
 
             yield return LoadPrefab();
             SetButtonSetting();
+
 
         }
 
@@ -65,9 +81,11 @@ namespace Fungus
         }
 
 
-        public void ClickAutoButton()
+        private void ClickAutoButton()
         {
-            Debug.Log("點擊自動對話按鈕");
+            if (PlayAni) {
+                return;
+            }
             if (!SayDialog.GetSayDialog().GetWriter().AutoPlay)
             {
                 SayDialog.GetSayDialog().GetWriter().AutoPlay = true;
@@ -84,7 +102,7 @@ namespace Fungus
 
         }
 
-        public IEnumerator ClickLogButton()
+        private IEnumerator ClickLogButton()
         {
 
             if (!PlayAni)
@@ -97,12 +115,16 @@ namespace Fungus
                     mLogWindowPopup.transform.SetParent(LogWindowPopupParent.transform, false);
 
                     mLogWindowPopup.GetComponent<CanvasGroup>().alpha = 0;
-                    yield return mLogWindowPopup.GetComponent<StoryLogPopup>().Init(recordDialogList);
+
+                    yield return mLogWindowPopup.GetComponent<StoryLogPopup>().Init(recordDialogList,
+                        ()=> { StartCoroutine(ClickCloseLogButton()); });
+
                     SayDialog sd = SayDialog.GetSayDialog();
                     if (sd.NowAlphaStatus())
                     {
                         recordDialogOrigineDisplayStatus = true;
                         StartCoroutine(sd.ReactionAlpha(false));
+                        StartCoroutine(LeanTweenManager.FadeOut(TopFuncListParent, () => { TopFuncListParent.SetActive(false); }));
                     }
                     yield return LeanTweenManager.FadeIn(mLogWindowPopup);
                     PlayAni = false;
@@ -113,6 +135,7 @@ namespace Fungus
                     if (recordDialogOrigineDisplayStatus) {
                         recordDialogOrigineDisplayStatus = false;
                         StartCoroutine(SayDialog.GetSayDialog().ReactionAlpha(true));
+                        StartCoroutine(LeanTweenManager.FadeOut(TopFuncListParent));
                     }
                     
                     yield return LeanTweenManager.FadeOut(mLogWindowPopup);
@@ -121,15 +144,37 @@ namespace Fungus
                     PlayAni = false;
                 }
             }
+        }
 
+        private IEnumerator ClickCloseLogButton()
+        {
+            if (mLogWindowPopup!=null&&!PlayAni) {
+                PlayAni = true;
+                if (recordDialogOrigineDisplayStatus)
+                {
+                    recordDialogOrigineDisplayStatus = false;
+                    StartCoroutine(SayDialog.GetSayDialog().ReactionAlpha(true));
+                    TopFuncListParent.SetActive(true);
+                    StartCoroutine(LeanTweenManager.FadeIn(TopFuncListParent));
+                }
 
+                yield return LeanTweenManager.FadeOut(mLogWindowPopup);
+                Destroy(mLogWindowPopup);
+                mLogWindowPopup = null;
+                PlayAni = false;
+            }
 
 
         }
 
-        public void ClickSkipButton()
+
+
+        private void ClickSkipButton()
         {
-            Debug.Log("點擊跳過按鈕");
+            if (PlayAni)
+            {
+                return;
+            }
             Fc._storyEnabled = false;
             GameObject sp = new GameObject("FadeMask", typeof(RectTransform), typeof(Image));
             sp.GetComponent<Image>().color = Color.black;

@@ -17,6 +17,9 @@ namespace Fungus
         [Tooltip("Canvas object containing the stage positions.")]
         [SerializeField] protected Canvas portraitCanvas;
 
+        public Transform CharaParent=null;
+        public Transform BackgroundParent = null;
+
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
 
@@ -53,6 +56,23 @@ namespace Fungus
             {
                 activeStages.Add(this);
             }
+          /*  positions.Clear();
+
+            foreach (var rect in portraitCanvas.GetComponentsInChildren<RectTransform>()) {
+                bool isHave = false;
+                if (rect== portraitCanvas.GetComponent<RectTransform>()) {
+                isHave = true;
+                }
+                foreach (var pos in positions) {
+                    if (pos==rect) {
+                        isHave = true;
+                    }
+                    
+                }
+                if (!isHave) {
+                    positions.Add(rect);
+                }
+            }*/
         }
 
         protected virtual void OnDisable()

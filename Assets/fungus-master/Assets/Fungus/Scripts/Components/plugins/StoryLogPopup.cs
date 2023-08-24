@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 namespace Fungus {
     public class StoryLogPopup : MonoBehaviour
@@ -10,14 +12,30 @@ namespace Fungus {
 
         public GameObject LogCellPrefab = null;
 
+        public Button CloseButton;
+
+        private Action mCloseButtonCb;
 
 
 
-        public IEnumerator Init(List<DialogInfo> dia)
+
+        public IEnumerator Init(List<DialogInfo> dia,Action closeButtonCb)
         {
+            mCloseButtonCb = closeButtonCb;
             yield return LoadPrefabs();
             SetPrefabsPivot(dia);
             CreateCell (dia);
+            SetButtonSetting();
+
+        }
+
+        private void SetButtonSetting()
+        {
+            CloseButton.onClick.AddListener(()=> {
+                Debug.Log("Ãö³¬¾ú¥v¹ï¸Ü");
+                mCloseButtonCb();
+            });
+
 
         }
 

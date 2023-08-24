@@ -557,7 +557,6 @@ namespace Fungus
 
             if (onComplete != null)
             {
-                Debug.Log("完成對話");
                 onComplete();
             }
         }
@@ -813,16 +812,20 @@ namespace Fungus
 
             inputFlag = false;
             isWaitingForInput = true;
-            StartCoroutine(GetComponent<DialogInput>().OpenDetectInput());  
-
+            StartCoroutine(GetComponent<DialogInput>().OpenDetectInput());
+            float calcStart = 1;
             while (!inputFlag && !exitFlag)
             {
                 if (AutoPlay) {
-                    yield return new WaitForSeconds(1);
-                    if (AutoPlay)
+                    calcStart -= Time.deltaTime;
+                    if (calcStart<0)
                     {
                         yield break;
                     }
+                }
+                else
+                {
+                    calcStart = 1;
                 }
                 yield return null;
             }

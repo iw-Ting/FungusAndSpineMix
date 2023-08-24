@@ -178,7 +178,6 @@ namespace Fungus
                     SetNextLineFlag();//偵測點擊後block command執行
                 }
             }
-            Debug.Log("等待觸發");
             switch (clickMode)
             {
                 case ClickMode.Disabled:

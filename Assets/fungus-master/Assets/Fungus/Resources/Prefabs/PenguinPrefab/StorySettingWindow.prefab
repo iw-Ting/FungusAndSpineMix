@@ -584,9 +584,9 @@ RectTransform:
   - {fileID: 2275315941279507942}
   m_Father: {fileID: 2186508311722235908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 347, y: 846}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 295, y: 898}
   m_SizeDelta: {x: 492, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3026482294269102916
@@ -787,6 +787,7 @@ MonoBehaviour:
   skipButton: {fileID: 8336499913854630003}
   Fc: {fileID: 0}
   LogWindowPopupParent: {fileID: 5862124336821538018}
+  TopFuncListParent: {fileID: 8066064091284158942}
 --- !u!1 &8457748958744967894
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,5 +897,5 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

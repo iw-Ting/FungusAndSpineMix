@@ -105,7 +105,9 @@ namespace Fungus
             {
                 activeSayDialogs.Add(this);
             }
-
+            if (GetComponent<Canvas>().worldCamera==null) {
+                GetComponent<Canvas>().worldCamera = Camera.main;
+            }
             nameTextAdapter.InitFromGameObject(nameText != null ? nameText.gameObject : nameTextGO);
             storyTextAdapter.InitFromGameObject(storyText != null ? storyText.gameObject : storyTextGO);
         }
@@ -262,11 +264,11 @@ namespace Fungus
             {
                 if (canvasGroup.alpha<targetAlpha) {
 
-                    yield return LeanTweenManager.FadeIn(gameObject);
+                    yield return LeanTweenManager.FadeIn(gameObject, () => { GetComponent<CanvasGroup>().blocksRaycasts =true; });
                 }
                 else if (canvasGroup.alpha > targetAlpha)
                 {
-                    yield return LeanTweenManager.FadeOut(gameObject);
+                    yield return LeanTweenManager.FadeOut(gameObject, () => { GetComponent<CanvasGroup>().blocksRaycasts = false; });
                 }
 
 

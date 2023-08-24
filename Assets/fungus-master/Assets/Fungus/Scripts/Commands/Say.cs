@@ -130,10 +130,8 @@ namespace Fungus
             string subbedText = flowchart.SubstituteVariables(displayText);
 
             //sayDialog.GetWriter().SetAutoPlay
-            Debug.Log("開始執行對話");
 
             if (GetNextCommand()==typeof(Say)) {
-                Debug.Log("依然是對話");
                 fadeWhenDone = true;
             }
             

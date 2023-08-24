@@ -71,6 +71,8 @@ namespace Fungus.EditorUtils
             GameObject go = GameObject.Instantiate(prefab) as GameObject;
             go.name = prefab.name;
 
+            //青雉 黃猿 赤犬 藤虎 綠牛 茶豚  桃兔
+
             SceneView view = SceneView.lastActiveSceneView;
             if (view != null)
             {
