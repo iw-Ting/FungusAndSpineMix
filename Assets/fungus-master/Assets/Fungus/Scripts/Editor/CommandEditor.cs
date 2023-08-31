@@ -249,7 +249,7 @@ namespace Fungus.EditorUtils
                 // Currently selected object is not in list, but nothing else was selected so no change.
                 return;
             }
-            else if (selectedIndex == 0)
+            else if (selectedIndex == 0) 
             {
                 result = null; // Null option
             }

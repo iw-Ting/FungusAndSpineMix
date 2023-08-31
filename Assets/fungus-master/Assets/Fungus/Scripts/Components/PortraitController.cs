@@ -735,7 +735,8 @@ namespace Fungus
                     case ClickMode.ClickAnywhere:
                         //origineMode=  sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
                         // yield return sayDia.GetWriter().WaitForClick();
-                        setting.pos = options._toPosition;
+                        setting.parentPos = options._toPosition;
+                        SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
                         yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, options._OnComplete, setting);
 
                         break;
@@ -746,8 +747,9 @@ namespace Fungus
                         break;
                     case ClickMode.ClickOnButton:
 
-                        setting.pos = options._clickPosition;
+                        setting.parentPos = options._clickPosition;
                         setting.touchSize = options._clickButtonSize;
+                        SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
                         yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, options._OnComplete, setting);
 
                         break;

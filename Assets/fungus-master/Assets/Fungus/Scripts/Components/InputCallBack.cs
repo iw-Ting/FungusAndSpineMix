@@ -119,7 +119,9 @@ namespace Fungus {
                     isinput = true;
                     SetNextLineFlag();//°»´úÂIÀ»«áblock command°õ¦æ
                 }
-                SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
+
+                //SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
+
                 GameObject sp =null;
 
                 switch (eClickMode)
@@ -296,7 +298,7 @@ namespace Fungus {
         [Serializable]
         public class InputOptions {
 
-            public RectTransform pos = null;
+            public RectTransform parentPos = null;
             public Vector2 touchSize = Vector2.zero;
             public bool SetLocalPos=false;
 

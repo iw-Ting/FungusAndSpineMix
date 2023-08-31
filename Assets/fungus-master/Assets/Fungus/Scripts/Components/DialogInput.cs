@@ -290,7 +290,7 @@ namespace Fungus
             if (ButtonInputArea==null) {
 
                 InputCallBack.InputOptions inpOpt = new InputCallBack.InputOptions();
-                inpOpt.pos = gameObject.GetComponent<RectTransform>();
+                inpOpt.parentPos = gameObject.GetComponent<RectTransform>();
                 inpOpt.touchSize = new Vector2(Screen.width, Screen.height);
                 inpOpt.SetLocalPos = true;
 

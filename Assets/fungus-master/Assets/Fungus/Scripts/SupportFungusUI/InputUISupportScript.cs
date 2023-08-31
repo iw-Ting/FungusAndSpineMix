@@ -22,26 +22,26 @@ namespace Fungus{
             if (opt.SetLocalPos)
             {
                 //Prevent full-screen buttons from being affected by the offest of the parent object
-                if (opt.pos.GetComponentInParent<Canvas>()) {
-                    sp.SetParent(opt.pos.GetComponentInParent<Canvas>().transform);
+                if (opt.parentPos.GetComponentInParent<Canvas>()) {
+                    sp.SetParent(opt.parentPos.GetComponentInParent<Canvas>().transform);
                 }
                 else
                 {
-                    sp.SetParent(opt.pos);
+                    sp.SetParent(opt.parentPos);
                 }
 
                 sp.localPosition = Vector2.zero;
-                sp.SetParent(opt.pos);
+                sp.SetParent(opt.parentPos);
             }
             else
             {
-                sp.SetParent(opt.pos);
+                sp.SetParent(opt.parentPos);
                 sp.anchoredPosition = Vector2.zero;
                // sp.localPosition = Vector2.zero;
                     
             }
 
-            sp.rotation = opt.pos.rotation;
+            sp.rotation = opt.parentPos.rotation;
             sp.localScale = Vector3.one;
             Image spImage = sp.GetComponent<Image>();
             spImage.color = color;

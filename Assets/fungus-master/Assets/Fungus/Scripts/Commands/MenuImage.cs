@@ -50,7 +50,7 @@ namespace Fungus
         public override void OnEnter()//Cammand°õ¦æÅÞ¿è
         {
 
-            if (Options._options.pos == null)
+            if (Options._options.parentPos == null)
             {
                 return;
             }

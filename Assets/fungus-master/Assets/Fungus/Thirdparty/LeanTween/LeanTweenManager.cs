@@ -9,6 +9,19 @@ namespace Fungus
     public static class LeanTweenManager
     {
         // Start is called before the first frame update
+
+        public static void SetCanvasGroupAlpha(GameObject obj,float setVal)
+        {
+            CanvasGroup cg = obj.GetComponent<CanvasGroup>();
+
+            if (cg == null)
+            {
+                cg = obj.AddComponent<CanvasGroup>();
+
+            }
+            cg.alpha = setVal;
+        }
+
         public static IEnumerator FadeIn(GameObject obj, float TweenTime = 0.25f,Action onComplete=null)
         {
             CanvasGroup cg = obj.GetComponent<CanvasGroup>();
@@ -69,6 +82,30 @@ namespace Fungus
         {
 
             return FadeOut(obj, 0.25f, null);
+
+
+        }
+
+        public static IEnumerator RectTransScale(GameObject obj,Vector3 vec3,float dur=0.25f,Action onComplete=null)
+        {
+
+            LeanTween.scale(obj, vec3, dur);
+            yield return new WaitForSeconds(dur);
+            if (onComplete!=null) {
+                onComplete();
+            }
+
+        }
+
+        public static IEnumerator RectTransVarietyOfY(RectTransform rect,Vector2 vec2,float time,Action onComplete=null)
+        {
+
+            LeanTween.size(rect,vec2,time);
+            yield return new WaitForSeconds(time);
+            if (onComplete!=null) {
+
+                onComplete();
+            }
 
 
         }

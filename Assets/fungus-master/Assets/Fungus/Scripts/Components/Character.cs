@@ -20,7 +20,9 @@ namespace Fungus
         [Tooltip("Color to display the character name in Say Dialog.")]
         [SerializeField] protected Color nameColor = Color.white;
 
-        [SerializeField] protected Sprite defaultSayDialogNameSprite = null;//名字底下的圖片
+        [SerializeField] protected Color SayDialogNameColor;//名字底下的顏色
+
+        [SerializeField] protected Sprite SayDialogNameBgSprite;//名字底下的圖片
 
         [Tooltip("Sound effect to play when this character is speaking.")]
         [SerializeField] protected AudioClip soundEffect;
@@ -33,6 +35,8 @@ namespace Fungus
 
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.")]
         [SerializeField] protected SayDialog setSayDialog;
+
+        public Sprite charaAvatar=null;
 
         [FormerlySerializedAs("notes")]
         [TextArea(5, 10)]
@@ -74,10 +78,10 @@ namespace Fungus
         public virtual Color NameColor { get { return nameColor; } }
 
 
-        /// <summary>
-        /// Sound effect to play when this character is speaking.
-        /// </summary>
-        public virtual Sprite NameSprite { get { return defaultSayDialogNameSprite; } }
+
+        public virtual Color NameBGColor { get { return SayDialogNameColor; } }
+
+        public virtual Sprite NameBGSprite { get { return SayDialogNameBgSprite; } }
 
         /// <summary>
         /// Sound effect to play when this character is speaking.

@@ -39,6 +39,7 @@ public class SpineCharaAniEditor : CommandEditor
     private SerializedProperty tweenTime;
     public override void OnEnable()
     {
+        Debug.Log("editor執行2");
         aSkeletonGraphicPro = serializedObject.FindProperty("aTarget");
         DisplayProp = serializedObject.FindProperty("display");
         StagePro = serializedObject.FindProperty("stage");

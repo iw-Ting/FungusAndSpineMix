@@ -110,6 +110,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\BlockInspector.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\WriteEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\CustomVariableDrawerLookup.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SnsSystem\SnsManagerEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SetVariableEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SpineCharaAniEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\GenerateVariableHelper.cs" />

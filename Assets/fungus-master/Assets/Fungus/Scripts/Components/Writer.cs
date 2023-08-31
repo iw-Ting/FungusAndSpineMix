@@ -270,7 +270,7 @@ namespace Fungus
         public IEnumerator WaitForClickButton(RectTransform pos,Vector2 size)
         {
 
-            var sp = InputUISupportScript.CreateButtonArea(new InputCallBack.InputOptions() { pos=pos,touchSize=size}, OnNextLineEvent);
+            var sp = InputUISupportScript.CreateButtonArea(new InputCallBack.InputOptions() { parentPos=pos,touchSize=size}, OnNextLineEvent);
 
             sp.GetComponent<Button>().onClick.AddListener(() => { Destroy(sp); });
 

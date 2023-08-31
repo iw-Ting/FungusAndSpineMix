@@ -512,14 +512,7 @@ namespace Fungus
 
         public virtual void SetCharaterNameImage(Character chara)
         {
-            if (chara.NameSprite == null)
-            {
-                if(nameImage!=null){
-                    nameImage.sprite=null;
-                    nameImage.enabled=false;
-                }
-                return;
-            }
+
             if (nameImage == null)
             {
                 GameObject sp = new GameObject("nameImage", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
@@ -543,13 +536,17 @@ namespace Fungus
 
 
             }
+
             nameImage.enabled=true;
-            if (chara.NameSprite!=null) {
-                nameImage.sprite = chara.NameSprite;
+            if (chara.NameBGColor!=null) {
+                nameImage.color = chara.NameBGColor;
+            }
+            if (chara.NameBGSprite!=null) {
+                nameImage.sprite = chara.NameBGSprite;
             }
             else
             {
-
+                nameImage.sprite = null;
             }
             nameImage.preserveAspect=true;
 
