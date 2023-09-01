@@ -168,7 +168,14 @@ namespace Fungus
 
         public Type GetNextCommand()
         {
-            return ParentBlock.CommandList[CommandIndex + 1].GetType();    
+            if (ParentBlock.CommandList.Count > (CommandIndex + 1))
+            {
+                return ParentBlock.CommandList[CommandIndex + 1].GetType();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ MonoBehaviour:
   nameText: =3=
   nameColor: {r: 1, g: 0.051886797, b: 0.051886797, a: 1}
   SayDialogNameColor: {r: 0, g: 0.7184715, b: 1, a: 1}
-  SayDialogNameBgSprite: {fileID: 6298111945324771547, guid: a4e6c795676d46d4d9e168e47728f8c3, type: 3}
+  SayDialogNameBgSprite: {fileID: 0}
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: 2d4fc9946d094cc468f818b61c92de88, type: 3}
@@ -57,4 +57,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 95ecbc27fb1780c48b7c580acf60731a, type: 3}
   portraitsFace: 1
   setSayDialog: {fileID: 0}
+  charaAvatar: {fileID: 21300000, guid: 131c8586c2d6aa2488be918dd300fd68, type: 3}
   description: 

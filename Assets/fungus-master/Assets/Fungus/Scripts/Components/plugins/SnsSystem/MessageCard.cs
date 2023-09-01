@@ -26,6 +26,7 @@ namespace Fungus
 
         public IEnumerator Init(SnsManager.SnsMessage message)
         {
+          
             aData = message;
             ViewPortParent = transform.parent.parent;
 
@@ -42,7 +43,7 @@ namespace Fungus
 
                 case SnsManager.Direction.Right:
                     PlayerName.alignment = TextAnchor.MiddleRight;
-                    AvatarImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(425, -125);
+                    AvatarImage.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(425, -125);
                     MessageContentListParent.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.UpperRight;
                     MessageContentListParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(300, 0);
                     ConversationCloud.GetComponent<RectTransform>().anchoredPosition = new Vector2(300, -120);
@@ -51,7 +52,7 @@ namespace Fungus
 
                 case SnsManager.Direction.Left:
                     PlayerName.alignment = TextAnchor.MiddleLeft;
-                    AvatarImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(-425, -125);
+                    AvatarImage.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(-425, -125);
                     MessageContentListParent.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.UpperLeft;
                     MessageContentListParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(-300, 0);
                     ConversationCloud.GetComponent<RectTransform>().anchoredPosition = new Vector2(-300, -120);

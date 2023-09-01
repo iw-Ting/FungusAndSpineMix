@@ -70,6 +70,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\InvokeEventEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SaveMenuEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\TextureVariableDrawer.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SnsSystem\SetToSnsEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableReferenceDrawer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\EditorZoomArea.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\BlockEditor.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SnsSystem\SnsManagerEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SetVariableEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SpineCharaAniEditor.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\SnsSystem\StartSnsEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\GenerateVariableHelper.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\Matrix4x4VariableDrawer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\FungusEditorPreferences.cs" />

@@ -477,8 +477,9 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Scripts\Components\ExecuteHandler.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Script.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\StopTweens.cs" />
-    <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\CoreLib\JsonModule.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SnsSetting\SetToSns.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\EventHandlers\ButtonClicked.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\CoreLib\JsonModule.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\Attributes\MoonSharpPropertyAttribute.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Expressions\AdjustmentExpression.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Components\NarrativeLogEntryDisplay.cs" />
@@ -568,6 +569,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\BasicDescriptors\IMemberDescriptor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\SupportFungusUI\InputUISupportScript.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\DataTypes\CallbackArguments.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SnsSetting\EndSns.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Interfaces\IFungusCollection.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Components\Parallax.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Modules\CoreModules.cs" />
@@ -691,6 +693,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\PlayAnimState.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\ScriptOptions.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Execution\VM\Processor\Processor_UtilityFunctions.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SupportScript\FungusResourcesPath.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Utils\FlowchartData.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Statements\GotoStatement.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\PunchPosition.cs" />
@@ -711,6 +714,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Collection\CollectionCommandClear.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\ThrowException.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\VariableTypes\AnimatorVariable.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SnsSetting\StartSns.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SetToggleState.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Statements\CompositeStatement.cs" />
   </ItemGroup>

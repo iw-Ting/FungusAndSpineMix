@@ -26,6 +26,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty _storyControlProp;
         protected SerializedProperty _storyEnableProp;
 
+
         protected Texture2D addTexture;
 
         protected VariableListAdaptor variableListAdaptor;
@@ -52,9 +53,8 @@ namespace Fungus.EditorUtils
             hideCommandsProp = serializedObject.FindProperty("hideCommands");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
-            
-            
-            
+
+
             addTexture = FungusEditorResources.AddSmall;
 
             variableListAdaptor = new VariableListAdaptor(variablesProp, target as Flowchart);
@@ -82,6 +82,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(luaBindingNameProp);
             EditorGUILayout.PropertyField(_storyControlProp);
             EditorGUILayout.PropertyField(_storyEnableProp);
+
 
             // Show list of commands to hide in Add Command menu    
             //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));

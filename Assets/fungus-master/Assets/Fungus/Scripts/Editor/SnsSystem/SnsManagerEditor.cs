@@ -86,12 +86,15 @@ namespace Fungus.EditorUtils {
 
                 List<string> objectList=new List<string>();
 
-                if (SnsManager.GetSnsManager()) {
-                    objectList = SnsManager.GetSnsManager().GetCharacterArray();
+                if (SnsManager.GetInstance())
+                {
+                    objectList = SnsManager.GetInstance().GetCharacterArray();
                 }
+                else {
+                    objectList = StartSns.GetInstance().GetCharacterArray();
 
-
-
+                }
+                
                 List<GUIContent> objectNames = new List<GUIContent>();
 
                 string selectedObject = property.stringValue;

@@ -14,6 +14,7 @@ namespace Fungus
         public Button autoButton;
         public Button logButton;
         public Button skipButton;
+
         [HideInInspector] public Flowchart Fc;
 
 
@@ -29,7 +30,6 @@ namespace Fungus
 
         private bool PlayAni = false;
 
-        private bool recordDialogOrigineDisplayStatus=false;
 
 
         private void OnEnable()
@@ -118,30 +118,10 @@ namespace Fungus
 
                     yield return mLogWindowPopup.GetComponent<StoryLogPopup>().Init(recordDialogList,
                         ()=> { StartCoroutine(ClickCloseLogButton()); });
-
-                    SayDialog sd = SayDialog.GetSayDialog();
-                    if (sd.NowAlphaStatus())
-                    {
-                        recordDialogOrigineDisplayStatus = true;
-                        StartCoroutine(sd.ReactionAlpha(false));
-                        StartCoroutine(LeanTweenManager.FadeOut(TopFuncListParent, () => { TopFuncListParent.SetActive(false); }));
-                    }
+                    StartCoroutine(HideDialogAndTopUI());
                     yield return LeanTweenManager.FadeIn(mLogWindowPopup);
                     PlayAni = false;
 
-                }
-                else
-                {
-                    if (recordDialogOrigineDisplayStatus) {
-                        recordDialogOrigineDisplayStatus = false;
-                        StartCoroutine(SayDialog.GetSayDialog().ReactionAlpha(true));
-                        StartCoroutine(LeanTweenManager.FadeOut(TopFuncListParent));
-                    }
-                    
-                    yield return LeanTweenManager.FadeOut(mLogWindowPopup);
-                    Destroy(mLogWindowPopup);
-                    mLogWindowPopup = null;
-                    PlayAni = false;
                 }
             }
         }
@@ -150,21 +130,14 @@ namespace Fungus
         {
             if (mLogWindowPopup!=null&&!PlayAni) {
                 PlayAni = true;
-                if (recordDialogOrigineDisplayStatus)
-                {
-                    recordDialogOrigineDisplayStatus = false;
-                    StartCoroutine(SayDialog.GetSayDialog().ReactionAlpha(true));
-                    TopFuncListParent.SetActive(true);
-                    StartCoroutine(LeanTweenManager.FadeIn(TopFuncListParent));
-                }
 
+                StartCoroutine(ShowDialogAndTopUI());
+                
                 yield return LeanTweenManager.FadeOut(mLogWindowPopup);
                 Destroy(mLogWindowPopup);
                 mLogWindowPopup = null;
                 PlayAni = false;
             }
-
-
         }
 
 
@@ -196,6 +169,26 @@ namespace Fungus
         public void SaveDialogRecord(DialogInfo dia)//Àx¦s¹ï¸Ü
         {
             recordDialogList.Add(dia);
+        }
+
+        public IEnumerator ShowDialogAndTopUI()
+        {
+            SayDialog sd = SayDialog.GetSayDialog();
+
+            StartCoroutine(sd.ReactionAlpha(true));
+            TopFuncListParent.SetActive(true);
+            yield return LeanTweenManager.FadeIn(TopFuncListParent);
+        }
+
+        public IEnumerator HideDialogAndTopUI()
+        {
+            SayDialog sd = SayDialog.GetSayDialog();
+
+            if (sd.NowAlphaStatus())
+            {
+                StartCoroutine(sd.ReactionAlpha(false));
+                yield return LeanTweenManager.FadeOut(TopFuncListParent, () => { TopFuncListParent.SetActive(false); });
+            }
         }
 
 

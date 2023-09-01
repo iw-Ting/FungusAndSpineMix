@@ -91,7 +91,7 @@ namespace Fungus
 
         public StoryControl mStoryControl { get { return _storyControl; } }
 
-        protected static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
+       [SerializeField] protected static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
 
         protected static bool eventSystemPresent;
 
@@ -321,6 +321,19 @@ namespace Fungus
         /// Cached list of flowchart objects in the scene for fast lookup.
         /// </summary>
         public static List<Flowchart> CachedFlowcharts { get { return cachedFlowcharts; } }
+
+        public static Flowchart GetInstance()
+        {
+
+            if (cachedFlowcharts.Count>1) {
+                return cachedFlowcharts[1];
+            }
+            else
+            {
+                return null;
+            }
+
+        }
 
         /// <summary>
         /// Sends a message to all Flowchart objects in the current scene.
@@ -609,7 +622,7 @@ namespace Fungus
                 Debug.LogWarning(block.BlockName + " cannot be called/executed, it is already running.");
                 return false;
             }
-
+            Debug.Log("執行2!");
             // Start executing the Block as a new coroutine
             StartCoroutine(block.Execute(commandIndex, onComplete));
             // block.StartExecution();
