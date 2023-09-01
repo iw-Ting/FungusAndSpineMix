@@ -41,7 +41,7 @@ namespace Fungus.EditorUtils
                     EditorGUILayout.PropertyField(messageInfo.FindPropertyRelative("_replyMessage"));
                     break;
                 case SnsManager.SnsType.Image:
-                    EditorGUILayout.PropertyField(messageInfo.FindPropertyRelative("_image"));
+                    EditorGUILayout.PropertyField(messageInfo.FindPropertyRelative("_sprite"));
                     break;
             }
         }

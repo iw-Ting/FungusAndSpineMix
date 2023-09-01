@@ -65,17 +65,28 @@ namespace Fungus
                 PlayerName.text = aData.mChara.mName;
             }
 
+
+
             GameObject sp = Instantiate(MessagePrefab);
 
             sp.transform.SetParent(MessageContentListParent, false);
 
             RectTransform BgRect = sp.GetComponent<RectTransform>();
+            Transform child = null;
 
-            Transform child = sp.transform.Find("ContentText");
+            if (aData.mMessageType._snsType==SnsManager.SnsType.Image) {
+
+                child = sp.transform.Find("ContentImage");
+                child.gameObject.SetActive(true);
+                sp.transform.Find("ContentText").gameObject.SetActive(false);
+            }
+            else
+            {
+                child = sp.transform.Find("ContentText");
+                child.GetComponent<Text>().text = aData.mMessageType._message;
+            }
 
             RectTransform ChildTextRect = child.GetComponent<RectTransform>();
-
-            child.GetComponent<Text>().text = aData.mMessageType._message;
 
             CanvasGroup cg = null;
 
@@ -100,17 +111,28 @@ namespace Fungus
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(ChildTextRect);
             //yield return new WaitForEndOfFrame();
-            
-            if (ChildTextRect.sizeDelta.x > 550) //鎖住文字框寬度
+            if (aData.mMessageType._snsType == SnsManager.SnsType.Image)
             {
-                child.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-                ChildTextRect.sizeDelta = new Vector2(550, ChildTextRect.sizeDelta.y);
+                Image img = child.GetComponent<Image>();
+                img.preserveAspect = true;
 
-                LayoutRebuilder.ForceRebuildLayoutImmediate(ChildTextRect);
-                //yield return new WaitForEndOfFrame();
+                img.sprite = aData.mMessageType._sprite;
+
+
+
+            }
+            else
+            {
+                if (ChildTextRect.sizeDelta.x > 550) //鎖住文字框寬度
+                {
+                    child.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+                    ChildTextRect.sizeDelta = new Vector2(550, ChildTextRect.sizeDelta.y);
+                    //yield return new WaitForEndOfFrame();
+                }
             }
 
-            BgRect.sizeDelta = new Vector2(ChildTextRect.sizeDelta.x + 50, ChildTextRect.sizeDelta.y + 50);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(ChildTextRect);
+            BgRect.sizeDelta = new Vector2(ChildTextRect.sizeDelta.x + 40, ChildTextRect.sizeDelta.y + 40);
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(BgRect);
             LayoutRebuilder.ForceRebuildLayoutImmediate(MessageContentListParent.GetComponent<RectTransform>());

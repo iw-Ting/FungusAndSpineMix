@@ -25,6 +25,8 @@ public class MenuImageEditor :CommandEditor
         optionListPro = serializedObject.FindProperty("Options");
 
 
+
+
     }
 
      public override void DrawCommandGUI()
@@ -40,7 +42,7 @@ public class MenuImageEditor :CommandEditor
         SerializedProperty tarBlockPro = optionListPro.FindPropertyRelative("targetBlock");
         SerializedProperty imgPro= optionListPro.FindPropertyRelative("_image");
         SerializedProperty imgSizePro = optionListPro.FindPropertyRelative("imageSize");
-        SerializedProperty toPosPro = optionListPro.FindPropertyRelative("_options").FindPropertyRelative("pos");
+        SerializedProperty toPosPro = optionListPro.FindPropertyRelative("_options").FindPropertyRelative("parentPos");
         SerializedProperty touchSizePro = optionListPro.FindPropertyRelative("_options").FindPropertyRelative("touchSize");
 
         EditorGUILayout.PropertyField(imgPro);
@@ -52,7 +54,7 @@ public class MenuImageEditor :CommandEditor
                                    new GUIContent("<None>"),
                                    flowchart);
 
-        if (tarBlockPro.objectReferenceValue == null && GUILayout.Button("+", GUILayout.MaxWidth(17)))
+        /*if (tarBlockPro.objectReferenceValue == null && GUILayout.Button("+", GUILayout.MaxWidth(17)))
         {
             var fw = EditorWindow.GetWindow<FlowchartWindow>();
             var t = (MenuImage)target;
@@ -60,22 +62,23 @@ public class MenuImageEditor :CommandEditor
             var newBlock = fw.CreateBlockSuppressSelect(activeFlowchart, t.ParentBlock._NodeRect.position - Vector2.down * 60);
             tarBlockPro.objectReferenceValue = newBlock;
             activeFlowchart.SelectedBlock = t.ParentBlock;
-        }
+        }*/
 
         Stage stage=GameObject.FindObjectOfType<Stage>();
 
 
-        if (stage != null)
-        {
-            CommandEditor.ObjectField<RectTransform>(toPosPro,
-                new GUIContent("ButtonCreatePos", "CreateTouchButton"),
-                new GUIContent("<Previous>"),
-               stage.Positions);
-        }
-        else
-        {
-            Debug.LogError("Not Have Stage");
-        }
+         if (stage != null)
+         {
+             CommandEditor.ObjectField<RectTransform>(toPosPro,
+                 new GUIContent("ButtonCreatePos", "CreateTouchButton"),
+                 new GUIContent("<Previous>"),
+                stage.Positions);
+         }
+         else
+         {
+             Debug.LogError("Not Have Stage");
+         }
+
         EditorGUILayout.PropertyField(touchSizePro);
 
         // EditorGUILayout.PropertyField(optionListPro);

@@ -175,8 +175,8 @@ namespace Fungus
                             break;
 
                         case SnsType.Image:
-
-                            break;
+                                 yield return CreateDialogArea(sns);
+                        break;
                     }
 
                     curDisplaySnsCount++;
@@ -271,10 +271,13 @@ namespace Fungus
 
         }
 
+        
+
         private IEnumerator SetMessage(SnsMessage sns,Action onComplete=null)//設置對話 bool 判斷是否完成對話
         {
 
             DisplaySnsMessages.Add(sns);//必須先抓對話 因為生成messageCard需要時間 如果晚加入,會讓後面的邏輯誤判
+
             if (!IsLastOneOfSameCharacter(sns.mChara.mName))
             {
                 sns.NotHaveAvatar = false;//文字段落連貫
@@ -364,8 +367,9 @@ namespace Fungus
 
             InputCallBack.InputOptions opt = new InputCallBack.InputOptions();
             opt.parentPos = OptionPanelParent;
+            opt.touchSize = new Vector2(1080, 350);
             yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(
-                ClickMode.ClickAnywhere,
+                ClickMode.ClickOnButton,
                 () => {
                     StartCoroutine(CloseSnsWindow(endCB));
                 },
@@ -447,7 +451,7 @@ namespace Fungus
 
             public string[] _replyMessage;//不同回答,不同答案
 
-            public Image _image;
+            public Sprite _sprite;
         }
         [Serializable]
         public class CharaSnsSetting

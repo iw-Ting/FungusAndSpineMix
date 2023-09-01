@@ -60,13 +60,6 @@ namespace Fungus {
             return sp.GetComponent<InputCallBack>();
         }
 
-        public  IEnumerator CreateDetectInputCB(ClickMode clickMode, Action cb, InputCallBack.InputOptions inpOpt = null)
-        {
-            IEnumerator ie= WaitClickCallBack(clickMode, cb, inpOpt);
-            WaitIEList.Add(ie);
-            yield return ie;
-        }
-
         public void Awake()
         {
             if (instance==null) {
@@ -91,7 +84,12 @@ namespace Fungus {
                 }
             }
         }
-
+        public IEnumerator CreateDetectInputCB(ClickMode clickMode, Action cb, InputCallBack.InputOptions inpOpt = null)
+        {
+            IEnumerator ie = WaitClickCallBack(clickMode, cb, inpOpt);
+            WaitIEList.Add(ie);
+            yield return ie;
+        }
 
         public IEnumerator WaitClickCallBack(ClickMode clickMode,Action cb,InputOptions inpOpt=null) {
 
@@ -146,8 +144,6 @@ namespace Fungus {
                                 isinput = true;
                                 SetNextLineFlag();
                             });
-                           // sp.GetComponent<Button>().onClick.AddListener(() => { Destroy(sp); });
-
 
                         }
                         else
@@ -176,7 +172,7 @@ namespace Fungus {
 
         }
 
-        private IEnumerator WaitClickMenuCallBack( Action cb, MenuImageOption inpOpt = null)
+        private IEnumerator WaitClickMenuCallBack( Action cb, MenuImageOption menuOpt = null)
         {
 
             eClickMode =ClickMode.ClickOnButton;
@@ -191,15 +187,15 @@ namespace Fungus {
 
             GameObject sp = null;
 
-            if (inpOpt != null)
+            if (menuOpt != null)
             {
-                sp = InputUISupportScript.CreateButtonArea(inpOpt._options, () => {
+                sp = InputUISupportScript.CreateButtonArea(menuOpt._options, () => {
                     isinput = true;
                     cb();
                 });
 
 
-                if (inpOpt._image!=null) {
+                if (menuOpt._image!=null) {
 
                     GameObject imObj = new GameObject("DisplayImage", typeof(RectTransform), typeof(Image),typeof(CanvasGroup));
                     imObj.transform.SetParent(sp.transform);
@@ -210,12 +206,12 @@ namespace Fungus {
                     cg.alpha = 0;
 
                     Image im = imObj.GetComponent<Image>();
-                    im.sprite = inpOpt._image;
+                    im.sprite = menuOpt._image;
                     im.raycastTarget = false;
 
-                    if (inpOpt.imageSize != Vector2.zero)
+                    if (menuOpt.imageSize != Vector2.zero)
                     {
-                        imObj.GetComponent<RectTransform>().sizeDelta = inpOpt.imageSize;
+                        imObj.GetComponent<RectTransform>().sizeDelta = menuOpt.imageSize;
                     }
                     else
                     {
@@ -246,16 +242,19 @@ namespace Fungus {
 
         }
 
-        public void CreateMenuImage( MenuImageOption menuImageOptList)
+        public void CreateMenuImage( MenuImageOption menuImageOptList)// onComplete 執行下一個block
         {
             　
             // Block block = Block.FindBlockByName(menuImageOptList.targetBlock);
             Block block = menuImageOptList.targetBlock;
              Flowchart fc = block.GetFlowchart();
 
-                    Action _OnComplete = () => {
-                        fc.StartCoroutine(CallBlock(block));
-                    };
+
+                Action _OnComplete = () => {
+
+                    fc.StartCoroutine(CallBlock(block));
+                };
+            
 
                     StartCoroutine(WaitClickMenuCallBack( _OnComplete, menuImageOptList));
         }
