@@ -168,8 +168,8 @@ namespace Fungus
         protected virtual void Start()
         {
             // Dialog always starts invisible, will be faded in when writing starts
-            GetCanvasGroup().alpha = 0f;
-
+            //GetCanvasGroup().alpha = 0f;
+            ReactionAlpha(false);
             // Add a raycaster if none already exists so we can handle dialog input
             GraphicRaycaster raycaster = GetComponent<GraphicRaycaster>();
             if (raycaster == null)
@@ -243,7 +243,6 @@ namespace Fungus
 
         public IEnumerator ReactionAlpha( bool isDisplay)//對話框的透明度(淡入淡出)
         {
-
             if (isDisplay)//正在寫
             {
                 targetAlpha = 1f;
@@ -263,8 +262,9 @@ namespace Fungus
             else
             {
                 if (canvasGroup.alpha<targetAlpha) {
-
-                    yield return LeanTweenManager.FadeIn(gameObject, () => { GetComponent<CanvasGroup>().blocksRaycasts =true; });
+                    yield return LeanTweenManager.FadeIn(gameObject, () => { 
+                        GetComponent<CanvasGroup>().blocksRaycasts =true;
+                    });
                 }
                 else if (canvasGroup.alpha > targetAlpha)
                 {

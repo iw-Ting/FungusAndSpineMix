@@ -131,7 +131,7 @@ namespace Fungus
             if (mLogWindowPopup!=null&&!PlayAni) {
                 PlayAni = true;
 
-                StartCoroutine(ShowDialogAndTopUI());
+                StartCoroutine(ShowTopUI());
                 
                 yield return LeanTweenManager.FadeOut(mLogWindowPopup);
                 Destroy(mLogWindowPopup);
@@ -171,11 +171,9 @@ namespace Fungus
             recordDialogList.Add(dia);
         }
 
-        public IEnumerator ShowDialogAndTopUI()
+        public IEnumerator ShowTopUI()
         {
-            SayDialog sd = SayDialog.GetSayDialog();
 
-            StartCoroutine(sd.ReactionAlpha(true));
             TopFuncListParent.SetActive(true);
             yield return LeanTweenManager.FadeIn(TopFuncListParent);
         }

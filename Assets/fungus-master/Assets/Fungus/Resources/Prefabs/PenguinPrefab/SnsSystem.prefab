@@ -527,7 +527,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3590599229705362198}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999925
+  m_Size: 0.5
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -626,6 +626,7 @@ MonoBehaviour:
   DialogObjNameText: {fileID: 8634585540108638208}
   MessageCardPrefabs: {fileID: 2046925574177733310, guid: c6ce0c6f08f00ea42819694db4e925d6, type: 3}
   ReplyOptionsPrefabs: {fileID: 2821077220110009114, guid: cd153fe690d9b104888c4fe844fa6830, type: 3}
+  SeparateLinePrefabs: {fileID: 4285285749512091778, guid: 0e1d0e3db591bad47be7bfb295ca6d22, type: 3}
 --- !u!1 &2855745046271814458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -175}
+  m_AnchoredPosition: {x: 0, y: -75.13095}
   m_SizeDelta: {x: 1064, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6277111457583851733

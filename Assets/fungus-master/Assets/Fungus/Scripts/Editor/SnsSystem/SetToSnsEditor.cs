@@ -14,9 +14,11 @@ namespace Fungus.EditorUtils
     {
         private SerializedProperty SnsProp;
 
+
         public override void OnEnable()
         {
             SnsProp = serializedObject.FindProperty("sns");
+
            // base.OnEnable();
         }
 
@@ -28,6 +30,8 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(SnsProp.FindPropertyRelative("mChara"));
 
             SerializedProperty messageInfo = SnsProp.FindPropertyRelative("mMessageType");
+
+
 
             EditorGUILayout.PropertyField(messageInfo.FindPropertyRelative("_snsType"));
             serializedObject.ApplyModifiedProperties();
@@ -44,6 +48,11 @@ namespace Fungus.EditorUtils
                     EditorGUILayout.PropertyField(messageInfo.FindPropertyRelative("_sprite"));
                     break;
             }
+
+
+            EditorGUILayout.PropertyField(messageInfo.FindPropertyRelative("_dialogWaitTime"));
+
+
         }
 
     }

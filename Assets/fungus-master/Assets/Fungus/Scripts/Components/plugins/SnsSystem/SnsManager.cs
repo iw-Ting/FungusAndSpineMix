@@ -34,13 +34,15 @@ namespace Fungus
 
         private bool CanAddMessage = true;
 
-        private bool AutoSendMessage = false;
+      //  private bool AutoSendMessage = false;
 
         [SerializeField] private Text DialogObjNameText;
 
         [SerializeField] private GameObject MessageCardPrefabs = null;
 
         [SerializeField] private GameObject ReplyOptionsPrefabs = null;
+
+        [SerializeField] private GameObject SeparateLinePrefabs = null;
 
         private SnsManagerFunc aData;
 
@@ -70,14 +72,14 @@ namespace Fungus
         public IEnumerator Init(SnsManagerFunc _Data)
         {
             aData = _Data;
-            DialogObjNameText.text = aData.DialogName;
-
-            foreach(var chara in aData.DialogChara)
+            foreach (var chara in aData.DialogChara)
             {
-                if (chara.mSnsType==SnsType.None) {
-                chara.mSnsType = SnsType.Message;
+                if (chara.mSnsType == SnsType.None)
+                {
+                    chara.mSnsType = SnsType.Message;
                 }
             }
+            DialogObjNameText.text = aData.DialogName;
 
             mCharaSetting = aData.DialogChara;
             HistorySnsMessages = aData.HistorySns;
@@ -99,7 +101,7 @@ namespace Fungus
             foreach (SnsMessage sns in HistorySnsMessages)
             {
                 SetMessageSetting(sns);
-                StartCoroutine(SetMessage(sns, () => { finishCount++; }));
+                StartCoroutine(SetMessage(sns, () => { finishCount++; },false));
 
             }
 
@@ -153,18 +155,17 @@ namespace Fungus
                         case SnsType.Message:
                             if (SnsMessages.Count > 0)
                             {
-                                if (AutoSendMessage)
-                                {
-                                    AutoSendMessage = false;
-                                    yield return new WaitForSeconds(0.5f);
-                                    yield return SetMessage(sns);
-                                }
-                                else
-                                {
-                                    yield return CreateDialogArea(sns);
-                                }
-
-                            }
+                            /* if (AutoSendMessage)
+                             {
+                                 AutoSendMessage = false;
+                                 yield return SetMessage(sns);
+                             }
+                             else
+                             {
+                                 yield return CreateDialogArea(sns);
+                             }*/
+                            yield return AutoDialogForMessage(sns);
+                        }
                             break;
 
                         case SnsType.Reply :
@@ -175,7 +176,7 @@ namespace Fungus
                             break;
 
                         case SnsType.Image:
-                                 yield return CreateDialogArea(sns);
+                                 yield return AutoDialogForMessage(sns);
                         break;
                     }
 
@@ -191,18 +192,33 @@ namespace Fungus
             //對話完 關閉視窗
         }
 
+        private IEnumerator AutoDialogForMessage(SnsMessage sns)
+        {
+
+            yield return new WaitForSeconds(sns.mMessageType._dialogWaitTime);
+
+            StartCoroutine(SetMessage(sns));
+
+            yield return new WaitUntil(() => CanAddMessage);
+
+        }
+
         private IEnumerator CreateDialogArea(SnsMessage sns)//點擊 出現下一段對話
         {
-                InputCallBack.InputOptions opt = new InputCallBack.InputOptions();
-                opt.parentPos = OptionPanelParent;
-                opt.touchSize = new Vector2(1080,350);
 
-                yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(
-                    ClickMode.ClickOnButton,
-                    () => { 
-                        StartCoroutine(SetMessage(sns)); 
-                    },
-                    opt);
+             InputCallBack.InputOptions opt = new InputCallBack.InputOptions();
+             opt.parentPos = OptionPanelParent;
+             opt.touchSize = new Vector2(1080,350);
+
+             yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(
+                 ClickMode.ClickOnButton,
+                 () => { 
+                     StartCoroutine(SetMessage(sns)); 
+                 },
+                 opt);
+
+            StartCoroutine(SetMessage(sns));
+
             yield return new WaitUntil(() => CanAddMessage);
         }
 
@@ -211,20 +227,23 @@ namespace Fungus
             List<GameObject> optObj = new List<GameObject>();
 
             if (sns.mMessageType._replyMessage.Length>0) {
+
                 foreach (var option in sns.mMessageType._replyMessage) {
 
                     GameObject sp = Instantiate(ReplyOptionsPrefabs);
                     LeanTweenManager.SetCanvasGroupAlpha(sp, 0);
                     sp.transform.Find("ContentText").GetComponent<Text>().text = option;
                     sp.transform.SetParent(OptionPanelParent, false);
+
                     sp.GetComponent<Button>().onClick.AddListener(() => {
                         sns.mMessageType._message = option;
-                        AutoSendMessage = true;
+
                         StartCoroutine(SetMessage(sns));
                     });
                     optObj.Add(sp);
 
                 }
+
             }
             else
             {
@@ -233,7 +252,7 @@ namespace Fungus
                 sp.transform.Find("ContentText").GetComponent<Text>().text = sns.mMessageType._message;
                 sp.transform.SetParent(OptionPanelParent, false);
                 sp.GetComponent<Button>().onClick.AddListener(() => {
-                    AutoSendMessage = true;
+
                     StartCoroutine(SetMessage(sns));
                 });
                 optObj.Add(sp);
@@ -273,25 +292,35 @@ namespace Fungus
 
         
 
-        private IEnumerator SetMessage(SnsMessage sns,Action onComplete=null)//設置對話 bool 判斷是否完成對話
+        private IEnumerator SetMessage(SnsMessage sns,Action onComplete=null,bool needSeparateLine=true)
         {
 
             DisplaySnsMessages.Add(sns);//必須先抓對話 因為生成messageCard需要時間 如果晚加入,會讓後面的邏輯誤判
 
-            if (!IsLastOneOfSameCharacter(sns.mChara.mName))
+            if (IsLastOneOfSameCharacter(sns.mChara.mName)&&curDisplaySnsCount>0)
             {
+                MessageCard mc = mMessageCards[(mMessageCards.Count - 1)];
+                sns.NotHaveAvatar = true;
+                yield return mc.Init(sns);
+
+            }
+            else
+            {
+
+                if (needSeparateLine && curDisplaySnsCount == 0)
+                {
+
+                    GameObject sepLine = Instantiate(SeparateLinePrefabs);
+                    sepLine.transform.SetParent(MessageContentParent, false);
+
+                    //訊息分隔線
+                }
+
                 sns.NotHaveAvatar = false;//文字段落連貫
                 MessageCard Mcsp = Instantiate(MessageCardPrefabs).GetComponent<MessageCard>();
                 mMessageCards.Add(Mcsp);
                 Mcsp.transform.SetParent(MessageContentParent, false);
                 yield return Mcsp.Init(sns);
-
-            }
-            else
-            {
-                MessageCard mc = mMessageCards[(mMessageCards.Count - 1)];
-                sns.NotHaveAvatar = true;
-                yield return mc.Init(sns);
             }
 
 
@@ -331,7 +360,9 @@ namespace Fungus
                     if (sns.mMessageType._snsType==SnsType.None) {
                         sns.mMessageType._snsType = chara.mSnsType;
                     }
-
+                    if (chara.mSnsType==SnsType.Reply) { //回覆型的一定是回覆
+                        sns.mMessageType._snsType = SnsType.Reply;
+                    }
                     if (chara.mFungusChara.charaAvatar != null)
                     {
                         sns.mChara.mAvatar = chara.mFungusChara.charaAvatar;
@@ -381,8 +412,11 @@ namespace Fungus
         {
 
             StartCoroutine(LeanTweenManager.FadeOut(gameObject, 0.2f));
+
             yield return LeanTweenManager.RectTransScale(gameObject, new Vector3(1.1f,1.1f,1.1f),0.05f);
+
             yield return LeanTweenManager.RectTransScale(gameObject, Vector3.zero,0.15f);
+
             if (endCB!=null) {
                 endCB();
             }
@@ -452,6 +486,8 @@ namespace Fungus
             public string[] _replyMessage;//不同回答,不同答案
 
             public Sprite _sprite;
+
+            public float _dialogWaitTime = 0;
         }
         [Serializable]
         public class CharaSnsSetting
@@ -476,6 +512,7 @@ namespace Fungus
             Message,
             Reply,
             Image,
+            ReplyImage
 
 
         }

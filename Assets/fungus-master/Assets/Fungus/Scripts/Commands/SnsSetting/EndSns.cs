@@ -19,7 +19,7 @@ namespace Fungus
             if (snsWindow!=null) {
                 StartCoroutine(snsWindow.GetComponent<SnsManager>().EndSnsWindow(()=> {
                     Continue();
-                    StartCoroutine(Flowchart.GetInstance().mStoryControl.ShowDialogAndTopUI());
+                    StartCoroutine(Flowchart.GetInstance().mStoryControl.ShowTopUI());
                 }));
             } else
             {
