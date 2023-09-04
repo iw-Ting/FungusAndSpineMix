@@ -7,59 +7,28 @@ using Fungus;
 public class TestScript : MonoBehaviour
 {
 
-    public float updateTime,WhileTime;
+    public Asd asd=Asd.bb;
 
 
     public void Start()
     {
-        StartCoroutine(CalcTimeFromWhile());
+        Debug.Log("測試=>" +(int) asd);
+        Debug.Log("測試=>"+(int)Asd.dd);
     }
 
     public void Update()
     {
-        if (updateTime<5) {
-            updateTime += Time.deltaTime;
-        }
-    }
-
-
-    public IEnumerator CalcTimeFromWhile()
-    {
-        while (updateTime<5) {
-
-            WhileTime+=Time.deltaTime;
-        yield return null;
-        
-        }
-
 
     }
 
+}
 
-    public IEnumerator test()
-    {
-        bool input = false;
-        while (!input)
-        {
-            if (Input.GetKeyDown(KeyCode.A)) {
-            
-            input = true;
-                Debug.Log("成功了 we did it");
-            }
-            else
-            {
-                yield return null;
-            }
-
-        }
-
-
-
-    }
-
-
-    
-
+public enum Asd
+{
+    aa,
+    bb,
+    cc=5,
+    dd
 
 
 }

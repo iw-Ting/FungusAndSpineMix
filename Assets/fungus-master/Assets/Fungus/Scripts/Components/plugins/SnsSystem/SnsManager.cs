@@ -72,13 +72,7 @@ namespace Fungus
         public IEnumerator Init(SnsManagerFunc _Data)
         {
             aData = _Data;
-            foreach (var chara in aData.DialogChara)
-            {
-                if (chara.mSnsType == SnsType.None)
-                {
-                    chara.mSnsType = SnsType.Message;
-                }
-            }
+
             DialogObjNameText.text = aData.DialogName;
 
             mCharaSetting = aData.DialogChara;
@@ -358,11 +352,28 @@ namespace Fungus
                     sns.mChara.mDirection = chara.mDirection;
 
                     if (sns.mMessageType._snsType==SnsType.None) {
-                        sns.mMessageType._snsType = chara.mSnsType;
                     }
-                    if (chara.mSnsType==SnsType.Reply) { //回覆型的一定是回覆
-                        sns.mMessageType._snsType = SnsType.Reply;
+
+
+                    switch (chara.mCharaRole)
+                    {
+                        case CharaRole.self :
+                            if (sns.mMessageType._snsType == SnsType.None)
+                            {
+                                sns.mMessageType._snsType = SnsType.Reply;
+                            }
+                            break;
+                        case CharaRole.otherSide:
+                            if (sns.mMessageType._snsType == SnsType.None)
+                            {
+                                sns.mMessageType._snsType = SnsType.Message;
+                            }
+                            break;
+
+
                     }
+
+
                     if (chara.mFungusChara.charaAvatar != null)
                     {
                         sns.mChara.mAvatar = chara.mFungusChara.charaAvatar;
@@ -479,7 +490,7 @@ namespace Fungus
         [Serializable]
         public class MessageType
         {
-            [HideInInspector] public  SnsType _snsType;
+            [HideInInspector] public  SnsType _snsType=SnsType.None;
 
             public string _message;
 
@@ -494,7 +505,8 @@ namespace Fungus
         {
             public Character mFungusChara;
 
-            public SnsType mSnsType;
+            public CharaRole mCharaRole;
+
 
             public Direction mDirection;
 
@@ -504,6 +516,12 @@ namespace Fungus
         {
             Right,
             Left
+        }
+
+        public enum CharaRole
+        {
+            self,
+            otherSide
         }
 
         public enum SnsType // 

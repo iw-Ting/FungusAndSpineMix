@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+/*public enum SnsType // 
+{
+    None,
+    Message,
+    Reply,
+    Image,
+    ReplyImage
+
+
+}*/
+
 namespace Fungus
 {
 
@@ -70,6 +82,9 @@ namespace Fungus
 
         private IEnumerator StartSnsDialog() {
             SnsManager sns = null;
+            foreach (var hisSns in HistorySns) {
+                hisSns.mMessageType._snsType = SnsManager.SnsType.Message;
+            }
             yield return CreateSnsWindow(_sns => { sns = _sns; });
             yield return sns.Init(new SnsManager.SnsManagerFunc(
                 DialogWindowName,

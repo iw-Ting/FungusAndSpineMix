@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEditorInternal;
+using System;
 
 namespace Fungus.EditorUtils
 {
@@ -209,7 +210,7 @@ namespace Fungus.EditorUtils
         }
 
         //陣列型顯示方式
-        public static void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : Object
+        public static void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T :UnityEngine.Object
         {
             if (property == null)
             {
@@ -318,6 +319,59 @@ namespace Fungus.EditorUtils
 
 
         }
+
+
+        public static void EnumField<T>(SerializedProperty property, GUIContent label,T defaultValue, List<string> objectList)where T:Enum//作用 因為前面的某個選擇 刪減某些enum的選項 
+        {
+            if (property == null)
+            {
+                return;
+            }
+            if (objectList == null || objectList.Count <= 0)
+            {
+                return;
+            }
+
+            string[] origineEnum = Enum.GetNames(typeof(T));
+
+            string origineSelectedStr = origineEnum[property.enumValueIndex];
+
+            List<GUIContent> objectNames = new List<GUIContent>();
+
+            int selectedIndex = 0;
+
+            for (int i = 0; i < objectList.Count; ++i)
+            {
+                if (objectList[i] == null) continue;
+                objectNames.Add(new GUIContent(objectList[i]));
+                if (objectList[i]==origineSelectedStr) {
+                    selectedIndex = i;
+                }
+
+            }
+
+            selectedIndex = EditorGUILayout.Popup(label, selectedIndex, objectNames.ToArray());
+
+
+            string selectStr = objectList[selectedIndex];
+
+            int origineEnumIndex = 0;
+            foreach (string str in origineEnum) {
+                if (str==selectStr) {
+                    break;
+                }
+                origineEnumIndex++;
+            }
+           
+                // property.enumValueIndex =(UnityEngine.Object)Enum.Parse(typeof(T), objectList[(selectedIndex)]);
+            property.enumValueIndex = origineEnumIndex;
+            
+
+
+
+        }
+
+
 
         // When modifying custom editor code you can occasionally end up with orphaned editor instances.
         // When this happens, you'll get a null exception error every time the scene serializes / deserialized.

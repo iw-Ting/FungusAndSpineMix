@@ -4835,6 +4835,9 @@ GameObject:
   - component: {fileID: 1390555478}
   - component: {fileID: 1390555480}
   - component: {fileID: 1390555479}
+  - component: {fileID: 1390555481}
+  - component: {fileID: 1390555482}
+  - component: {fileID: 1390555483}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -4940,7 +4943,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1390555459}
   selectedCommands:
-  - {fileID: 1390555480}
+  - {fileID: 1390555482}
   variables: []
   _storyControl: {fileID: 750787168}
   _storyEnabled: 1
@@ -5015,7 +5018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2278.0298
+    x: -2276.8533
     y: -894.9711
     width: 91.17648
     height: 40
@@ -7877,7 +7880,10 @@ MonoBehaviour:
   - {fileID: 1390555473}
   - {fileID: 1390555477}
   - {fileID: 1390555472}
+  - {fileID: 1390555482}
   - {fileID: 1390555479}
+  - {fileID: 1390555481}
+  - {fileID: 1390555483}
   - {fileID: 1390555480}
   - {fileID: 1390555471}
   suppressAllAutoSelections: 0
@@ -8027,10 +8033,10 @@ MonoBehaviour:
   DialogWindowName: 123
   DialogChara:
   - mFungusChara: {fileID: 7039874348623177452, guid: b07f070b23a37f644ab8f14320dfdc63, type: 3}
-    mSnsType: 1
+    mCharaRole: 1
     mDirection: 0
   - mFungusChara: {fileID: 1357044060662001629, guid: 2f58b7919ca3abb419bc3462671019d0, type: 3}
-    mSnsType: 2
+    mCharaRole: 0
     mDirection: 1
   HistorySns:
   - NotHaveAvatar: 0
@@ -8041,7 +8047,7 @@ MonoBehaviour:
       mDirection: 0
     mMessageType:
       _snsType: 0
-      _message: 111111111
+      _message: 11111111111
       _replyMessage: []
       _sprite: {fileID: 0}
       _dialogWaitTime: 0
@@ -8053,7 +8059,7 @@ MonoBehaviour:
       mDirection: 0
     mMessageType:
       _snsType: 0
-      _message: 22222222222
+      _message: 222
       _replyMessage: []
       _sprite: {fileID: 0}
       _dialogWaitTime: 0
@@ -8094,7 +8100,7 @@ MonoBehaviour:
       mDirection: 1
     mMessageType:
       _snsType: 1
-      _message: "\u4F60\u7684\u5200\u5203\u6E34\u6C42\u9BAE\u8840?\u6211\u4E0D\u53EF\u6C42\u554A"
+      _message: 444444444444444444444
       _replyMessage: []
       _sprite: {fileID: 0}
       _dialogWaitTime: 3
@@ -8120,8 +8126,8 @@ MonoBehaviour:
       mName: SHERLOCK
       mDirection: 1
     mMessageType:
-      _snsType: 1
-      _message: "\u4F60\u597D\u554A\u670B\u53CB"
+      _snsType: 3
+      _message: 3333333
       _replyMessage:
       - 123
       - 456
@@ -8150,12 +8156,11 @@ MonoBehaviour:
       mName: =3=
       mDirection: 1
     mMessageType:
-      _snsType: 1
-      _message: 33333333
+      _snsType: 2
+      _message: 44
       _replyMessage:
-      - 123
-      - 456
-      - 789
+      - 8787
+      - 7878
       _sprite: {fileID: 0}
       _dialogWaitTime: 0
 --- !u!114 &1390555478
@@ -8196,7 +8201,7 @@ MonoBehaviour:
       mDirection: 1
     mMessageType:
       _snsType: 1
-      _message: "\u7121\u6CD5\u7D66\u4F60\u7684\u6642\u9593"
+      _message: 6666
       _replyMessage: []
       _sprite: {fileID: 0}
       _dialogWaitTime: 1
@@ -8219,7 +8224,7 @@ MonoBehaviour:
     aFade: 0
     mChara:
       mAvatar: {fileID: 0}
-      mName: =3=
+      mName: SHERLOCK
       mDirection: 1
     mMessageType:
       _snsType: 1
@@ -8227,6 +8232,87 @@ MonoBehaviour:
       _replyMessage: []
       _sprite: {fileID: 0}
       _dialogWaitTime: 1.5
+--- !u!114 &1390555481
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 136
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      mName: =3=
+      mDirection: 1
+    mMessageType:
+      _snsType: 0
+      _message: 7777777
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 1
+--- !u!114 &1390555482
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 137
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      mName: SHERLOCK
+      mDirection: 1
+    mMessageType:
+      _snsType: 1
+      _message: 55555555555555555555555555555
+      _replyMessage: []
+      _sprite: {fileID: -7706329398736576029, guid: 46e056e742cd1104da51485ac5a8c933, type: 3}
+      _dialogWaitTime: 1
+--- !u!114 &1390555483
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 138
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      mName: =3=
+      mDirection: 1
+    mMessageType:
+      _snsType: 3
+      _message: 7777777
+      _replyMessage: []
+      _sprite: {fileID: -8233939817610087872, guid: 46e056e742cd1104da51485ac5a8c933, type: 3}
+      _dialogWaitTime: 1
 --- !u!1 &1403072068
 GameObject:
   m_ObjectHideFlags: 0
@@ -9749,6 +9835,51 @@ Transform:
   - {fileID: 950051499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2121894125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2121894127}
+  - component: {fileID: 2121894126}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2121894126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121894125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647eed2f54ba54f4798687342f635266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asd: 1
+--- !u!4 &2121894127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121894125}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.346838, y: 1.9503238, z: 605.88794}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2143908450
 GameObject:
   m_ObjectHideFlags: 0
@@ -10220,3 +10351,4 @@ SceneRoots:
   - {fileID: 1675553599}
   - {fileID: 20194188}
   - {fileID: 1373481843}
+  - {fileID: 2121894127}
