@@ -80,6 +80,7 @@ namespace Fungus
         public RectTransform _toPosition = null;
         public RectTransform _clickPosition = null;
         public Vector2 _clickButtonSize;
+        public int  _spineOrder;
         public System.Action _OnComplete;
 
         // public Color _color;
@@ -100,7 +101,6 @@ namespace Fungus
         public ClickMode _clickMode;
 
 
-        public bool _waitDialog=false;//等待對話完成
        // public bool _waitForClick = false;//點集才可進入下一段動畫
         public Vector2 _scale=Vector2.zero;
         public Vector3 _offest=Vector3.zero;

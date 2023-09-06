@@ -78,7 +78,7 @@ namespace Fungus
             }
         }
 
-        public ClickMode SetDialogInputModle(ClickMode mode)//設置dialog mode 並返回原本的(觸發完後再改回來
+        public ClickMode SetDialogInputModle(ClickMode mode)//設置對話框的dialog mode 並返回原本的(觸發完後再改回來
         {
             var origineMode= clickMode;
             clickMode = mode;

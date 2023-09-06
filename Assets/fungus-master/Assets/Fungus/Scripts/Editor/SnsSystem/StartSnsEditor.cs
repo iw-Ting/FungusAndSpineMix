@@ -43,35 +43,34 @@ namespace Fungus.EditorUtils
 
         public override void DrawCommandGUI()
         {
-         /*      serializedObject.Update();
-               EditorGUILayout.PropertyField(DialogNameProp);
-               EditorGUI.BeginChangeCheck();
+            /*      serializedObject.Update();
+                  EditorGUILayout.PropertyField(DialogNameProp);
+                  EditorGUI.BeginChangeCheck();
 
-               EditorGUILayout.PropertyField(DialogCharaProp);
-               if (EditorGUI.EndChangeCheck()) {
-                   serializedObject.ApplyModifiedProperties();
-               }
+                  EditorGUILayout.PropertyField(DialogCharaProp);
+                  if (EditorGUI.EndChangeCheck()) {
+                      serializedObject.ApplyModifiedProperties();
+                  }
 
 
-              foreach (var hisChara in mTarget.HistorySns) {
-                   if (mTarget.DialogChara != null)
-                   {
-                       hisChara.mChara.Charas = new List<SnsManager.CharaSnsSetting>(mTarget.DialogChara);
-                   }
-                   Debug.Log("歷史對話數量1=>" + hisChara.mChara.Charas.Count);
-               }
+                 foreach (var hisChara in mTarget.HistorySns) {
+                      if (mTarget.DialogChara != null)
+                      {
+                          hisChara.mChara.Charas = new List<SnsManager.CharaSnsSetting>(mTarget.DialogChara);
+                      }
+                      Debug.Log("歷史對話數量1=>" + hisChara.mChara.Charas.Count);
+                  }
 
-               serializedObject.ApplyModifiedProperties();
+                  serializedObject.ApplyModifiedProperties();
 
-               HistorySnsProp.serializedObject.Update();
+                  HistorySnsProp.serializedObject.Update();
 
-               foreach (var hisChara in mTarget.HistorySns)
-               {
-                   Debug.Log("歷史對話數量2=>" + hisChara.mChara.Charas.Count);
-               }
+                  foreach (var hisChara in mTarget.HistorySns)
+                  {
+                      Debug.Log("歷史對話數量2=>" + hisChara.mChara.Charas.Count);
+                  }
 
-               EditorGUILayout.PropertyField(HistorySnsProp);*/
-
+                  EditorGUILayout.PropertyField(HistorySnsProp);*/
 
             EditorGUILayout.PropertyField(DialogNameProp);
             serializedObject.ApplyModifiedProperties();

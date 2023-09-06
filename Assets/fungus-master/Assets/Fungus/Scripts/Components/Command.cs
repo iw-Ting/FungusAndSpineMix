@@ -143,6 +143,8 @@ namespace Fungus
         public virtual void Continue()//動畫播放完畢
         {
             // This is a noop if the Block has already been stopped
+
+            Debug.Log("執行完成");
             if (IsExecuting)
             {
                 Continue(CommandIndex + 1);

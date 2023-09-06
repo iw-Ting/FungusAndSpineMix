@@ -35,8 +35,8 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     [SerializeField] protected  Vector2 ClickButtonSize=new Vector2(300,300);
 
     [SerializeField] protected EnumSetting aClickButtonSizeSetting = EnumSetting.Default;
-    
 
+    [SerializeField] protected int spineOrder = 0;
     [SerializeField] protected string aAnimation;//要執行的動畫
     [SerializeField] protected string aInitialSkinName;//裝備
 
@@ -102,12 +102,8 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
         opt._scale = aTarget.mSet.Scale;
         opt._OnComplete = Continue;
         opt._waitAnimationFinish = waitAnimationFinish;
-        opt._waitDialog = waitDialog;
-
+        opt._spineOrder = spineOrder;
        
-
-        
-
         opt._clickButtonSize = ClickButtonSize;
 
         if (string.IsNullOrEmpty(aAnimation))//沒指定動畫

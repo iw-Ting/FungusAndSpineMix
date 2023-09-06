@@ -73,7 +73,7 @@ namespace Fungus
 
         [SerializeField] private bool AutoPlay=false;
 
-        private SpineCharaAniOptions aOptions;
+        private SpineCharaAniOptions aOptions;//給予自動撥放功能觸發用
 
         protected virtual void Awake()
         {
@@ -329,6 +329,17 @@ namespace Fungus
 
                     stage.SpineCharaOnStageList.Add(opt.CharaObj);
 
+                }
+
+                if (opt._spineOrder>=0) {
+                    Canvas can = opt.CharaObj.GetComponent<Canvas>();
+                    if (!can) {
+                        can = opt.CharaObj.AddComponent<Canvas>();
+                    }
+                    can.overrideSorting = true;
+                    can.sortingOrder=opt._spineOrder;
+
+                
                 }
 
                 // opt._SpineChara.color = new Color(1f, 1f, 1f, 1f);
@@ -713,18 +724,11 @@ namespace Fungus
 
             if (options._waitAnimationFinish)
             {
-                yield return new WaitForSeconds(options.aTween.aAnimationPlayRoundTime);//等待一輪動畫結束
-                Debug.Log("動畫等待結束" + options.aTween.aAnimationPlayRoundTime);
+                yield return new WaitForSeconds(options.aTween.aAnimationPlayRoundTime);//等待spine動畫結束
             }
 
-            SayDialog sayDia = SayDialog.GetSayDialog();
-
-            /* if (options._waitForClick)
-           {
-               Debug.Log("Spine的等待點擊");
-               yield return sayDia.GetWriter().WaitForClick();
-           }*/
             if (!AutoPlay) {
+                SayDialog sayDia = SayDialog.GetSayDialog();
                 WaitUserInput = true;
                 InputCallBack.InputOptions setting = new InputCallBack.InputOptions();
 
@@ -737,7 +741,7 @@ namespace Fungus
                         // yield return sayDia.GetWriter().WaitForClick();
                         setting.parentPos = options._toPosition;
                         SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
-                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, options._OnComplete, setting);
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, null, setting);
 
                         break;
                     case ClickMode.ClickOnDialog:
@@ -750,7 +754,7 @@ namespace Fungus
                         setting.parentPos = options._clickPosition;
                         setting.touchSize = options._clickButtonSize;
                         SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
-                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, options._OnComplete, setting);
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, null, setting);
 
                         break;
 
@@ -758,9 +762,8 @@ namespace Fungus
                         origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
                         break;
                 }
-                if (origineMode != ClickMode.Disabled) {
+                if (origineMode != ClickMode.Disabled) {    
                     sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(origineMode);
-
                 }
                 WaitUserInput = false;
             }   
@@ -777,9 +780,6 @@ namespace Fungus
                 .setOnComplete(() => rectTransform.gameObject.SetActive(false));
         }
 
-        /// <summary>
-        /// Hide portrait with provided options
-        /// </summary>
         public virtual void Hide(PortraitOptions options)
         {
             CleanPortraitOptions(options);
@@ -823,6 +823,49 @@ namespace Fungus
             options.SetCharaSetting(false);
             SetupPortrait(options);//處理鏡像
 
+            if (!AutoPlay)
+            {
+                SayDialog sayDia = SayDialog.GetSayDialog();
+                WaitUserInput = true;
+                InputCallBack.InputOptions setting = new InputCallBack.InputOptions();
+
+                ClickMode origineMode = ClickMode.Disabled;
+                switch (options._clickMode)//返回舊有的對話模式
+                {
+
+                    case ClickMode.ClickAnywhere:
+                        //origineMode=  sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
+                        // yield return sayDia.GetWriter().WaitForClick();
+                        setting.parentPos = options._toPosition;
+                        SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, null, setting);
+
+                        break;
+                    case ClickMode.ClickOnDialog:
+                        origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickOnDialog);
+                        yield return sayDia.GetWriter().WaitForClick();
+
+                        break;
+                    case ClickMode.ClickOnButton:
+
+                        setting.parentPos = options._clickPosition;
+                        setting.touchSize = options._clickButtonSize;
+                        SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, null, setting);
+
+                        break;
+
+                    default:
+                        origineMode = sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(ClickMode.ClickAnywhere);
+                        break;
+                }
+                if (origineMode != ClickMode.Disabled)
+                {
+                    sayDia.GetWriter().GetComponent<DialogInput>().SetDialogInputModle(origineMode);
+                }
+                WaitUserInput = false;
+            }
+
             if (options._move)
             {
                 DoMoveTween(options);
@@ -833,6 +876,8 @@ namespace Fungus
 
                 StartCoroutine(SpineTween.SpineSkeletonGraphicFadeOut(options.CharaObj, options.aTween.aFadeAniDuration));
             }
+
+
 
             if (options._move || options._fade)
             {

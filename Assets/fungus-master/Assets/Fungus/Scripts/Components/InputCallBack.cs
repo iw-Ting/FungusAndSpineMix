@@ -94,7 +94,14 @@ namespace Fungus {
         public IEnumerator WaitClickCallBack(ClickMode clickMode,Action cb,InputOptions inpOpt=null) {
 
             eClickMode = clickMode;
-            SetNextLineFlag = cb ;
+            if (cb!=null) {
+                SetNextLineFlag = cb;
+            }
+            else
+            {
+                SetNextLineFlag = () => { };
+            }
+
 
             if (EventSystem.current == null )
             {
@@ -133,7 +140,9 @@ namespace Fungus {
 
                     sp = InputUISupportScript.CreateButtonArea(inpOpt, () => {
                         isinput = true;
-                        SetNextLineFlag();
+
+                            SetNextLineFlag();
+                        
                     });
                     //sp.GetComponent<Button>().onClick.AddListener(() => { Destroy(sp); });
                     break;

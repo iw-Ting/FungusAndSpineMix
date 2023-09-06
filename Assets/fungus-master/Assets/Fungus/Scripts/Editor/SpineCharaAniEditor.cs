@@ -26,10 +26,10 @@ public class SpineCharaAniEditor : CommandEditor
     private SerializedProperty aClickButtonSizeProp;
     private SerializedProperty aClickButtonSizeSettingProp;
     private SerializedProperty aInitialSkinName;
+    private SerializedProperty aSpineOrder;
 
     /////////////////////////// condition bool /////////////////
     private SerializedProperty WaitAnimationFinishPro;
-    private SerializedProperty WaitDialogPro;
     //  private SerializedProperty WaitForClick;
     private SerializedProperty clickModlePro;
 
@@ -37,6 +37,8 @@ public class SpineCharaAniEditor : CommandEditor
     private SerializedProperty FadePro;
 
     private SerializedProperty tweenTime;
+
+    private bool SetSpineOrder = false;
     public override void OnEnable()
     {
         aSkeletonGraphicPro = serializedObject.FindProperty("aTarget");
@@ -50,7 +52,6 @@ public class SpineCharaAniEditor : CommandEditor
         LoopPro = serializedObject.FindProperty("loop");
         aInitialSkinName = serializedObject.FindProperty("aInitialSkinName");
         WaitAnimationFinishPro = serializedObject.FindProperty("waitAnimationFinish");
-        WaitDialogPro = serializedObject.FindProperty("waitDialog");
         clickModlePro = serializedObject.FindProperty("clickMode");
         clickPositionPro = serializedObject.FindProperty("ClickPos");
         aClickButtonSizeProp = serializedObject.FindProperty("ClickButtonSize");
@@ -60,7 +61,7 @@ public class SpineCharaAniEditor : CommandEditor
         OffestPro = serializedObject.FindProperty("offest");
         FadePro = serializedObject.FindProperty("fade");
         tweenTime = serializedObject.FindProperty("aTween");
-
+        aSpineOrder = serializedObject.FindProperty("spineOrder");
 
 
 
@@ -115,6 +116,17 @@ public class SpineCharaAniEditor : CommandEditor
             DisplayProp.enumValueIndex = EditorGUILayout.Popup("Display", (int)DisplayProp.enumValueIndex, displayLabels);
             EditorGUILayout.PropertyField(OffestPro);
 
+            
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Order",GUILayout.Width(150));
+            SetSpineOrder = EditorGUILayout.Toggle(SetSpineOrder);
+            EditorGUILayout.EndHorizontal();
+
+            if (SetSpineOrder)
+            {
+                EditorGUILayout.PropertyField(aSpineOrder);
+            }
 
 
             // Debug.Log("釋出==>"+aSkeletonGraphic.objectReferenceValue);
@@ -161,7 +173,6 @@ public class SpineCharaAniEditor : CommandEditor
 
                     EditorGUILayout.PropertyField(WaitAnimationFinishPro);
                     
-                    EditorGUILayout.PropertyField(WaitDialogPro);
 
                     
                     //  EditorGUILayout.PropertyField(WaitForClick);
