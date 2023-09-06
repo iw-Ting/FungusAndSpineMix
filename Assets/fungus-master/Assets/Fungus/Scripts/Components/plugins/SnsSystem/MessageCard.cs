@@ -26,7 +26,6 @@ namespace Fungus
 
         public IEnumerator Init(SnsManager.SnsMessage message)
         {
-          
             aData = message;
             ViewPortParent = transform.parent.parent;
 

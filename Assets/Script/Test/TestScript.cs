@@ -3,32 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Fungus;
+using UnityEditor;
+using System;
 
-public class TestScript : MonoBehaviour
+
+[Serializable]
+public class Test 
 {
 
-    public Asd asd=Asd.bb;
+    public string aaa = "";
 
+    public string bbb = "";
 
-    public void Start()
-    {
-        Debug.Log("測試=>" +(int) asd);
-        Debug.Log("測試=>"+(int)Asd.dd);
-    }
-
-    public void Update()
-    {
-
-    }
+    public string ccc = "";
 
 }
 
-public enum Asd
+
+[Serializable]
+public class TestScript 
 {
-    aa,
-    bb,
-    cc=5,
-    dd
+
+    public string aaa = "";
+
+    public string bbb = "";
+
+    public string ccc= "";
+
+}
+
+[CustomEditor(typeof( TestScript))]
+public class TestScriptEditor : Editor
+{
+    SerializedProperty aaaProp,bbbProp,cccProp;
+
+
+    public  void OnEnable()
+    {
+
+        Debug.Log("首先啟動");
+        aaaProp = serializedObject.FindProperty("aaa");
+        bbbProp = serializedObject.FindProperty("bbb");
+        cccProp = serializedObject.FindProperty("ccc");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        EditorGUILayout.PropertyField(aaaProp);
+
+    }
+
 
 
 }

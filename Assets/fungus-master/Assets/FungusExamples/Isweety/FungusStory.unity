@@ -4827,17 +4827,16 @@ GameObject:
   - component: {fileID: 1390555467}
   - component: {fileID: 1390555466}
   - component: {fileID: 1390555468}
-  - component: {fileID: 1390555470}
-  - component: {fileID: 1390555471}
-  - component: {fileID: 1390555473}
-  - component: {fileID: 1390555472}
-  - component: {fileID: 1390555477}
   - component: {fileID: 1390555478}
-  - component: {fileID: 1390555480}
-  - component: {fileID: 1390555479}
-  - component: {fileID: 1390555481}
-  - component: {fileID: 1390555482}
-  - component: {fileID: 1390555483}
+  - component: {fileID: 1390555488}
+  - component: {fileID: 1390555495}
+  - component: {fileID: 1390555494}
+  - component: {fileID: 1390555493}
+  - component: {fileID: 1390555492}
+  - component: {fileID: 1390555491}
+  - component: {fileID: 1390555490}
+  - component: {fileID: 1390555489}
+  - component: {fileID: 1390555496}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -4929,11 +4928,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 2710.2395, y: 1084.1293}
+  scrollPos: {x: 2708.4375, y: 1174.4633}
   variablesScrollPos: {x: 0, y: 360}
   variablesExpanded: 1
-  blockViewHeight: 521
-  zoom: 0.8499998
+  blockViewHeight: 531
+  zoom: 0.6999997
   scrollViewRect:
     serializedVersion: 2
     x: -4071.385
@@ -4943,7 +4942,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1390555459}
   selectedCommands:
-  - {fileID: 1390555482}
+  - {fileID: 1390555496}
   variables: []
   _storyControl: {fileID: 750787168}
   _storyEnabled: 1
@@ -5020,7 +5019,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -2276.8533
     y: -894.9711
-    width: 91.17648
+    width: 92.85716
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5165,7 +5164,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -1956.7258
     y: -959.5157
-    width: 114.7059
+    width: 112.85717
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5221,7 +5220,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -2283.8762
     y: -806.3043
-    width: 111.17648
+    width: 112.85717
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5302,9 +5301,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2273.911
+    x: -2275.0874
     y: -1031.9269
-    width: 88.82354
+    width: 88.57144
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5341,7 +5340,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -2299.5034
     y: -640.3397
-    width: 144.11768
+    width: 144.28577
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5448,7 +5447,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -2628.058
     y: -802.0559
-    width: 80.58824
+    width: 80.000015
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -6735,7 +6734,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -1967.9728
     y: -663.0989
-    width: 166.47061
+    width: 158.57147
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7539,7 +7538,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -2662.5088
     y: -964.35547
-    width: 148.82355
+    width: 148.57147
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7865,9 +7864,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2649.922
+    x: -2652.2751
     y: -703.21655
-    width: 67.647064
+    width: 67.14287
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7876,16 +7875,15 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 1390555478}
   commandList:
-  - {fileID: 1390555470}
-  - {fileID: 1390555473}
-  - {fileID: 1390555477}
-  - {fileID: 1390555472}
-  - {fileID: 1390555482}
-  - {fileID: 1390555479}
-  - {fileID: 1390555481}
-  - {fileID: 1390555483}
-  - {fileID: 1390555480}
-  - {fileID: 1390555471}
+  - {fileID: 1390555496}
+  - {fileID: 1390555490}
+  - {fileID: 1390555491}
+  - {fileID: 1390555488}
+  - {fileID: 1390555495}
+  - {fileID: 1390555493}
+  - {fileID: 1390555494}
+  - {fileID: 1390555492}
+  - {fileID: 1390555489}
   suppressAllAutoSelections: 0
 --- !u!114 &1390555461
 MonoBehaviour:
@@ -8016,153 +8014,6 @@ MonoBehaviour:
   orthoSizeTweenType: 4
   posTweenType: 4
   rotTweenType: 4
---- !u!114 &1390555470
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1262f87f7793ca8498f0fd5282f09506, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 126
-  indentLevel: 0
-  DialogWindowName: 123
-  DialogChara:
-  - mFungusChara: {fileID: 7039874348623177452, guid: b07f070b23a37f644ab8f14320dfdc63, type: 3}
-    mCharaRole: 1
-    mDirection: 0
-  - mFungusChara: {fileID: 1357044060662001629, guid: 2f58b7919ca3abb419bc3462671019d0, type: 3}
-    mCharaRole: 0
-    mDirection: 1
-  HistorySns:
-  - NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
-      mName: =3=
-      mDirection: 0
-    mMessageType:
-      _snsType: 0
-      _message: 11111111111
-      _replyMessage: []
-      _sprite: {fileID: 0}
-      _dialogWaitTime: 0
-  - NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
-      mName: SHERLOCK
-      mDirection: 0
-    mMessageType:
-      _snsType: 0
-      _message: 222
-      _replyMessage: []
-      _sprite: {fileID: 0}
-      _dialogWaitTime: 0
---- !u!114 &1390555471
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d201ff1d54223248bde632501712f2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 127
-  indentLevel: 0
---- !u!114 &1390555472
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 129
-  indentLevel: 0
-  sns:
-    NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
-      mName: SHERLOCK
-      mDirection: 1
-    mMessageType:
-      _snsType: 1
-      _message: 444444444444444444444
-      _replyMessage: []
-      _sprite: {fileID: 0}
-      _dialogWaitTime: 3
---- !u!114 &1390555473
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 128
-  indentLevel: 0
-  sns:
-    NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
-      mName: SHERLOCK
-      mDirection: 1
-    mMessageType:
-      _snsType: 3
-      _message: 3333333
-      _replyMessage:
-      - 123
-      - 456
-      - 789
-      _sprite: {fileID: 4622692684953283390, guid: a4e6c795676d46d4d9e168e47728f8c3, type: 3}
-      _dialogWaitTime: 1
---- !u!114 &1390555477
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 133
-  indentLevel: 0
-  sns:
-    NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
-      mName: =3=
-      mDirection: 1
-    mMessageType:
-      _snsType: 2
-      _message: 44
-      _replyMessage:
-      - 8787
-      - 7878
-      _sprite: {fileID: 0}
-      _dialogWaitTime: 0
 --- !u!114 &1390555478
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -8178,7 +8029,7 @@ MonoBehaviour:
   parentBlock: {fileID: 1390555459}
   suppressBlockAutoSelect: 0
   waitForFrames: 1
---- !u!114 &1390555479
+--- !u!114 &1390555488
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8190,76 +8041,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 135
+  itemId: 139
   indentLevel: 0
   sns:
     NotHaveAvatar: 0
     aFade: 0
     mChara:
       mAvatar: {fileID: 0}
-      mName: SHERLOCK
-      mDirection: 1
-    mMessageType:
-      _snsType: 1
-      _message: 6666
-      _replyMessage: []
-      _sprite: {fileID: 0}
-      _dialogWaitTime: 1
---- !u!114 &1390555480
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 134
-  indentLevel: 0
-  sns:
-    NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
-      mName: SHERLOCK
-      mDirection: 1
-    mMessageType:
-      _snsType: 1
-      _message: 88
-      _replyMessage: []
-      _sprite: {fileID: 0}
-      _dialogWaitTime: 1.5
---- !u!114 &1390555481
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 136
-  indentLevel: 0
-  sns:
-    NotHaveAvatar: 0
-    aFade: 0
-    mChara:
-      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 1
+        mDirection: 1
       mName: =3=
       mDirection: 1
     mMessageType:
-      _snsType: 0
-      _message: 7777777
-      _replyMessage: []
+      _snsType: 2
+      _message: 33333
+      _replyMessage:
+      - 4444
       _sprite: {fileID: 0}
-      _dialogWaitTime: 1
---- !u!114 &1390555482
+      _dialogWaitTime: 0
+--- !u!114 &1390555489
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d201ff1d54223248bde632501712f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 148
+  indentLevel: 0
+--- !u!114 &1390555490
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8271,22 +8093,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 137
+  itemId: 147
   indentLevel: 0
   sns:
     NotHaveAvatar: 0
     aFade: 0
     mChara:
       mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 1
+        mDirection: 1
       mName: SHERLOCK
       mDirection: 1
     mMessageType:
       _snsType: 1
-      _message: 55555555555555555555555555555
+      _message: 1111
       _replyMessage: []
-      _sprite: {fileID: -7706329398736576029, guid: 46e056e742cd1104da51485ac5a8c933, type: 3}
-      _dialogWaitTime: 1
---- !u!114 &1390555483
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+--- !u!114 &1390555491
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8298,21 +8136,276 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 138
+  itemId: 146
   indentLevel: 0
   sns:
     NotHaveAvatar: 0
     aFade: 0
     mChara:
       mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 1
+        mDirection: 1
       mName: =3=
       mDirection: 1
+    mMessageType:
+      _snsType: 2
+      _message: 22222
+      _replyMessage:
+      - 111
+      - 222
+      - 333
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+--- !u!114 &1390555492
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 145
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 0
+        mDirection: 0
+      mName: =3=
+      mDirection: 1
+    mMessageType:
+      _snsType: 1
+      _message: 777777
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+--- !u!114 &1390555493
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 144
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 1
+        mDirection: 1
+      mName: SHERLOCK
+      mDirection: 1
+    mMessageType:
+      _snsType: 2
+      _message: 55555
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+--- !u!114 &1390555494
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 143
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 0
+        mDirection: 0
+      mName: SHERLOCK
+      mDirection: 1
+    mMessageType:
+      _snsType: 1
+      _message: 66666
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+--- !u!114 &1390555495
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe5238253bbbf4e8be748070a10c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 142
+  indentLevel: 0
+  sns:
+    NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1880195408}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 1176124882}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 137130844}
+        mCharaRole: 0
+        mDirection: 0
+      mName: =3=
+      mDirection: 1
+    mMessageType:
+      _snsType: 1
+      _message: 4444
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+--- !u!114 &1390555496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1262f87f7793ca8498f0fd5282f09506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 149
+  indentLevel: 0
+  DialogWindowName: 
+  DialogChara:
+  - mFungusChara: {fileID: 1357044060662001629, guid: 2f58b7919ca3abb419bc3462671019d0, type: 3}
+    mCharaRole: 1
+    mDirection: 1
+  - mFungusChara: {fileID: 6788491088167151588, guid: e980bdb9f856f624e98760e0bb6b0d57, type: 3}
+    mCharaRole: 0
+    mDirection: 0
+  - mFungusChara: {fileID: 7039874348623177452, guid: b07f070b23a37f644ab8f14320dfdc63, type: 3}
+    mCharaRole: 0
+    mDirection: 0
+  str: []
+  strArr: []
+  HistorySns:
+  - NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1357044060662001629, guid: 2f58b7919ca3abb419bc3462671019d0, type: 3}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 6788491088167151588, guid: e980bdb9f856f624e98760e0bb6b0d57, type: 3}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 7039874348623177452, guid: b07f070b23a37f644ab8f14320dfdc63, type: 3}
+        mCharaRole: 0
+        mDirection: 0
+      mName: =3=
+      mDirection: 0
+    mMessageType:
+      _snsType: 1
+      _message: 11
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+  - NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1357044060662001629, guid: 2f58b7919ca3abb419bc3462671019d0, type: 3}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 6788491088167151588, guid: e980bdb9f856f624e98760e0bb6b0d57, type: 3}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 7039874348623177452, guid: b07f070b23a37f644ab8f14320dfdc63, type: 3}
+        mCharaRole: 0
+        mDirection: 0
+      mName: JOHN
+      mDirection: 0
+    mMessageType:
+      _snsType: 1
+      _message: 22
+      _replyMessage: []
+      _sprite: {fileID: 0}
+      _dialogWaitTime: 0
+  - NotHaveAvatar: 0
+    aFade: 0
+    mChara:
+      mAvatar: {fileID: 0}
+      Charas:
+      - mFungusChara: {fileID: 1357044060662001629, guid: 2f58b7919ca3abb419bc3462671019d0, type: 3}
+        mCharaRole: 1
+        mDirection: 1
+      - mFungusChara: {fileID: 6788491088167151588, guid: e980bdb9f856f624e98760e0bb6b0d57, type: 3}
+        mCharaRole: 0
+        mDirection: 0
+      - mFungusChara: {fileID: 7039874348623177452, guid: b07f070b23a37f644ab8f14320dfdc63, type: 3}
+        mCharaRole: 0
+        mDirection: 0
+      mName: SHERLOCK
+      mDirection: 0
     mMessageType:
       _snsType: 3
-      _message: 7777777
+      _message: 
       _replyMessage: []
       _sprite: {fileID: -8233939817610087872, guid: 46e056e742cd1104da51485ac5a8c933, type: 3}
-      _dialogWaitTime: 1
+      _dialogWaitTime: 0
 --- !u!1 &1403072068
 GameObject:
   m_ObjectHideFlags: 0
@@ -9835,7 +9928,7 @@ Transform:
   - {fileID: 950051499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2121894125
+--- !u!1 &2134911750
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9843,8 +9936,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2121894127}
-  - component: {fileID: 2121894126}
+  - component: {fileID: 2134911752}
+  - component: {fileID: 2134911751}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -9852,29 +9945,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2121894126
+--- !u!114 &2134911751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121894125}
+  m_GameObject: {fileID: 2134911750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647eed2f54ba54f4798687342f635266, type: 3}
+  m_Script: {fileID: 11500000, guid: 2330c30fc6a789a49bed2fff6656020a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asd: 1
---- !u!4 &2121894127
+  aa:
+  - s
+  - d
+  - f
+  bb: []
+--- !u!4 &2134911752
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121894125}
+  m_GameObject: {fileID: 2134911750}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.346838, y: 1.9503238, z: 605.88794}
+  m_LocalPosition: {x: -14.6, y: 0, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10351,4 +10448,4 @@ SceneRoots:
   - {fileID: 1675553599}
   - {fileID: 20194188}
   - {fileID: 1373481843}
-  - {fileID: 2121894127}
+  - {fileID: 2134911752}

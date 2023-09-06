@@ -692,8 +692,8 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Math\Log.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\PlayAnimState.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\ScriptOptions.cs" />
-    <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Execution\VM\Processor\Processor_UtilityFunctions.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SupportScript\FungusResourcesPath.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Execution\VM\Processor\Processor_UtilityFunctions.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Utils\FlowchartData.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Statements\GotoStatement.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\PunchPosition.cs" />

@@ -321,7 +321,7 @@ namespace Fungus.EditorUtils
         }
 
 
-        public static void EnumField<T>(SerializedProperty property, GUIContent label,T defaultValue, List<string> objectList)where T:Enum//作用 因為前面的某個選擇 刪減某些enum的選項 
+        public static void EnumField<T>(SerializedProperty property, GUIContent label, List<string> objectList)where T:Enum//作用 因為前面的某個選擇 刪減某些enum的選項 
         {
             if (property == null)
             {
@@ -331,6 +331,7 @@ namespace Fungus.EditorUtils
             {
                 return;
             }
+
 
             string[] origineEnum = Enum.GetNames(typeof(T));
 

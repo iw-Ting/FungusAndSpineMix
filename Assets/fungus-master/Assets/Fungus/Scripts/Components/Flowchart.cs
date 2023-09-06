@@ -324,9 +324,25 @@ namespace Fungus
 
         public static Flowchart GetInstance()
         {
+            Flowchart tar = null;
 
-            if (cachedFlowcharts.Count>1) {
-                return cachedFlowcharts[1];
+            for (int i=0;i<cachedFlowcharts.Count;i++) {
+                Flowchart tTar = cachedFlowcharts[i];
+                if (tar == null)
+                {
+                    tar = tTar;
+                    continue;
+                }
+                if (tar.transform.childCount<tTar.transform.childCount) {
+                    tar = tTar;
+                }
+
+            }
+
+
+
+            if (cachedFlowcharts.Count>0) {
+                return tar;
             }
             else
             {
@@ -622,7 +638,6 @@ namespace Fungus
                 Debug.LogWarning(block.BlockName + " cannot be called/executed, it is already running.");
                 return false;
             }
-            Debug.Log("執行2!");
             // Start executing the Block as a new coroutine
             StartCoroutine(block.Execute(commandIndex, onComplete));
             // block.StartExecution();

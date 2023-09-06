@@ -55,12 +55,13 @@ namespace Fungus
                 return;
             }
 
-            if (Options._options.touchSize == Vector2.zero)
+
+            if(Options._options.touchSize == Vector2.zero)
             {
-                Options._options.touchSize = new Vector2(300, 300);
+                Options._options.touchSize = Options._options.parentPos.sizeDelta;
             }
 
-         InputCallBack.GetInputCallBack().CreateMenuImage(Options);
+            InputCallBack.GetInputCallBack().CreateMenuImage(Options);
 
            Continue();
         

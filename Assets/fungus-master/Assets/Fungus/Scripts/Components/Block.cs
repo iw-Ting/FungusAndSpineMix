@@ -208,7 +208,6 @@ namespace Fungus
         /// </summary>
         public virtual void StartExecution()//為了給flowChart Window 執行
         {
-            Debug.Log("執行1!");
             StartCoroutine(Execute());
         }
 
@@ -219,7 +218,6 @@ namespace Fungus
         /// <param name="onComplete">Delegate function to call when execution completes</param>
         public virtual IEnumerator Execute(int commandIndex = 0, Action onComplete = null)//執行這個block的所有command內容
         {
-            Debug.Log("執行3!");
             if (executionState != ExecutionState.Idle) //已經處於執行狀態
             {
                 Debug.LogWarning(BlockName + " cannot be executed, it is already running.");

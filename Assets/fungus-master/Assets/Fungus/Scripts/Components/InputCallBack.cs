@@ -215,8 +215,11 @@ namespace Fungus {
                     }
                     else
                     {
-                        im.preserveAspect = true;
+                        im.SetNativeSize();
                     }
+
+                    im.preserveAspect = true;
+
                     LeanTween.alphaCanvas(cg, 1, 0.5f);
                     yield return new WaitForSeconds(0.5f);
                 }

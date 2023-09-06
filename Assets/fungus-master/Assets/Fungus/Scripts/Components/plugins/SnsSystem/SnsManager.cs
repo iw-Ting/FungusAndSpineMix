@@ -105,11 +105,6 @@ namespace Fungus
              yield return LeanTweenManager.RectTransScale(gameObject, Vector3.one, 0.05f);
 
           //  yield return LeanTweenManager.FadeIn(gameObject, 0.2f);
-
-
-
-
-
         }
 
         private IEnumerator AutoStartDialogue()//自動對話點擊並進行(正常情況執行)
@@ -466,7 +461,8 @@ namespace Fungus
             [HideInInspector]public bool NotHaveAvatar = false;
 
             [HideInInspector] public bool aFade = false;
-            
+
+            [CharaDropOptions]
             public SnsChara mChara;
 
             [SnsMessageProp]
@@ -480,8 +476,8 @@ namespace Fungus
         public class SnsChara
         {
             [HideInInspector] public Sprite mAvatar = null;
+            [HideInInspector]public List<CharaSnsSetting> Charas=null;
 
-            [CharaDropOptions]
             public string mName = "";
             
 
@@ -505,23 +501,23 @@ namespace Fungus
         {
             public Character mFungusChara;
 
-            public CharaRole mCharaRole;
+            public CharaRole mCharaRole=CharaRole.otherSide;
 
-
-            public Direction mDirection;
+            public Direction mDirection=Direction.Left;
 
         }
 
         public enum Direction
         {
-            Right,
-            Left
+            Left,
+            Right
         }
 
         public enum CharaRole
         {
+            otherSide,
             self,
-            otherSide
+
         }
 
         public enum SnsType // 
@@ -530,7 +526,6 @@ namespace Fungus
             Message,
             Reply,
             Image,
-            ReplyImage
 
 
         }
@@ -554,8 +549,6 @@ namespace Fungus
 
     public class CharaDropOptions:PropertyAttribute
     {
-
-
     }
 
     public class SnsMessagePropAttribute : PropertyAttribute
