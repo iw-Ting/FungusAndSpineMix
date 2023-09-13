@@ -36,7 +36,9 @@ namespace Fungus
 
         //private static List<MenuImageOption>
 
-        [SerializeField ] private MenuImageOption Options;
+        [SerializeField ] public MenuImageOption Options;
+
+        [SerializeField]public ClickAeraSetting clickAeraSetting;
 
         public override void GetConnectedBlocks (ref List<Block> connectedBlocks)
         {
@@ -56,7 +58,8 @@ namespace Fungus
             }
 
 
-            if(Options._options.touchSize == Vector2.zero)
+
+            if (clickAeraSetting== ClickAeraSetting.Default)
             {
                 Options._options.touchSize = Options._options.parentPos.sizeDelta;
             }
@@ -67,8 +70,61 @@ namespace Fungus
         
         }
 
+        public void DrawTexture()
+        {
 
-     }
+            bool isThis = false;
+            foreach (var com in Flowchart.GetInstance().SelectedCommands)
+            {
+                if (com == this)
+                {
+                    isThis = true;
+                }
+
+            }
+
+            if (!isThis)
+            {
+                return;
+            }
+
+            if (!Options._options.parentPos)
+            {
+                //Debug.LogError("Not Have a ClickPosTarget");
+                return;
+            }
+
+            RectTransform ClickPos = Options._options.parentPos;
+            GameObject sp = new GameObject("displayRect", typeof(RectTransform));
+            sp.transform.SetParent(ClickPos.parent, false);
+            RectTransform newRect = sp.GetComponent<RectTransform>();
+
+            newRect.position = ClickPos.position;
+            newRect.pivot = ClickPos.pivot;
+
+            if (clickAeraSetting == ClickAeraSetting.Default)
+            {
+                newRect.sizeDelta = ClickPos.sizeDelta;
+            }
+            else
+            {
+                newRect.sizeDelta = Options._options.touchSize;
+            }
+
+            DrawGizmoLine.DrawTexture(newRect);
+            DestroyImmediate(sp);
+        }
+
+        public void OnDrawGizmos()
+        {
+            DrawTexture();
+        }
+
+
+
+
+
+    }
 
 
 

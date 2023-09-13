@@ -13,20 +13,18 @@ using System;
 
 public class MenuImageEditor :CommandEditor
     {
-    private MenuImage menuImage;
+    private MenuImage curTarget;
     private SerializedProperty optionListPro;
+    private SerializedProperty clickAeraSettingProp;
 
 
 
 
     private void OnEnable()
     {
-        menuImage = (MenuImage)target;
+        curTarget = (MenuImage)target;
         optionListPro = serializedObject.FindProperty("Options");
-
-
-
-
+        clickAeraSettingProp = serializedObject.FindProperty("clickAeraSetting");
     }
 
      public override void DrawCommandGUI()
@@ -66,7 +64,7 @@ public class MenuImageEditor :CommandEditor
 
         Stage stage=GameObject.FindObjectOfType<Stage>();
 
-
+        EditorGUI.BeginChangeCheck();
          if (stage != null)
          {
              CommandEditor.ObjectField<RectTransform>(toPosPro,
@@ -79,7 +77,28 @@ public class MenuImageEditor :CommandEditor
              Debug.LogError("Not Have Stage");
          }
 
-        EditorGUILayout.PropertyField(touchSizePro);
+        if (EditorGUI.EndChangeCheck()) {
+        serializedObject.ApplyModifiedProperties();
+        
+        }
+
+        if (!curTarget.Options._options.parentPos) {
+
+            EditorGUILayout.HelpBox("Not Have a ParentPos", MessageType.Error);
+        }
+        else
+        {
+            EditorGUILayout.PropertyField(clickAeraSettingProp);
+
+            if (curTarget.clickAeraSetting==ClickAeraSetting.Customize) {
+                EditorGUILayout.PropertyField(touchSizePro);
+            }
+
+
+
+        }
+
+
 
         // EditorGUILayout.PropertyField(optionListPro);
 

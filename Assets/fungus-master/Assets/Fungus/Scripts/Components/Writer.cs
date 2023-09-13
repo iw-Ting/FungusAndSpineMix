@@ -284,9 +284,11 @@ namespace Fungus
 
 
 
-        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
+        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio,Action<string> setLogDialog,Action onComplete)
         {
             // Reset control members
+
+
             boldActive = false;
             italicActive = false;
             colorActive = false;
@@ -311,7 +313,6 @@ namespace Fungus
                 }
 
                 var token = tokens[i];
-
                 // Notify listeners about new token
                 WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
 
@@ -344,7 +345,9 @@ namespace Fungus
                 switch (token.type)
                 {
                 case TokenType.Words:
-                    yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
+
+                        setLogDialog(token.paramList[0]);
+                        yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
                     WordTokensProcessed++;
                     break;
                     
@@ -569,6 +572,7 @@ namespace Fungus
             }
 
             string param = paramList[0].Replace("\\n", "\n");
+
 
             // Trim whitespace after a {wc} or {c} tag
             if (previousTokenType == TokenType.WaitForInputAndClear ||
@@ -1002,9 +1006,11 @@ namespace Fungus
         /// <param name="waitForVO">Wait for the Voice over to complete before proceeding</param>
         /// <param name="audioClip">Audio clip to play when text starts writing.</param>
         /// <param name="onComplete">Callback to call when writing is finished.</param>
-        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete)
+        /// string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete
+
+        public virtual IEnumerator Write(Sayinfo sayinfo)
         {// 根據tag
-            if (clear)
+            if (sayinfo.clearPrevious)
             {
                 textAdapter.Text = "";
                 visibleCharacterCount = 0;
@@ -1016,17 +1022,17 @@ namespace Fungus
             }
 
             // If this clip is null then WriterAudio will play the default sound effect (if any)
-            NotifyStart(audioClip);
+            NotifyStart(sayinfo.voiceOverClip);
             
 
-            string tokenText = TextVariationHandler.SelectVariations(content);
+            string tokenText = TextVariationHandler.SelectVariations(sayinfo.content);
             
-            if (waitForInput)//等待點擊
+            if (sayinfo.waitForClick)//等待點擊
             {
                 tokenText += "{wi}";
             }
 
-            if(waitForVO)//等待動畫
+            if(sayinfo.waitForVO)//等待動畫
             {
                 tokenText += "{wvo}";
             }
@@ -1036,7 +1042,7 @@ namespace Fungus
 
             gameObject.SetActive(true);
 
-            yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
+            yield return StartCoroutine(ProcessTokens(tokens, sayinfo.stopVoiceover, sayinfo.setLogDialog,sayinfo.onComplete));
         }
 
         public void SetTextColor(Color textColor)

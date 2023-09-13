@@ -25,7 +25,8 @@ namespace Fungus.EditorUtils
         protected SerializedProperty luaBindingNameProp;
         protected SerializedProperty _storyControlProp;
         protected SerializedProperty _storyEnableProp;
-
+        protected SerializedProperty _flowchartOverrideTextFile;
+        protected SerializedProperty _dataName;
 
         protected Texture2D addTexture;
 
@@ -47,12 +48,16 @@ namespace Fungus.EditorUtils
             _storyControlProp = serializedObject.FindProperty("_storyControl");
             _storyEnableProp = serializedObject.FindProperty("_storyEnabled");
             localizationIdProp = serializedObject.FindProperty("localizationId");
-            
+
+            _flowchartOverrideTextFile = serializedObject.FindProperty("flowchartOverrideTextFile");
+            _dataName = serializedObject.FindProperty("dataName");
             variablesProp = serializedObject.FindProperty("variables");
             showLineNumbersProp = serializedObject.FindProperty("showLineNumbers");
             hideCommandsProp = serializedObject.FindProperty("hideCommands");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
+
+
 
 
             addTexture = FungusEditorResources.AddSmall;
@@ -69,7 +74,30 @@ namespace Fungus.EditorUtils
             flowchart.UpdateHideFlags();
 
             EditorGUI.BeginChangeCheck();
-            
+
+            EditorGUILayout.PropertyField(_dataName);
+
+
+
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(_flowchartOverrideTextFile);
+            if (EditorGUI.EndChangeCheck()) {
+                serializedObject.ApplyModifiedProperties();
+                if (flowchart.flowchartOverrideTextFile != null)
+                {
+                    flowchart.SetDataNameText();
+                }
+            }
+
+            if (flowchart.flowchartOverrideTextFile!=null) {
+                if (GUILayout.Button(new GUIContent("Override Flowchart Info", "Override Flowchart All Info"))) {
+                    flowchart.OverrideSaveData();
+                    //按鈕 將flowchart  覆蓋文本的資訊
+                }
+            }
+
+      
+
             EditorGUILayout.PropertyField(descriptionProp);
             EditorGUILayout.PropertyField(colorCommandsProp);
             EditorGUILayout.PropertyField(hideComponentsProp);
@@ -103,17 +131,26 @@ namespace Fungus.EditorUtils
             {
                 EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
             }
-
+            if (GUILayout.Button(new GUIContent("Export Data To Json ", "Save Data To TextAsset With Json")))
+            {
+                flowchart.ClickCreateSaveData();
+              //  flowchart.testFunc();
+            }
 
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
+
+
 
             serializedObject.ApplyModifiedProperties();
 
             //Show the variables in the flowchart inspector
             GUILayout.Space(20);
-
+            
             DrawVariablesGUI(false, Mathf.FloorToInt(EditorGUIUtility.currentViewWidth) - VariableListAdaptor.ReorderListSkirts);
+
+      
+
             // Debug.Log("統計數字"+VariableListAdaptor.ReorderListSkirts);
 
             // DrawVariablesGUI(false, 10);

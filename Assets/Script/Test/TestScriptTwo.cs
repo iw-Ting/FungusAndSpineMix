@@ -6,12 +6,22 @@ using Fungus;
 public class TestScriptTwo : MonoBehaviour
 {
 
-    public List<string> aa = new List<string>();
-    public List<string> bb = new List<string>();
 
-    public void Start()
+    public RectTransform testObj;
+
+
+    private void OnDrawGizmos()
     {
-        bb = new List<string>(aa);
+        if (testObj==null) {
+            return;
+        
+        }
+
+        Debug.Log("ด๚ธี1=>"+testObj.position);
+        Debug.Log("ด๚ธี2=>" + testObj.anchoredPosition);
+        //Debug.Log("ด๚ธี2=>" + RectTransformUtility.screen);
+
+
     }
 
 

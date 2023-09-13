@@ -97,17 +97,27 @@ namespace Fungus
             var flowchart = GetFlowchart();
             string newText = flowchart.SubstituteVariables(text.Value);
 
+
+
             if (!waitUntilFinished)
             {
-                StartCoroutine(writer.Write(newText, clearText, false, true, false, null, null));
+                Sayinfo sayinfo=new Sayinfo(newText, clearText, false, true,true, false, null, null,null);
+
+
+                //StartCoroutine(writer.Write(newText, clearText, false, true, false, null, null));
+
+                StartCoroutine(writer.Write(sayinfo));
                 Continue();
             }
             else
             {
-                StartCoroutine(writer.Write(newText, clearText, false, true, false, null,
+                Sayinfo sayinfo = new Sayinfo(newText, clearText, false, true, true, false, null,null, () => { Continue(); });
+            /*    StartCoroutine(writer.Write(newText, clearText, false, true, false, null,
                              () => { Continue (); }
-                ));
+                ));*/
             }
+
+
         }
 
         public override string GetSummary()

@@ -266,7 +266,7 @@ namespace Fungus.EditorUtils
 
             copyList.Clear();
 
-            wantsMouseMove = true; // For hover selection in block search popup  
+            wantsMouseMove = true; // For hover selec   tion in block search popup  
 
             UpdateBlockCollection();
 
@@ -437,7 +437,11 @@ namespace Fungus.EditorUtils
                 {
                     ShowBlockInspector(flowchart);
                 }
+
+
                 blockInspector.block = (Block)flowchart.SelectedBlock;
+
+  
             }
 
             if (forceRepaintCount != 0)
@@ -824,7 +828,7 @@ namespace Fungus.EditorUtils
             //      actually get called partially outside our control
             try
             {
-                DrawOverlay(Event.current);//描繪附屬功能視窗
+                DrawOverlay(Event.current);//描繪附屬功能視窗 四角的功能
             }
             catch (Exception)
             {

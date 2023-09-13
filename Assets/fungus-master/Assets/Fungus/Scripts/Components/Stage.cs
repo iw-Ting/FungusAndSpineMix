@@ -39,7 +39,7 @@ namespace Fungus
         [SerializeField] protected Vector2 shiftOffset;
 
         [Tooltip("The position object where characters appear by default.")]
-        [SerializeField] protected Image defaultPosition;
+        [SerializeField] protected RectTransform defaultPosition;
 
         [Tooltip("List of stage position rect transforms in the stage.")]
         [SerializeField] protected List<RectTransform> positions;
@@ -149,7 +149,7 @@ namespace Fungus
         /// <summary>
         /// The position object where characters appear by default.
         /// </summary>
-        public virtual Image DefaultPosition { get { return defaultPosition; } }
+        public virtual RectTransform DefaultPosition { get { return defaultPosition; } }
 
         /// <summary>
         /// List of stage position rect transforms in the stage.
@@ -183,6 +183,44 @@ namespace Fungus
             }
             return null;
         }
+
+        public void CloseOtherRaycastTarget(RectTransform tarRect) {
+
+            foreach (var rect in positions) {
+
+                if (rect==tarRect) {
+
+                }
+                else
+                {
+                    if (rect.GetComponent<Image>())
+                    {
+                        rect.GetComponent<Image>().raycastTarget = false;
+                    }
+                }
+            
+            }
+        
+        
+        
+        }
+
+        public void OpenAllPositionRaycastTarget()
+        {
+
+            foreach (var rect in positions)
+            {
+                if (rect.GetComponent<Image>()) 
+                {
+                    rect.GetComponent<Image>().raycastTarget = true;
+                }
+            }
+
+
+        }
+
+
+
 
         #endregion
     }

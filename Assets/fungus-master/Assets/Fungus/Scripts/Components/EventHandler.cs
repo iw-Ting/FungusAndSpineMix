@@ -40,10 +40,10 @@ namespace Fungus
         [HideInInspector]
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
-
         [Tooltip("If true, the flowchart window will not auto select the Block when the Event Handler fires. Affects Editor only.")]
         [SerializeField] protected bool suppressBlockAutoSelect = false;
 
+        public bool SuppressBlockAutoSelect { get; }
         #region Public members
 
         /// <summary>
@@ -89,7 +89,6 @@ namespace Fungus
         {
             return "";
         }
-
         #endregion
     }
 }

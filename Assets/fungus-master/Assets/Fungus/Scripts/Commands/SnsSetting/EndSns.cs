@@ -32,4 +32,32 @@ namespace Fungus
 
 
     }
+
+
+     class eng
+    {
+
+        public string aa;   
+        private string bb;
+        protected internal string cc;
+
+
+
+    }
+         class qwe {
+
+        private eng ee = new eng(); 
+         public void asd()
+            {
+
+            ee.cc = "123";
+
+          
+        }
+    
+    
+    }
+
+
+
 }

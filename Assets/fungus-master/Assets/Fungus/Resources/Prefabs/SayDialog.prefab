@@ -468,10 +468,10 @@ RectTransform:
   - {fileID: 22488896}
   m_Father: {fileID: 22488902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 620, y: 250}
+  m_SizeDelta: {x: 0, y: 250}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &22288900
 CanvasRenderer:
@@ -695,6 +695,7 @@ MonoBehaviour:
   characterImage: {fileID: 11448914}
   fitTextWithImage: 1
   closeOtherDialogs: 0
+  canvasGroup: {fileID: 22588896}
 --- !u!114 &11487070
 MonoBehaviour:
   m_ObjectHideFlags: 0

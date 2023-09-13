@@ -262,6 +262,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Collection\CollectionCommandContains.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Scripts\Components\LuaStore.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\FadeScreen.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SupportDrawGizmo\DrawGizmoLine.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Diagnostics\PerformanceStatistics.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\StandardDescriptors\MemberDescriptors\ObjectCallbackMemberDescriptor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Quit.cs" />
@@ -521,6 +522,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\EventHandlers\MonoBehaviour\Trigger2D.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\VariableTypes\GameObjectVariable.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SetClickable2D.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Components\plugins\SupportScript\FungusResourcesPath.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\Attributes\MoonSharpHideMemberAttribute.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\VariableTypes\TransformVariable.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Debugging\WatchType.cs" />
@@ -551,6 +553,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\CoreLib\DebugModule.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Expressions\UnaryOperatorExpression.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\IVariable.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Components\plugins\Data\ExportData.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Scripts\Components\InfoText.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Property\Collision2DProperty.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Debugger\DebuggerLogic\MoonSharpDebugSession.cs" />
@@ -692,7 +695,6 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Math\Log.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\PlayAnimState.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\ScriptOptions.cs" />
-    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SupportScript\FungusResourcesPath.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Execution\VM\Processor\Processor_UtilityFunctions.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Utils\FlowchartData.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Statements\GotoStatement.cs" />

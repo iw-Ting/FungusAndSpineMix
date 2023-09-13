@@ -35,8 +35,9 @@ public class SpineCharaAniEditor : CommandEditor
 
     private SerializedProperty OffestPro;
     private SerializedProperty FadePro;
-
+    
     private SerializedProperty tweenTime;
+
 
     private bool SetSpineOrder = false;
     public override void OnEnable()
@@ -202,22 +203,22 @@ public class SpineCharaAniEditor : CommandEditor
                     string[] enumName = aClickButtonSizeSettingProp.enumNames;
                     string clickSetting = enumName[ aClickButtonSizeSettingProp.enumValueIndex]; 
 
-                    var enumStatus=(EnumSetting)Enum.Parse(typeof(EnumSetting), clickSetting);
+                    var enumStatus=(ClickAeraSetting)Enum.Parse(typeof(ClickAeraSetting), clickSetting);
 
                     switch (enumStatus)
                     {
-                        case EnumSetting.Default:
+                        case ClickAeraSetting.Default:
 
                             break;
-                        case EnumSetting.Customize:
+                        case ClickAeraSetting.Customize:
                             EditorGUILayout.PropertyField(aClickButtonSizeProp);
                             break;
                     }
-
-
-
-
-
+                    tar.StartDraw = true;
+                }
+                else
+                {
+                    tar.StartDraw = false;
                 }
 
 
@@ -231,6 +232,7 @@ public class SpineCharaAniEditor : CommandEditor
                 SetMoveProperty(tar);
 
             }
+            
 
         }
 
@@ -238,6 +240,7 @@ public class SpineCharaAniEditor : CommandEditor
 
         
         serializedObject.ApplyModifiedProperties();
+        serializedObject.Update();
 
     }
 
@@ -282,6 +285,8 @@ public class SpineCharaAniEditor : CommandEditor
 
 
     }
+
+    
 
 
 

@@ -12,7 +12,7 @@ public class testPro : MonoBehaviour
 
     public SkeletonGraphic skin;
 
-
+ 
     void Start()
     {
         /*GameObject sp = Instantiate(skin.gameObject);

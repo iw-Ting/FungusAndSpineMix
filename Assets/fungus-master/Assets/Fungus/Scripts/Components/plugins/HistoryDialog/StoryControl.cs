@@ -30,7 +30,7 @@ namespace Fungus
 
         private bool PlayAni = false;
 
-
+        private bool DialogState=false;//對話框在log顯現錢最後的狀態(隱藏 or 顯現)
 
         private void OnEnable()
         {
@@ -104,21 +104,23 @@ namespace Fungus
 
         private IEnumerator ClickLogButton()
         {
-
+           
             if (!PlayAni)
             {
+                CloseAutoPlay();
                 PlayAni = true;
                 if (mLogWindowPopup == null)
                 {
 
                     mLogWindowPopup = Instantiate(LogWindowPopupPrefab);
                     mLogWindowPopup.transform.SetParent(LogWindowPopupParent.transform, false);
-
                     mLogWindowPopup.GetComponent<CanvasGroup>().alpha = 0;
 
                     yield return mLogWindowPopup.GetComponent<StoryLogPopup>().Init(recordDialogList,
                         ()=> { StartCoroutine(ClickCloseLogButton()); });
+
                     StartCoroutine(HideDialogAndTopUI());
+
                     yield return LeanTweenManager.FadeIn(mLogWindowPopup);
                     PlayAni = false;
 
@@ -140,14 +142,13 @@ namespace Fungus
             }
         }
 
-
-
         private void ClickSkipButton()
         {
             if (PlayAni)
             {
                 return;
             }
+            CloseAutoPlay();
             Fc._storyEnabled = false;
             GameObject sp = new GameObject("FadeMask", typeof(RectTransform), typeof(Image));
             sp.GetComponent<Image>().color = Color.black;
@@ -173,19 +174,36 @@ namespace Fungus
 
         public IEnumerator ShowTopUI()
         {
-
+            SayDialog sd = SayDialog.GetSayDialog();
+            if (DialogState)
+            {
+                DialogState = false;
+                StartCoroutine(sd.ReactionAlpha(true));
+            }
             TopFuncListParent.SetActive(true);
             yield return LeanTweenManager.FadeIn(TopFuncListParent);
+
         }
+
+        
 
         public IEnumerator HideDialogAndTopUI()
         {
             SayDialog sd = SayDialog.GetSayDialog();
-
-            if (sd.NowAlphaStatus())
+            DialogState = sd.NowAlphaStatus();
+            if (DialogState)
             {
                 StartCoroutine(sd.ReactionAlpha(false));
-                yield return LeanTweenManager.FadeOut(TopFuncListParent, () => { TopFuncListParent.SetActive(false); });
+            }
+            yield return LeanTweenManager.FadeOut(TopFuncListParent, () => { TopFuncListParent.SetActive(false); });
+        }
+
+        public void CloseAutoPlay()
+        {
+            if (SayDialog.GetSayDialog().GetWriter().AutoPlay)
+            {
+                SayDialog.GetSayDialog().GetWriter().AutoPlay = false;
+                Stage.GetActiveStage().SetAutoPlay();
             }
         }
 

@@ -28,6 +28,7 @@ namespace Fungus.EditorUtils
         public override void DrawCommandGUI()
         {
 
+            
             sns = (SetToSns)target;
             SnsProp = serializedObject.FindProperty("sns");
             SerializedProperty messageInfo = SnsProp.FindPropertyRelative("mMessageType");

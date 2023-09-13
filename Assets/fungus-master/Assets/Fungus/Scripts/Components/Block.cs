@@ -26,6 +26,7 @@ namespace Fungus
     [ExecuteInEditMode]
     [RequireComponent(typeof(Flowchart))]
     [AddComponentMenu("")]
+    [Serializable]
     public class Block : Node
     {
         [SerializeField] protected int itemId = -1; // Invalid flowchart item id
@@ -76,6 +77,7 @@ namespace Fungus
         protected virtual void Awake()
         {
             SetExecutionInfo();
+
         }
 
         /// <summary>

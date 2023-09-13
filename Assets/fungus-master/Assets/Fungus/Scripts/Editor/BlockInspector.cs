@@ -80,6 +80,7 @@ namespace Fungus.EditorUtils
             }
 
             var block = blockInspector.block;
+            
             if (block == null)
             {
                 return;
@@ -110,8 +111,10 @@ namespace Fungus.EditorUtils
             float width = EditorGUIUtility.currentViewWidth;
 
             blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.BlockViewHeight));
-            activeBlockEditor.DrawBlockName(flowchart);
-            activeBlockEditor.DrawBlockGUI(flowchart);
+
+            activeBlockEditor.DrawBlockName(flowchart);//顯示block名稱
+            activeBlockEditor.DrawBlockGUI(flowchart);//顯示block詳細資訊與command陣列等
+
             GUILayout.EndScrollView();
 
             Command inspectCommand = null;
@@ -158,6 +161,7 @@ namespace Fungus.EditorUtils
 
             commandScrollPos = GUILayout.BeginScrollView(commandScrollPos);
 
+
             if (inspectCommand != null)
             {
                 if (activeCommandEditor == null || 
@@ -174,7 +178,7 @@ namespace Fungus.EditorUtils
                     else
                     {
                         // No cached editor, so create a new one.
-                        activeCommandEditor = Editor.CreateEditor((Command)inspectCommand) as CommandEditor;
+                        activeCommandEditor = Editor.CreateEditor((Command)inspectCommand) as CommandEditor;//顯示該command的editor
                         cachedCommandEditors.Add(activeCommandEditor);
                     }
                 }
@@ -188,12 +192,12 @@ namespace Fungus.EditorUtils
 
             // Draw the resize bar after everything else has finished drawing
             // This is mainly to avoid incorrect indenting.
-            Rect resizeRect = new Rect(0, flowchart.BlockViewHeight + topPanelHeight, EditorGUIUtility.currentViewWidth, 4f);
+            Rect resizeRect = new Rect(0, flowchart.BlockViewHeight + topPanelHeight, EditorGUIUtility.currentViewWidth, 4f);//設定白線以區別上下視窗高度
             GUI.color = new Color(0.64f, 0.64f, 0.64f);
             GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
             resizeRect.height = 1;
             GUI.color = new Color32(132, 132, 132, 255);
-            GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
+            GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);//防止動畫延遲而生成的線
             resizeRect.y += 3;
             GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
             GUI.color = Color.white;
@@ -201,12 +205,14 @@ namespace Fungus.EditorUtils
             Repaint();
         }
 
-        private void ResizeScrollView(Flowchart flowchart)
+        private void ResizeScrollView(Flowchart flowchart)//重新設置下拉選項的高度
         {
+
+
             Rect cursorChangeRect = new Rect(0, flowchart.BlockViewHeight + 1 + topPanelHeight, EditorGUIUtility.currentViewWidth, 4f);
 
-            EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeVertical);
-            
+            EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeVertical);//設置滑鼠樣式
+
             if (cursorChangeRect.Contains(Event.current.mousePosition))
             {
                 if (Event.current.type == EventType.MouseDown)
@@ -217,16 +223,18 @@ namespace Fungus.EditorUtils
 
             if (resize && Event.current.type == EventType.Repaint)
             {
+
                 Undo.RecordObject(flowchart, "Resize view");
                 flowchart.BlockViewHeight = Event.current.mousePosition.y - topPanelHeight;
             }
             
-            ClampBlockViewHeight(flowchart);
+            ClampBlockViewHeight(flowchart);//設定視窗高
             
             // Stop resizing if mouse is outside inspector window.
             // This isn't standard Unity UI behavior but it is robust and safe.
             if (resize && Event.current.type == EventType.MouseDrag)
             {
+
                 Rect windowRect = new Rect(0, 0, EditorGUIUtility.currentViewWidth, windowHeight);
                 if (!windowRect.Contains(Event.current.mousePosition))
                 {

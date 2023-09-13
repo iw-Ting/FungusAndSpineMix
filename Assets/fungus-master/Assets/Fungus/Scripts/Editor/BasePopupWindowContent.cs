@@ -98,7 +98,7 @@ namespace Fungus.EditorUtils
             return size;
         }
 
-        private void DrawSearch(Rect rect)
+        private void DrawSearch(Rect rect)//顯示搜尋
         {
             if (Event.current.type == EventType.Repaint)
                 EditorStyles.toolbar.Draw(rect, false, false, false, false);
@@ -113,7 +113,7 @@ namespace Fungus.EditorUtils
             var prevFilter = currentFilter;
             currentFilter = GUI.TextField(searchRect, currentFilter);
 
-            if (prevFilter != currentFilter)
+            if (prevFilter != currentFilter)//文字不同,刷新搜尋
             {
                 UpdateFilter();
             }
@@ -133,6 +133,7 @@ namespace Fungus.EditorUtils
             {
                 visibleItems = allItems.Where(x =>
                 {
+                    
                     //we want all tokens
                     foreach (var item in lowers)
                     {
@@ -149,7 +150,7 @@ namespace Fungus.EditorUtils
                 visibleItems.Insert(0, new FilteredListItem(-1, "None"));
         }
 
-        private void DrawSelectionArea(Rect scrollRect)
+        private void DrawSelectionArea(Rect scrollRect)//陣列滑鼠偵測
         {
             Rect contentRect = new Rect(0, 0,
                 scrollRect.width - GUI.skin.verticalScrollbar.fixedWidth,

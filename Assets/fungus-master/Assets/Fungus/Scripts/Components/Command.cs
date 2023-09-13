@@ -39,6 +39,11 @@ namespace Fungus
     /// <summary>
     /// Base class for Commands. Commands can be added to Blocks to create an execution sequence.
     /// </summary>
+    /// 
+
+
+
+    [Serializable]
     public abstract class  Command : MonoBehaviour, IVariableReference
     {
         [FormerlySerializedAs("commandId")]
@@ -120,6 +125,7 @@ namespace Fungus
         /// </summary>
         public virtual Flowchart GetFlowchart()
         {
+           
             var flowchart = GetComponent<Flowchart>();
             if (flowchart == null &&
                 transform.parent != null)
@@ -144,7 +150,6 @@ namespace Fungus
         {
             // This is a noop if the Block has already been stopped
 
-            Debug.Log("執行完成");
             if (IsExecuting)
             {
                 Continue(CommandIndex + 1);
@@ -348,6 +353,21 @@ namespace Fungus
 
             return localizationId;
         }        
+
+        public virtual void SetSaveData (object saveData){//設置儲存資料
+        
+        
+        
+        
+        }
+
+
+        public virtual T GetSaveData<T>()where T :CommandSaveData  //獲得儲存資料後的設置值
+        {
+
+            return null;
+
+        }
 
         #endregion
     }

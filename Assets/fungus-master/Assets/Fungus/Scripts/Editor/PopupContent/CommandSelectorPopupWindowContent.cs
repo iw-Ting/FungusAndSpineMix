@@ -27,11 +27,10 @@ namespace Fungus.EditorUtils
             }
         }
 
-        static void CacheCommandTypes()
+        static void CacheCommandTypes()//獲得擁有command類別的物件
         {
-            //獲得擁有command類別的物件
             _commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).Where(x => !x.IsAbstract).ToList();
-
+            
         }
 
         [UnityEditor.Callbacks.DidReloadScripts]
@@ -48,11 +47,11 @@ namespace Fungus.EditorUtils
         {
         }
 
-        protected override void SelectByOrigIndex(int index)
+        protected override void SelectByOrigIndex(int index)//選擇了下拉選單後
         {
             var commandType = (index >= 0 && index < CommandTypes.Count) ? CommandTypes[index] : null;
             AddCommandCallback(commandType);
-        }
+        }   
 
         protected override void PrepareAllItems()
         {
@@ -195,7 +194,11 @@ namespace Fungus.EditorUtils
             flowchart.ClearSelectedCommands();
 
             CommandListAdaptor.ScrollToCommandOnDraw = true;
+
             flowchart.AddSelectedCommand(newCommand); //select the new command.
         }
+
+
+
     }
 }

@@ -110,7 +110,7 @@ namespace Fungus.EditorUtils
             EditorGUI.LabelField(rect, new GUIContent("Commands"));
         }
 
-        public void DrawItem(Rect position, int index, bool selected, bool focused)
+        public void DrawItem(Rect position, int index, bool selected, bool focused)//Ã¸»sinspector¤Wªºcommands
         {
             if (position.width < 0) return;
 

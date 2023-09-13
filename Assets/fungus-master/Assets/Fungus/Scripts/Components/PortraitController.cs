@@ -149,7 +149,7 @@ namespace Fungus
             // if no previous position, use default position
             if (options.character.State.position == null)
             {
-                options.character.State.position = stage.DefaultPosition.rectTransform;
+                options.character.State.position = stage.DefaultPosition;
             }
 
             // Selected "use previous position"
@@ -163,7 +163,7 @@ namespace Fungus
                 // if no previous position, use default position
                 if (options.replacedCharacter.State.position == null)
                 {
-                    options.replacedCharacter.State.position = stage.DefaultPosition.rectTransform;
+                    options.replacedCharacter.State.position = stage.DefaultPosition;
                 }
             }
 
@@ -251,7 +251,7 @@ namespace Fungus
                 // Set it to be a child of the stage
                 character.State.holder.transform.SetParent(stage.CharaParent, false);
 
-                SetRectTransform(character.State.holder, stage.DefaultPosition.GetComponent<RectTransform>());
+                SetRectTransform(character.State.holder, stage.DefaultPosition);
             }
 
             if (character.State.allPortraits.Count == 0)
@@ -354,7 +354,7 @@ namespace Fungus
                 }
                 else
                 {
-                    SetRectTransform(opt.CharaObj.GetComponent<RectTransform>(), stage.DefaultPosition.GetComponent<RectTransform>());
+                    SetRectTransform(opt.CharaObj.GetComponent<RectTransform>(), stage.DefaultPosition);
                 }
 
                 opt.CharaObj.GetComponent<RectTransform>().localPosition = opt.CharaObj.GetComponent<RectTransform>().localPosition + opt._offest;
@@ -733,6 +733,7 @@ namespace Fungus
                 InputCallBack.InputOptions setting = new InputCallBack.InputOptions();
 
                 ClickMode origineMode = ClickMode.Disabled;
+
                 switch (options._clickMode)//返回舊有的對話模式
                 {
 
@@ -753,9 +754,13 @@ namespace Fungus
 
                         setting.parentPos = options._clickPosition;
                         setting.touchSize = options._clickButtonSize;
+                        
                         SayDialog.GetSayDialog().GetComponent<DialogInput>().CloseInputButtonArea();
-                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, null, setting);
+                        Stage stage = Stage.GetActiveStage();
+                        stage.CloseOtherRaycastTarget(setting.parentPos);
 
+                        yield return InputCallBack.GetInputCallBack().CreateDetectInputCB(options._clickMode, null, setting);
+                        stage.OpenAllPositionRaycastTarget();
                         break;
 
                     default:

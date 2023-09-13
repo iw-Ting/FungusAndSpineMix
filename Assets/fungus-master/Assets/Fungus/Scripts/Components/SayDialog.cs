@@ -83,7 +83,7 @@ namespace Fungus
 
         protected WriterAudio writerAudio;
         protected Writer writer;
-        protected CanvasGroup canvasGroup;
+        [SerializeField]protected CanvasGroup canvasGroup;
 
         protected bool fadeWhenDone = true;
         protected float targetAlpha = 0f;
@@ -110,6 +110,7 @@ namespace Fungus
             }
             nameTextAdapter.InitFromGameObject(nameText != null ? nameText.gameObject : nameTextGO);
             storyTextAdapter.InitFromGameObject(storyText != null ? storyText.gameObject : storyTextGO);
+            
         }
 
         protected virtual void OnDestroy()
@@ -192,6 +193,8 @@ namespace Fungus
             }
             GetWriter().SetDialogStatusAction += ReactionAlpha;
         }
+
+
 
       /*  protected virtual void LateUpdate()
         {
@@ -365,8 +368,8 @@ namespace Fungus
 
         public bool NowAlphaStatus()
         {
-            CanvasGroup cg = gameObject.GetComponent<CanvasGroup>();
-            if (cg.alpha>0) {
+
+            if (canvasGroup.alpha>0) {
                 return true;
             }
             else
@@ -563,9 +566,9 @@ namespace Fungus
         /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
         /// <param name="voiceOverClip">Voice over audio clip to play.</param>
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
-        public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, bool waitForVO, AudioClip voiceOverClip, Action onComplete)
+        public virtual void Say(Sayinfo sayinfo)
         {
-            StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, onComplete));
+            StartCoroutine(DoSay(sayinfo));
         }
 
         /// <summary>
@@ -578,7 +581,7 @@ namespace Fungus
         /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
         /// <param name="voiceOverClip">Voice over audio clip to play.</param>
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
-        public virtual IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, bool waitForVO, AudioClip voiceOverClip, Action onComplete)
+        public virtual IEnumerator DoSay(Sayinfo sayinfo)
         {
 
             var writer = GetWriter();
@@ -605,15 +608,15 @@ namespace Fungus
             }
             gameObject.SetActive(true);
 
-            this.fadeWhenDone = fadeWhenDone;
+            this.fadeWhenDone = sayinfo.fadeWhenDone;
 
             // Voice over clip takes precedence over a character sound effect if provided  
 
             AudioClip soundEffectClip = null;
-            if (voiceOverClip != null)
+            if (sayinfo.voiceOverClip != null)
             {
                 WriterAudio writerAudio = GetWriterAudio();
-                writerAudio.OnVoiceover(voiceOverClip);
+                writerAudio.OnVoiceover(sayinfo.voiceOverClip);
             }
             else if (speakingCharacter != null)
             {
@@ -622,7 +625,7 @@ namespace Fungus
 
             writer.AttachedWriterAudio = writerAudio;
 
-            yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, waitForVO, soundEffectClip, onComplete));
+            yield return StartCoroutine(writer.Write(sayinfo));
             StartCoroutine(ReactionAlpha(fadeWhenDone));
         }
 

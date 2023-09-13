@@ -127,7 +127,7 @@ namespace Fungus
             }
 
 
-            string subbedText = flowchart.SubstituteVariables(displayText);
+            string content = flowchart.SubstituteVariables(displayText);
 
             //sayDialog.GetWriter().SetAutoPlay
 
@@ -137,16 +137,45 @@ namespace Fungus
             
 
            StartCoroutine(  sayDialog.ReactionAlpha(true));
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, ()=> {
+
+            /* sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip
+                 , ()=> {
+                 Continue();
+             });*/
+            Sayinfo sayinfo = new Sayinfo();
+
+            sayinfo.content = content;
+            sayinfo.clearPrevious = !extendPrevious;
+            sayinfo.waitForClick = waitForClick;
+            sayinfo.fadeWhenDone = fadeWhenDone;
+            sayinfo.stopVoiceover = stopVoiceover;
+            sayinfo.waitForVO = waitForVO;
+            sayinfo.voiceOverClip = voiceOverClip;
+            sayinfo.onComplete= () =>
+            {
                 Continue();
-            });
+            };
+
+            sayinfo.setLogDialog = dialog => {
+                StoryControl sc = ParentBlock.GetFlowchart().mStoryControl;
+                string charaName = "None";
+                if (character!=null) {
+                    charaName = character.NameText;
+                }
+
+                sc.SaveDialogRecord(new DialogInfo(charaName, dialog, voiceOverClip));
+            };
+
+            sayDialog.Say(sayinfo);
+
+
         }
 
         public override void OnExit()
         {
-            SayDialog sd= SayDialog.GetSayDialog();
-            StoryControl sc = ParentBlock.GetFlowchart().mStoryControl;
-            sc.SaveDialogRecord(new DialogInfo(sd.NameText,InputUISupportScript.RemoveAllRichText( sd.StoryText),voiceOverClip));
+         //   SayDialog sd= SayDialog.GetSayDialog();
+         //   StoryControl sc = ParentBlock.GetFlowchart().mStoryControl;
+        //    sc.SaveDialogRecord(new DialogInfo(sd.NameText,InputUISupportScript.RemoveAllRichText( sd.StoryText),voiceOverClip));
         }
 
 
@@ -219,4 +248,36 @@ namespace Fungus
 
         #endregion
     }
+    public struct Sayinfo
+    {
+        public string content;
+        public bool clearPrevious;
+        public bool waitForClick;
+        public bool fadeWhenDone;
+        public bool stopVoiceover;
+        public bool waitForVO;
+        public AudioClip voiceOverClip;
+        public Action<string> setLogDialog;
+        public Action onComplete;
+        
+
+        public Sayinfo(string _content,bool _clearPrevious,bool _waitForClick,bool _fadeWhenDone,bool _stopVoiceover, bool _waitForVO, AudioClip _voiceOverClip, Action<string> _setLogDialog, Action _onComplete)
+        {
+            content = _content;
+            clearPrevious= _clearPrevious;
+            waitForClick= _waitForClick;
+            fadeWhenDone= _fadeWhenDone;
+            stopVoiceover= _stopVoiceover;
+            waitForVO= _waitForVO;
+            voiceOverClip= _voiceOverClip;
+            setLogDialog=_setLogDialog;
+            onComplete=_onComplete;
+        }
+
+
+    }
+
+
+
+
 }

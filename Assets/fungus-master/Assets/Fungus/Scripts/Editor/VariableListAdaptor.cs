@@ -141,6 +141,7 @@ namespace Fungus.EditorUtils
                 int width = widthOfList;
                 int totalRatio = DefaultWidth;
 
+                //每個參數的寬度比例
                 itemWidths[0] = (80.0f / totalRatio) * width;
                 itemWidths[1] = (100.0f / totalRatio) * width;
                 itemWidths[2] = (140.0f / totalRatio) * width;
@@ -165,7 +166,7 @@ namespace Fungus.EditorUtils
         public void DrawItem(Rect position, int index, bool selected, bool focused)  //生成陣列
         {
             Variable variable = GetVarAt(index);// this[index].objectReferenceValue as Variable;
-
+            //Debug.Log("獲得數值=>"+variable.Key+"名稱"+variable.GetType()+"值=>"+variable.GetValue());
             if (variable == null)
             {
                 return;

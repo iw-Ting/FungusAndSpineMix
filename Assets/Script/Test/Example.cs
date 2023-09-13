@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Example : MonoBehaviour
+public class Exampler : MonoBehaviour
 {
     [Randomize(0, 10)]
     public float Value;

@@ -53,12 +53,9 @@ namespace Fungus.EditorUtils
             addIcon = FungusEditorResources.Add;
             duplicateIcon = FungusEditorResources.Duplicate;
 
-
             deleteIcon = FungusEditorResources.Delete;
 
-
             commandListProperty = serializedObject.FindProperty("commandList");
-
 
             commandListAdaptor = new CommandListAdaptor(target as Block, commandListProperty);
 
@@ -90,11 +87,7 @@ namespace Fungus.EditorUtils
             serializedObject.Update();
 
             SerializedProperty blockNameProperty = serializedObject.FindProperty("blockName");
-            //calc position as size of what we want to draw pushed up into the top bar of the inspector
-            //Rect blockLabelRect = new Rect(45, -GUI.skin.window.padding.bottom - EditorGUIUtility.singleLineHeight * 2, 120, 16);
-            //EditorGUI.LabelField(blockLabelRect, new GUIContent("Block Name"));
-            //Rect blockNameRect = new Rect(45, blockLabelRect.y + EditorGUIUtility.singleLineHeight, 180, 16);
-            //EditorGUI.PropertyField(blockNameRect, blockNameProperty, new GUIContent(""));
+
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel(new GUIContent("Block Name"), EditorStyles.largeLabel);//設定標題, // style=> EditorStyles.largeLabel
             EditorGUI.BeginChangeCheck();//開始檢測是否有改變
@@ -191,7 +184,7 @@ namespace Fungus.EditorUtils
                     command.ParentBlock = block;
                 }
 
-                commandListAdaptor.DrawCommandList();
+                commandListAdaptor.DrawCommandList();//在inspector渲染commandList
 
                 // EventType.contextClick doesn't register since we moved the Block Editor to be inside
                 // a GUI Area, no idea why. As a workaround we just check for right click instead.
@@ -367,7 +360,7 @@ namespace Fungus.EditorUtils
                 int h = Screen.height;
                 if (EditorWindow.focusedWindow != null) h = (int)EditorWindow.focusedWindow.position.height;
                 else if (EditorWindow.mouseOverWindow != null) h = (int)EditorWindow.mouseOverWindow.position.height;
-
+                
                 CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block,//下拉式選單
                     (int)(EditorGUIUtility.currentViewWidth),
                     (int)(h - lastCMDpopupPos.y));
