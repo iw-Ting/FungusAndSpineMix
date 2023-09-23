@@ -16,9 +16,6 @@ namespace Fungus.EditorUtils
         {
             public Flowchart flowchart;
             public System.Type variableType;
-
-            
-            
         }
 
         public static readonly int DefaultWidth = 80 + 100 + 140 + 60;
@@ -241,7 +238,7 @@ namespace Fungus.EditorUtils
 
             variableObject.Update();
 
-            GUI.Label(itemRects[0], variableInfo.VariableType);
+            GUI.Label(itemRects[0], variableInfo.VariableType);//值的類型
 
             SerializedProperty keyProp = variableObject.FindProperty("key");
             SerializedProperty defaultProp = variableObject.FindProperty("value");
@@ -300,7 +297,7 @@ namespace Fungus.EditorUtils
             }
             else 
             {
-                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp, GUIContent.none);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp, GUIContent.none);//根據不同值顯示不同的區間
             }
         }
 

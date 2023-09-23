@@ -27,6 +27,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty _storyEnableProp;
         protected SerializedProperty _flowchartOverrideTextFile;
         protected SerializedProperty _dataName;
+        protected SerializedProperty _StageProp;
 
         protected Texture2D addTexture;
 
@@ -56,8 +57,7 @@ namespace Fungus.EditorUtils
             hideCommandsProp = serializedObject.FindProperty("hideCommands");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
-
-
+            _StageProp = serializedObject.FindProperty("mStage");
 
 
             addTexture = FungusEditorResources.AddSmall;
@@ -96,8 +96,8 @@ namespace Fungus.EditorUtils
                 }
             }
 
-      
 
+            EditorGUILayout.PropertyField(_StageProp);
             EditorGUILayout.PropertyField(descriptionProp);
             EditorGUILayout.PropertyField(colorCommandsProp);
             EditorGUILayout.PropertyField(hideComponentsProp);
@@ -133,8 +133,10 @@ namespace Fungus.EditorUtils
             }
             if (GUILayout.Button(new GUIContent("Export Data To Json ", "Save Data To TextAsset With Json")))
             {
-                flowchart.ClickCreateSaveData();
-              //  flowchart.testFunc();
+
+                //flowchart.test();
+               flowchart.ClickCreateSaveData();
+
             }
 
             GUILayout.FlexibleSpace();

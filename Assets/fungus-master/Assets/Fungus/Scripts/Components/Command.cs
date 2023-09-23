@@ -46,6 +46,7 @@ namespace Fungus
     [Serializable]
     public abstract class  Command : MonoBehaviour, IVariableReference
     {
+
         [FormerlySerializedAs("commandId")]
         [HideInInspector]
         [SerializeField] protected int itemId = -1; // Invalid flowchart item id
@@ -55,10 +56,15 @@ namespace Fungus
 
         protected string errorMessage = "";
 
+
         #region Editor caches
 #if UNITY_EDITOR
         //
         protected List<Variable> referencedVariables = new List<Variable>();
+        //public List<string> defStr = new List<string>() { "gh", "hj" };
+        //public List<List<string>> aaaa = new List<List<string>>() {new List<string>() { "gh", "hj" }};
+
+        //public string[] bbbb=new string[0];
 
         //used by var list adapter to highlight variables 
         public bool IsVariableReferenced(Variable variable)
@@ -352,22 +358,12 @@ namespace Fungus
             }
 
             return localizationId;
-        }        
-
-        public virtual void SetSaveData (object saveData){//設置儲存資料
-        
-        
-        
-        
         }
 
-
-        public virtual T GetSaveData<T>()where T :CommandSaveData  //獲得儲存資料後的設置值
+        public virtual void SetSaveDataToValue(string valueName,object valueData)//設置不可序列話又客製化的值 ex sprite,audioclip etc
         {
-
-            return null;
-
         }
+
 
         #endregion
     }

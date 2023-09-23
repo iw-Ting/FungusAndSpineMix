@@ -162,12 +162,11 @@ namespace Fungus
                 if (character!=null) {
                     charaName = character.NameText;
                 }
-
+                Debug.Log("記錄對話");
                 sc.SaveDialogRecord(new DialogInfo(charaName, dialog, voiceOverClip));
             };
 
             sayDialog.Say(sayinfo);
-
 
         }
 

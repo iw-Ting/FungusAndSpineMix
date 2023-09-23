@@ -18,7 +18,13 @@ namespace Fungus
         [SerializeField] protected Canvas portraitCanvas;
 
         public Transform CharaParent=null;
-        public Transform BackgroundParent = null;
+        public Transform ImageParent = null;
+        public Transform PositionsParent = null;
+
+        public Transform ViewParent = null;
+
+        public Transform AudiosParent=null;
+        public Transform ImagesParent = null;
 
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
@@ -56,23 +62,18 @@ namespace Fungus
             {
                 activeStages.Add(this);
             }
-          /*  positions.Clear();
+            if (portraitCanvas==null) {
+                if (transform.Find("Canvas").GetComponent<Canvas>()) {
+                    portraitCanvas = transform.Find("Canvas").GetComponent<Canvas>();
+                }
+                else
+                {
+                    CreateCanavas();
+                }
+            }
+            SetCnavasCamera();
 
-            foreach (var rect in portraitCanvas.GetComponentsInChildren<RectTransform>()) {
-                bool isHave = false;
-                if (rect== portraitCanvas.GetComponent<RectTransform>()) {
-                isHave = true;
-                }
-                foreach (var pos in positions) {
-                    if (pos==rect) {
-                        isHave = true;
-                    }
-                    
-                }
-                if (!isHave) {
-                    positions.Add(rect);
-                }
-            }*/
+
         }
 
         protected virtual void OnDisable()
@@ -139,17 +140,17 @@ namespace Fungus
         /// <summary>
         /// Ease type for the fade tween.
         /// </summary>
-        public virtual LeanTweenType FadeEaseType { get { return fadeEaseType; } }
+        public virtual LeanTweenType FadeEaseType { get { return fadeEaseType; }set { fadeEaseType = value; } }
 
         /// <summary>
         /// Constant offset to apply to portrait position.
         /// </summary>
-        public virtual Vector2 ShiftOffset { get { return shiftOffset; } }
+        public virtual Vector2 ShiftOffset { get { return shiftOffset; }set { shiftOffset = value; } }
 
         /// <summary>
         /// The position object where characters appear by default.
         /// </summary>
-        public virtual RectTransform DefaultPosition { get { return defaultPosition; } }
+        public virtual RectTransform DefaultPosition { get { return defaultPosition; }set { defaultPosition = value; } }
 
         /// <summary>
         /// List of stage position rect transforms in the stage.
@@ -183,6 +184,24 @@ namespace Fungus
             }
             return null;
         }
+        public View GetView(string rectName)
+        {
+
+            if (rectName.Equals(null))
+            {
+                return null;
+            }
+
+            for (int i=0;i<ViewParent.childCount;i++) {
+                View view = ViewParent.GetChild(i).GetComponent<View>();
+                if (String.Compare(view.name,rectName,true)==0) {
+                    return view;
+                }
+            }
+            return null;
+        }
+
+
 
         public void CloseOtherRaycastTarget(RectTransform tarRect) {
 
@@ -200,9 +219,7 @@ namespace Fungus
                 }
             
             }
-        
-        
-        
+
         }
 
         public void OpenAllPositionRaycastTarget()
@@ -215,6 +232,38 @@ namespace Fungus
                     rect.GetComponent<Image>().raycastTarget = true;
                 }
             }
+
+
+        }
+
+        public void ClearData()
+        {
+
+            foreach (var pos in positions) { 
+            DestroyImmediate(pos.gameObject);
+            }
+
+            positions.Clear();
+
+        }
+
+        public void SetCnavasCamera()
+        {
+            portraitCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+            portraitCanvas.worldCamera = Camera.main;
+            portraitCanvas.renderMode = RenderMode.WorldSpace;
+              //  LayoutRebuilder.ForceRebuildLayoutImmediate
+        }
+
+        public void CreateCanavas()
+        {
+
+            GameObject sp = new GameObject("Canvas", 
+                typeof(RectTransform), typeof(Canvas),typeof(GraphicRaycaster),
+                typeof(CanvasScaler),typeof(CanvasGroup)
+                );
+            portraitCanvas=sp.GetComponent<Canvas>();
+
 
 
         }

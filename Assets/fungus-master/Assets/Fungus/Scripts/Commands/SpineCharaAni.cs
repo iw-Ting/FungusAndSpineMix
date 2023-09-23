@@ -20,9 +20,8 @@ public enum ClickAeraSetting
 public class SpineCharaAni : ControlWithDisplay<DisplayType>
 {
     // Start is called before the first frame update
+    public List<List<string>> aaaa = new List<List<string>>() { new List<string>() { "gh", "hj" } };
     public CharaSpine aTarget;
-
-    public CharaSpine aReplacedTarget;//替換
     [SerializeField] protected Stage stage;
     [SerializeField] protected FacingDirection facing;
 
@@ -32,7 +31,7 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
     [SerializeField] protected RectTransform ClickPos=null;
 
-    [SerializeField] protected  Vector2 ClickButtonSize=new Vector2(300,300);
+    [SerializeField] protected Vector2 ClickButtonSize=new Vector2(300,300);
 
     [SerializeField] protected ClickAeraSetting aClickButtonSizeSetting = ClickAeraSetting.Default;
 
@@ -44,14 +43,14 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
     [SerializeField] protected bool move;//是否移動
 
-    [SerializeField] protected bool loop;//是否移動
+    [SerializeField] protected bool loop;//是否持續
 
     [SerializeField] protected bool waitAnimationFinish = false;//等待動畫完成後,接著撥放
     [SerializeField] protected bool waitDialog = false;
 
     //[SerializeField] protected bool waitForClick = false;//點集才可進入下一段動畫
 
-   // [SerializeField] protected bool waitForButton = false;//必須點擊某處才會進入下一階段
+    // [SerializeField] protected bool waitForButton = false;//必須點擊某處才會進入下一階段
 
     [SerializeField] protected ClickMode clickMode = ClickMode.Disabled;//必須點擊某處才會進入下一階段
 
@@ -59,7 +58,7 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
     public bool StartDraw = false;
 
-    [SerializeField] protected TweenTime aTween = new TweenTime();
+    [SerializeField] protected TweenTime aTween = new TweenTime();//儲存所有時間
 
     public virtual RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value; } }
 
@@ -279,11 +278,118 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
     public void OnDrawGizmos()
     {
         DrawTexture();
-
-
     }
 
+  /*  public override void SetSaveData(CommandSaveData saveData)
+    {
+        (saveData as SpineCharaAniData).SetDataBaseToSpineCharaAni(this);
+        
+    }*/
+
+    /*public class SpineCharaAniData:CommandSaveData
+    {
+        public FacingDirection facing;
+        public string fromPositionName;
+        public string toPositionName;
+        public string clickPosName;
+        public Vector2 ClickButtonSize;
+        public ClickAeraSetting aClickButtonSizeSetting;
+        public int spineOrder;
+        public string aAnimation;
+        public string aInitialSkinName;
+        public Vector3 offest;
+        public bool move;
+        public bool loop;
+        public bool waitAnimationFinish = false;//等待動畫完成後,接著撥放
+        public bool waitDialog = false;
+        public ClickMode clickMode = ClickMode.Disabled;//必須點擊某處才會進入下一階段
+        public bool fade = false;
+        public TweenTime aTween = new TweenTime();//儲存所有時間
+
+        public SpineCharaAniData(SpineCharaAni data) { 
+        
+            facing = data.facing;
+
+            if (data.fromPosition) {
+                fromPositionName = data.fromPosition.name;
+            }
+            else
+            {
+                fromPositionName = null;
+            }
+            if (data.toPosition) {
+                toPositionName = data.toPosition.name;
+            }
+            else
+            {
+                toPositionName = null;
+            }
+            if (data.ClickPos) {
+                clickPosName = data.ClickPos.name;
+            }
+            else
+            {
+                clickPosName = null;
+            }
 
 
+
+            ClickButtonSize = data.ClickButtonSize;
+            aClickButtonSizeSetting = data.aClickButtonSizeSetting;
+            spineOrder = data.spineOrder;
+            aAnimation = data.aAnimation;
+            aInitialSkinName = data.aInitialSkinName;
+            offest = data.offest;
+            move = data.move;
+            loop = data.loop;
+            waitAnimationFinish = data.waitAnimationFinish;
+            waitDialog = data.waitDialog;
+            clickMode=data.clickMode;
+            fade = data.fade;
+            aTween = data.aTween;
+
+            Debug.Log("資料都獲取完");
+        
+        }
+
+        public void SetDataBaseToSpineCharaAni(SpineCharaAni data)
+        {
+            data.facing=facing;
+
+            data.fromPosition.name= fromPositionName ;
+            data.toPosition.name= toPositionName;
+            clickPosName = data.ClickPos.name;
+
+            data.fromPosition = GetStageRectTransform(fromPositionName);
+            data.toPosition=GetStageRectTransform(toPositionName);
+            data.ClickPos = GetStageRectTransform(clickPosName);
+
+
+
+
+            data.ClickButtonSize= ClickButtonSize;
+
+            data.aClickButtonSizeSetting = aClickButtonSizeSetting;
+            data.spineOrder= spineOrder;
+            data.aAnimation= aAnimation;
+
+
+            data.aInitialSkinName= aInitialSkinName ;
+
+            data.offest= offest ;
+            data.move= move ;
+            data.loop= loop ;
+            data.waitAnimationFinish= waitAnimationFinish ;
+            data.waitDialog= waitDialog ;
+            data.clickMode= clickMode;
+            data.fade= fade ;
+            data.aTween = aTween;
+
+
+        }
+
+
+    }*/
+    
 
 }

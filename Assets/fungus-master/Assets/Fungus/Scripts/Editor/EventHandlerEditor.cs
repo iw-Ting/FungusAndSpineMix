@@ -22,7 +22,6 @@ namespace Fungus.EditorUtils
                 {
                     continue;
                 }
-                Debug.Log("¦WºÙ"+iterator.name);
                 EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
             }
 

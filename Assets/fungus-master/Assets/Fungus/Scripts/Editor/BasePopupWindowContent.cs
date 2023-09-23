@@ -158,7 +158,7 @@ namespace Fungus.EditorUtils
 
             scroll = GUI.BeginScrollView(scrollRect, scroll, contentRect);
 
-            Rect rowRect = new Rect(0, 0, scrollRect.width, ROW_HEIGHT);
+            Rect rowRect = new Rect(0, 0, scrollRect.width, ROW_HEIGHT);//選項範圍
 
             for (int i = 0; i < visibleItems.Count; i++)
             {
@@ -173,7 +173,7 @@ namespace Fungus.EditorUtils
                     scroll.x = 0;
                 }
 
-                if (rowRect.Contains(Event.current.mousePosition))
+                if (rowRect.Contains(Event.current.mousePosition))//選項範圍如果有滑鼠中心點
                 {
                     if (Event.current.type == EventType.MouseMove ||
                         Event.current.type == EventType.ScrollWheel)

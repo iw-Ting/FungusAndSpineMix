@@ -399,11 +399,15 @@ namespace Fungus.EditorUtils
             string currentHandlerName = "<None>";
             if (currentType != null)
             {
+               // currentType.GetProperty("").GetValue(""); //currentType是該類別  getproperty獲得裡面的參數  getvalue是獲得該類別的第一實例的參數
+
+
+
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(currentType);
                 if (info != null)
                 {
                     currentHandlerName = info.EventHandlerName;
-                }
+                }   
             }
 
             var pos = EditorGUILayout.GetControlRect(true, 0, EditorStyles.objectField);
@@ -433,7 +437,7 @@ namespace Fungus.EditorUtils
                 if (eventHandlerEditor != null)
                 {
                     EditorGUI.BeginChangeCheck();
-                    eventHandlerEditor.DrawInspectorGUI();
+                    eventHandlerEditor.DrawInspectorGUI();//開始事件的value執行邏輯
 
                     if(EditorGUI.EndChangeCheck())
                     {

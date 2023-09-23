@@ -60,14 +60,13 @@ namespace Fungus
         }
     }
     [Serializable]
-    public class TweenTime
+    public struct TweenTime
     {
+        public float aMoveAniDuration ;
+        public float aFadeAniDuration ;
 
-        public float aMoveAniDuration = 0;
-        public float aFadeAniDuration = 0;
-
-        public float aAnimationPlayRoundTime=0;
-        public float aFinishDuration = 0;//自動完成時間
+        public float aAnimationPlayRoundTime;
+        public float aFinishDuration ;//自動完成時間
     }
 
     public class SpineCharaAniOptions

@@ -220,7 +220,7 @@ public class SpineCharaAniEditor : CommandEditor
                 {
                     tar.StartDraw = false;
                 }
-
+                
 
                 string[] facingArrows = new string[]
                     {
@@ -264,8 +264,9 @@ public class SpineCharaAniEditor : CommandEditor
 
 
         EditorGUILayout.PropertyField(MovePro);
-
+        
         SerializedProperty aMoveAni = tweenTime.FindPropertyRelative("aMoveAniDuration");
+
         if (tar.Move)
         {
             CommandEditor.ObjectField<RectTransform>(FromPosPro,

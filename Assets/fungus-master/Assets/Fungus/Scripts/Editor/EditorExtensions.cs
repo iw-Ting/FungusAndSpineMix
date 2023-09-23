@@ -64,6 +64,7 @@ namespace Fungus.EditorUtils
         {
 #if UNITY_2019_2_OR_NEWER
             var results = TypeCache.GetTypesDerivedFrom(baseType).ToArray();
+
             if (classOnly)
                 return results.Where(x => x.IsClass).ToArray();
             else

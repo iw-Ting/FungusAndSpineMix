@@ -27,6 +27,8 @@ namespace Fungus {
             CreateCell (dia);
             SetButtonSetting();
 
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(ChildTextRect);
+
         }
 
         private void SetButtonSetting()
@@ -70,6 +72,8 @@ namespace Fungus {
                 sp.gameObject.SetActive(false);
                 sp.gameObject.SetActive(true);
             }
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(LogCellContentParent.GetComponent<RectTransform>());
 
         }
 

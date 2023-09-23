@@ -37,12 +37,7 @@ namespace Fungus
     /// </summary>
 
 
-    public class asd: System.Attribute{
-        public int aaa;
-        public string bbb;
 
-
-    }
 
     [System.Serializable]
     public struct BooleanData

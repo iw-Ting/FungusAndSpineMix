@@ -16,6 +16,7 @@ namespace Fungus.EditorUtils
         public static Command selectedCommand;
         public static bool SelectedCommandDataStale { get; set; }
 
+
         public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
         {
             CommandInfoAttribute retval = null;
@@ -54,6 +55,9 @@ namespace Fungus.EditorUtils
             reorderableLists = new Dictionary<string, ReorderableList>();
         }
 
+        
+        
+
         public virtual void DrawCommandInspectorGUI() //cammand的Inspector詳細資訊
         {
             Command t = target as Command;
@@ -73,6 +77,9 @@ namespace Fungus.EditorUtils
             {
                 return;
             }
+
+
+
 
             GUILayout.BeginVertical(GUI.skin.box);
 

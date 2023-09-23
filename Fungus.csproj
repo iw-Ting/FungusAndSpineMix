@@ -292,6 +292,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\CoreLib\TableModule.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\DataTypes\CoroutineState.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\ProxyObjects\IProxyFactory.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Components\plugins\SupportScript\FungusResources.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\MoveAdd.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Debugger\MoonSharpVsCodeDebugServer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\ShowSprite.cs" />
@@ -1411,6 +1412,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>

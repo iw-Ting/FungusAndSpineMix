@@ -11,6 +11,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using System.IO;
+using System.Linq;
 
 
 namespace Fungus
@@ -71,6 +72,10 @@ namespace Fungus
 
         [SerializeField] protected string dataName = "";
 
+        [HideInInspector]public Stage mStage;
+
+        
+
        
         [Range(0f, 5f)]
         [Tooltip("Adds a pause after each execution step to make it easier to visualise program flow. Editor only, has no effect in platform builds.")]
@@ -120,6 +125,25 @@ namespace Fungus
         }
 #endif
 
+        public void InitData() { 
+
+            hideCommands.Clear();
+            variables.Clear();
+            hideComponents = true;
+
+            Component[] components= gameObject.GetComponents<Component>();
+
+            foreach (var com in components) {
+                if (com.GetType()!=typeof(Flowchart)&& com.GetType() != typeof(Transform)) {
+                    DestroyImmediate(com);
+                }
+            }
+
+
+
+
+
+         }
 
         protected virtual void LevelWasLoaded()
         {
@@ -189,6 +213,27 @@ namespace Fungus
             UpdateVersion();
 
             StringSubstituter.RegisterHandler(this);
+
+            if (mStage==null) {
+                Stage stage=null;
+
+                bool HaveStage = false;
+                if (gameObject.transform.Find("Stage"))
+                {
+                    if (gameObject.transform.Find("Stage").TryGetComponent<Stage>(out stage))
+                    {
+                        HaveStage = true;
+                        mStage = stage;
+                    }
+                }
+
+                if (!HaveStage) {
+                    GameObject sp = Instantiate(Resources.Load<GameObject>("Prefabs/Stage"));
+                    sp.transform.SetParent(transform);
+                    sp.transform.SetSiblingIndex(0);
+                }
+
+            }
         }
 
         protected virtual void OnDisable()
@@ -1343,6 +1388,7 @@ namespace Fungus
             return false;
         }
 
+
         /// <summary>
         /// Returns a list of all executing blocks in this Flowchart.
         /// </summary>
@@ -1440,7 +1486,7 @@ namespace Fungus
 
         private static readonly string FileDataExportFormat = ".json";
 
-        
+
         public void ClickCreateSaveData()
         {
             StartCoroutine(CreateSaveData());
@@ -1454,7 +1500,6 @@ namespace Fungus
 
             if (!Directory.Exists(Application.dataPath + FungusResourcesPath.FlowchartSaveData))
             {
-                Debug.Log("生成資料夾");
                 Directory.CreateDirectory(Application.dataPath + FungusResourcesPath.FlowchartSaveData);
 
             }
@@ -1462,22 +1507,14 @@ namespace Fungus
             string path = Application.dataPath + FungusResourcesPath.FlowchartSaveData;
             int fileNo = 1;
 
-            //      List<Mom> moms = new List<Mom>();
-            //   moms.Add(new Mom("王大明", 88, "王大明2號", "王大明3號"));
-            saveData savedata = new saveData();
-
-            savedata.moms.Add(new Mom("王大明", 88, "王大明2號", "王大明3號"));
 
 
-           // moms.Add(new Mom("王大明", 88, "王大明2號", "王大明3號"));
-
-            // Mom moms = new Mom("王大明", 88, "王大明2號", "王大明3號");
-            // FlowChartInfoValue data = new FlowChartInfoValue(selectedBlocks, selectedCommands, variables, moms);
+            ExportData saveData = new ExportData(this);
 
             if (!File.Exists(path+dataName+FileDataExportFormat)) {
 
 
-                yield return File.WriteAllTextAsync(path + dataName + FileDataExportFormat, JsonUtility.ToJson(savedata));
+                yield return File.WriteAllTextAsync(path + dataName + FileDataExportFormat, JsonUtility.ToJson(saveData));
 
                 AssetDatabase.Refresh();
                 flowchartOverrideTextFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets" + FungusResourcesPath.FlowchartSaveData + dataName  + FileDataExportFormat);
@@ -1492,8 +1529,10 @@ namespace Fungus
 
                         // File.WriteAllText(path + dataName + "_" + fileNo.ToString() + FileDataExportFormat, JsonUtility.ToJson(data));
 
-                        yield return File.WriteAllTextAsync(path + dataName + "_" + fileNo.ToString() + FileDataExportFormat, JsonUtility.ToJson(savedata));
+                        yield return File.WriteAllTextAsync(path + dataName + "_" + fileNo.ToString() + FileDataExportFormat, JsonUtility.ToJson(saveData));
                         AssetDatabase.Refresh();
+
+                           
   
                         flowchartOverrideTextFile=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets" + FungusResourcesPath.FlowchartSaveData + dataName+"_"+fileNo.ToString() + FileDataExportFormat);
 
@@ -1509,63 +1548,101 @@ namespace Fungus
 
         }
 
-        public void testFunc()
-        {
+        /* public void testFunc()
+         {
 
-            var blocks = gameObject.GetComponents<Block>();
+             var blocks = gameObject.GetComponents<Block>();
 
             DestroyImmediate(blocks[0]);
-            Debug.Log("可以直接刪除");
+             Debug.Log("可以直接刪除");
 
 
-          /*  Type a = typeof(Block);
-            foreach (var val in a.GetFields()) {
-                Debug.Log("val=>" + val);
-                Debug.Log("valName=>" + val.Name);
-            }
+             Type a = typeof(Block);
+             foreach (var val in a.GetFields()) {
+                 Debug.Log("val=>" + val);
+                 Debug.Log("valName=>" + val.Name);
+             }
 
 
-            foreach (var property in a.GetProperties()) {
-                Debug.Log("pro=>" + property);
-                Debug.Log("proName=>" + property.Name);
-            }*/
+             foreach (var property in a.GetProperties()) {
+                 Debug.Log("pro=>" + property);
+                 Debug.Log("proName=>" + property.Name);
+             }
+         }*/
+
+        public string[] arr = new string[0];
+        public RectTransform rect;
+
+        public TweenTime tt = new TweenTime();
+
+        public CharaSpine charaSpine;
+        public string str = "";
+
+        public void test()
+        {
+
+
         }
+
 
 
         public void OverrideSaveData()//覆蓋存檔
         {
-            if (!Directory.Exists(Application.dataPath + FungusResourcesPath.FlowchartSaveData))
-            {
-                Directory.CreateDirectory(Application.dataPath + FungusResourcesPath.FlowchartSaveData);
-            }
-            string path = Application.dataPath + FungusResourcesPath.FlowchartSaveData;
 
-            FlowChartInfoValue data = new FlowChartInfoValue();
+            //清理flowchart資料 刪除stage 多餘pos
 
-            if (flowchartOverrideTextFile!=null) {
-                data = JsonUtility.FromJson<FlowChartInfoValue>(flowchartOverrideTextFile.text);
-            }
-            else if (File.Exists(path+dataName+FileDataExportFormat)) {
 
-                data = JsonUtility.FromJson<FlowChartInfoValue>(File.ReadAllText(path + dataName + FileDataExportFormat));
+                if (!Directory.Exists(Application.dataPath + FungusResourcesPath.FlowchartSaveData))
+                {
+                    Directory.CreateDirectory(Application.dataPath + FungusResourcesPath.FlowchartSaveData);
+                }
+                string path = Application.dataPath + FungusResourcesPath.FlowchartSaveData;
 
-            }
-            else
-            {
-                Debug.Log("not Have File");
-            }
+                ExportData data = new ExportData();
 
-            selectedBlocks = data.selectedBlocks;
-            selectedCommands = data.selectedCommands;
-            variables = data.variables;
+                if (flowchartOverrideTextFile != null)
+                {
+                    data = JsonUtility.FromJson<ExportData>(flowchartOverrideTextFile.text);
+                }
+                else if (File.Exists(path + dataName + FileDataExportFormat))
+                {
+
+                    data = JsonUtility.FromJson<ExportData>(File.ReadAllText(path + dataName + FileDataExportFormat));
+
+                }
+                else
+                {
+                    Debug.Log("not Have File");
+                }
+
+            data.SetDataInfoToGame(this);
 
         }
+
+ 
 
         public void SetDataNameText() {
             dataName = flowchartOverrideTextFile.name;
-       
         }
 
+
+        public void SetOverrideData(FlowChartSaveData saveData)
+        {
+            InitData();
+            description = saveData.description;
+            dataName = saveData.dataName;
+            colorCommands = saveData.colorCommands;
+            hideComponents = saveData.hideComponents;
+            stepPause = saveData.stepPause;
+            saveSelection = saveData.saveSelection;
+            localizationId = saveData.localizationId;
+            showLineNumbers = saveData.showLineNumbers;
+            hideCommands = new List<string>(saveData.hideCommands);
+            luaBindingName = saveData.luaBindingName;
+
+
+
+        }
         #endregion
 
         #region IStringSubstituter implementation
@@ -1612,63 +1689,6 @@ namespace Fungus
         #endregion
 
     }
-    [Serializable]
-    public class FlowChartInfoValue
-    {
-        public List<Mom> moms = new List<Mom>();
-
-
-         public List<Block> selectedBlocks = new List<Block>();
-
-
-        public List<Command> selectedCommands = new List<Command>();
-
-
-        public List<Variable> variables = new List<Variable>();
-
-        public FlowChartInfoValue(IEnumerable<Block> _selectedBlocks, IEnumerable<Command> _selectedCommands, List<Variable> _variables, List<Mom> _moms)
-        {
-
-            selectedBlocks.AddRange(_selectedBlocks);
-            selectedCommands.AddRange(_selectedCommands);
-            variables = _variables;
-           moms = _moms;
-        }
-        public FlowChartInfoValue() { 
-
-        } 
-    }
-
-    [Serializable]
-    public class Mom {
-
-        public string MonName = "";
-        public int MonOld = 20;
-        private string MonNameTwo = "";
-        protected string MonNameThree = "";
-
-
-        public Mom(string _monName,int _monOld,string _monNameTwo,string _monNameThree)
-        {
-            MonName = _monName;
-            MonOld=_monOld;
-            MonNameTwo = _monNameTwo;
-            MonNameThree = _monNameThree;
-
-        }
-
-
-    }
-
-
-    public class saveData
-    {
-
-       public List<Mom> moms = new List<Mom>();
-
-
-    }
-
 
 
 }

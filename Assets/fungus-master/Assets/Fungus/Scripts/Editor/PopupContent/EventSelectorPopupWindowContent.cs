@@ -135,9 +135,11 @@ namespace Fungus.EditorUtils
 
         static protected void OnSelectEventHandler(object obj)
         {
+
             SetEventHandlerOperation operation = obj as SetEventHandlerOperation;
             Block block = operation.block;
             System.Type selectedType = operation.eventHandlerType;
+            Debug.Log("選擇了類型=>" + operation.eventHandlerType);
             if (block == null)
             {
                 return;
