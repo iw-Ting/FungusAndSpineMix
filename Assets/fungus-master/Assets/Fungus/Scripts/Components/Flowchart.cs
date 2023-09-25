@@ -17,9 +17,6 @@ using System.Linq;
 namespace Fungus
 {
 
-   
-
-
     /// <summary>
     /// Visual scripting controller for the Flowchart programming language.
     /// Flowchart objects may be edited visually using the Flowchart editor window.
@@ -134,6 +131,10 @@ namespace Fungus
             Component[] components= gameObject.GetComponents<Component>();
 
             foreach (var com in components) {
+                if (com.GetType() == typeof(EventHandler) )
+                {
+                    DestroyImmediate(com);
+                }
                 if (com.GetType()!=typeof(Flowchart)&& com.GetType() != typeof(Transform)) {
                     DestroyImmediate(com);
                 }
@@ -1577,10 +1578,17 @@ namespace Fungus
 
         public CharaSpine charaSpine;
         public string str = "";
+        public Sprite spr;
+        public Texture obj;
 
         public void test()
         {
-
+            Debug.Log("測試1=>" + Type.GetType("GameObject"));
+            Debug.Log("測試2=>" + Type.GetType("UnityEngine.GameObject"));
+            Debug.Log("測試3=>" + Type.GetType(obj.GetType().Name));
+            Debug.Log("測試4=>" + Type.GetType(obj.GetType().FullName));
+            //Debug.Log("執行"+sss.name);
+            // Debug.Log( "顯示路徑=>"+AssetDatabase.GetAssetPath(sss));
 
         }
 

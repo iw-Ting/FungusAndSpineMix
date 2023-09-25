@@ -101,6 +101,7 @@ namespace Fungus
 
 
         }
+        
         public void DataSetToClass(Flowchart flowchart)
         {
             flowchart.SetOverrideData(this);
@@ -108,8 +109,13 @@ namespace Fungus
             foreach (var blockData in blockSaveDataList) {
                 var block = flowchart.gameObject.AddComponent<Block>();
                blockData.SetDataToBlock(block);
-
             }
+
+            foreach (var blockData in blockSaveDataList)
+            {
+                blockData.SetBlockCommandData();
+            }
+
             //無法賦值 因為未找到set value的方法
         }
 
@@ -134,6 +140,9 @@ namespace Fungus
 
         public Color tint = Color.white;
 
+        public Rect nodeRect=new Rect();
+
+
 
         public BlockSaveData(Block block)
         {
@@ -142,18 +151,23 @@ namespace Fungus
             description = block.Description;
             executionState = block.State;
             useCustomTint = block.UseCustomTint;
+            nodeRect = block._NodeRect;
             tint = block.Tint;
 
-            if (block._EventHandler != null)
-            {
-                eventSaveData = new EventHandleSaveData(block._EventHandler);
+            bool isHave=false;
+            if (block._EventHandler) {
+                if (!block._EventHandler.Equals(null)&& block._EventHandler!=null)
+                {
+                    isHave = true;
+                    eventSaveData = new EventHandleSaveData(block._EventHandler);
+                }
             }
-            else
+
+          if(!isHave)
             {
                 eventSaveData = null;
                 eventIsNull = true;
             }
-
             commandSaveDataList = new List<CommandSaveData>();
 
             foreach (var com in block.CommandList)
@@ -170,6 +184,17 @@ namespace Fungus
 
         public void SetDataToBlock(Block block)
         {
+            block.BlockName   = blockName;
+            block.Description = description;
+
+            Debug.Log("rect數值=>"+nodeRect);
+
+            block._NodeRect = nodeRect;
+            block.State = executionState;
+            block.UseCustomTint = useCustomTint;
+            block.Tint = tint;
+
+
             if (!eventIsNull)
             {
                 SetEventDataToBlock(block);
@@ -179,51 +204,74 @@ namespace Fungus
                 eventSaveData = null;
                 block._EventHandler = null;
             }
-
-            foreach (var comSaveData in commandSaveDataList)
-            {
-
-                EditorCoroutineUtility.StartCoroutine( SetSaveData(comSaveData, block),this);
-              //  yield return SetSaveData(comSaveData, block);
-
-            }
+            tempBlock = block;
 
         }
 
         private void SetEventDataToBlock(Block block)//給予Block數據
         {
-            EventHandler newHandler = block.gameObject.AddComponent(eventSaveData.type) as EventHandler;
+            EventHandler newHandler = block.gameObject.AddComponent(Type.GetType(eventSaveData.typeName)) as EventHandler;
+            Debug.Log("偵測block名字=>" + block.BlockName);
+            Debug.Log("偵測類型=>" + eventSaveData.typeName);
+
             newHandler.ParentBlock = block;
+
+            Debug.Log("陣列數量=>" + eventSaveData.propertyValues.Count);
 
             for (int i = 0; i < eventSaveData.propertyValues.Count; i++)
             {
 
-                var property = eventSaveData.type.GetFields()[i];
-                property.SetValue(newHandler, eventSaveData.propertyValues[i]);
+                var property = Type.GetType(eventSaveData.typeName).GetFields()[i];
+
+                EditorCoroutineUtility.StartCoroutine(eventSaveData.propertyValues[i].GetValueData(
+                    block.GetComponent<Flowchart>(),
+                    res => {
+                        property.SetValue(newHandler, res);
+                    }
+                    ),
+                    this
+                    );
             }
 
             block._EventHandler = newHandler;
         }
 
+        public Block tempBlock=null;//用意是為了讓command陣列等所有block初始化完成後在執行
+        public void SetBlockCommandData()
+        {
+            if (tempBlock==null) {
+                Debug.Log("發生錯誤,未加載所有block便加載command");
+            }
+            foreach (var comSaveData in commandSaveDataList)
+            {
+
+                EditorCoroutineUtility.StartCoroutine(SetSaveData(comSaveData, tempBlock), this);
+
+            }
+
+
+        }
+
         private IEnumerator SetSaveData(CommandSaveData saveData, Block block)//設置儲存資料
         {
             Flowchart flowchart = block.gameObject.GetComponent<Flowchart>();
+            Debug.Log("command類型名稱=>"+saveData.commandType);
             var type = Type.GetType(saveData.commandType);
             var component = block.gameObject.AddComponent(type) as Command;
+
             block.CommandList.Add(component);
             component.ParentBlock = block;
             List<string> strlist = new List<string>();
 
             for (int i = 0; i < type.GetFields(ExportData.DefaultBindingFlags).Length; i++)
             {
-                bool isRead = false;
+
                 var field = type.GetFields(ExportData.DefaultBindingFlags)[i];
 
                 Debug.Log("目前在獲取的field值名稱==========>" + field.Name);
 
                 if (field.FieldType.IsGenericType)
                 {
-                    isRead = true;
                     if (field.FieldType == typeof(List<string>))//泛型無法輸入字串type list<>只能接受有泛型的類別 也不接受回傳ilist跟icollect  所以只能很白癡的一一羅列
                     {
 
@@ -317,7 +365,6 @@ namespace Fungus
                 }
                 else if (field.FieldType.IsEnum)
                 {
-                    isRead = true;
                     yield return saveData.fieldDataList[i].GetValueData(flowchart, res =>
                     {
 
@@ -326,10 +373,9 @@ namespace Fungus
                     });
                 }
                 else if (field.FieldType.IsValueType) {
+
                     yield return saveData.fieldDataList[i].GetValueData(flowchart, res => {
-
                         field.SetValue(component, res);
-
                     });
 
                 }
@@ -338,6 +384,10 @@ namespace Fungus
 
                    yield return  saveData.fieldDataList[i].GetValueData(flowchart, res => {
 
+                        if (field.FieldType == typeof(Block))
+                       {
+                           field.SetValue(component, (res as Block));
+                       }
                        if (field.FieldType == typeof(CharaSpine))
                        {
                            field.SetValue(component, (res as CharaSpine));
@@ -358,16 +408,32 @@ namespace Fungus
                        {
                            field.SetValue(component, (res as View));
                        }
-                       else if (field.FieldType == typeof(Block))
+                       else if (field.FieldType == typeof(SpriteRenderer))
                        {
-                           field.SetValue(component, (res as Block));
-                       } 
-                       else if (field.FieldType == typeof(Sprite)) 
+                           field.SetValue(component, (res as SpriteRenderer));
+                       }
+                       else if (field.FieldType == typeof(Image))
                        {
-                           component.SetSaveDataToValue(field.Name, res);
-                            
-                        //sprite因為每個command獲取的目標不同,故需要去該command底下撰寫獲取後的執行方法
-                        //根據值的名去做銜接 ex component.setValue(field.Name,res);
+                           field.SetValue(component, (res as Image));
+                       }
+                       else if (field.FieldType == typeof(Sprite)) //say
+                       {
+                           field.SetValue(component, (res as Sprite));
+                          // component.SetSaveDataToValue(field.Name, res);
+                           //sprite因為每個command獲取的目標不同,故需要去該command底下撰寫獲取後的執行方法
+                           //根據值的名去做銜接 ex component.setValue(field.Name,res);
+                       }
+                       else if (field.FieldType == typeof(AudioClip))//say show audio
+                       {
+                           field.SetValue(component, (res as AudioClip));
+                       }
+                       else if (field.FieldType == typeof(Texture))//say show audio
+                       {
+                           field.SetValue(component, (res as Texture));
+                       }
+                       else if (field.FieldType == typeof(Texture2D))//say show audio
+                       {
+                           field.SetValue(component, (res as Texture2D));
                        }
                        else  // sturct的值
                        {
@@ -388,8 +454,8 @@ namespace Fungus
     [Serializable]
     public class EventHandleSaveData
     {
-        public Type type;
-        public List<object> propertyValues = new List<object>();//根據不同類別的儲存數據,給予不同的陣列
+        public string typeName;
+        public List<DataObjectValue> propertyValues = new List<DataObjectValue>();//根據不同類別的儲存數據,給予不同的陣列
 
 
         public EventHandleSaveData(EventHandler eventHandler)
@@ -397,10 +463,15 @@ namespace Fungus
             if (eventHandler == null) {
                 return;
             }
-            type = eventHandler.GetType();
+
+            typeName = eventHandler.GetType().FullName;
+
             propertyValues.Clear();
-            foreach (var value in type.GetFields()) {
-                propertyValues.Add(value.GetValue(eventHandler));
+            foreach (var value in eventHandler.GetType().GetFields()) {
+
+                DataObjectValue valueData = new DataObjectValue();
+                valueData.SetDataToValue(value.GetValue(eventHandler));
+                propertyValues.Add(valueData);
             }
         }
     }
@@ -416,7 +487,7 @@ namespace Fungus
         public CommandSaveData(Command data)
         {
 
-            commandType = data.GetType().Name;
+            commandType = data.GetType().FullName;
             
             DataObjectValue.JudgeValueType(data, dataObj => { fieldDataList.Add(dataObj); });
 
@@ -439,7 +510,7 @@ namespace Fungus
         public string defaultPosition;//recttransform
         public List<RectPositionsInfo> createAreaPositions = new List<RectPositionsInfo>();
         public List<ViewPositionsInfo> createViewPositions = new List<ViewPositionsInfo>();
-        public List<ImageInfo> images = new List<ImageInfo>();
+        public List<SpriteRenderInfo> spriteRenderers = new List<SpriteRenderInfo>();
         public List<AudioInfo> audios = new List<AudioInfo>();
 
         public StageSaveData(Stage stage)
@@ -475,8 +546,8 @@ namespace Fungus
             for (int i = 0; i < stage.ImageParent.childCount; i++)
             {
                 var child = stage.ImageParent.GetChild(i);
-                ImageInfo info = new ImageInfo(child.GetComponent<Image>());
-                images.Add(info);
+                SpriteRenderInfo info = new SpriteRenderInfo(child.GetComponent<SpriteRenderer>());
+                spriteRenderers.Add(info);
             }
             
             for (int i=0;i<stage.AudiosParent.childCount;i++) 
@@ -520,19 +591,20 @@ namespace Fungus
                 viewInfo.SetViewDataToRectTransform(spRect);
                 
             }
-            foreach (var image in images)
+            foreach (var sprite in spriteRenderers)
             {
 
-                GameObject sp = new GameObject(image.rectName, typeof(RectTransform), typeof(Image),typeof(Canvas));
+                GameObject sp = new GameObject(sprite.transName, typeof(SpriteRenderer));
                 sp.transform.SetParent(stage.ImageParent, false);
-                Image spRect = sp.GetComponent<Image>();
-                image.SetImageDataToRectTransform(spRect);
+                SpriteRenderer spRect = sp.GetComponent<SpriteRenderer>();
+                sprite.SetImageDataToRectTransform(spRect);
 
             }
+            Debug.Log("儲存數量=>"+audios.Count);
             foreach (var audio in audios)
             {
 
-                GameObject sp = new GameObject(audio.rectName, typeof(RectTransform), typeof(AudioSource));
+                GameObject sp = new GameObject(audio.transName,  typeof(AudioSource));
 
                 sp.transform.SetParent(stage.AudiosParent, false);
                 AudioSource spRect = sp.GetComponent<AudioSource>();
@@ -657,6 +729,49 @@ namespace Fungus
 
     }
     [Serializable]
+    public class SpriteRenderInfo : PositionsInfo//顯示的圖片
+    {
+
+        public string assetSpritePath = "";
+        public Color color;
+
+        public string sortOrderName = "";
+        public int order = 0;
+
+        public SpriteRenderInfo(SpriteRenderer sprite) : base(sprite.transform)
+        {
+            if (sprite.sprite)
+            {
+                assetSpritePath = AssetDatabase.GetAssetPath(sprite.sprite);
+            }
+
+            color = sprite.color;
+
+
+                order =sprite.sortingOrder;
+                sortOrderName = sprite.sortingLayerName;
+            
+
+        }
+        public void SetImageDataToRectTransform(SpriteRenderer sprite)
+        {
+           SetDataToTransform(sprite.transform);
+
+            if (!assetSpritePath.Equals("") && !assetSpritePath.Equals(null))
+            {
+                sprite.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetSpritePath);
+            }
+            sprite.color = color;
+
+            if (!sortOrderName.Equals("") || sortOrderName.Equals(null))
+            {
+                sprite.sortingLayerName = sortOrderName;
+                sprite.sortingOrder = order;
+            }
+          }
+         }
+
+        [Serializable]
     public class ViewPositionsInfo:RectPositionsInfo{
 
         public float viewSize = 0.5f;
@@ -684,8 +799,8 @@ namespace Fungus
         }
 
     }
-
-    public class AudioInfo:RectPositionsInfo//顯示的音檔
+    [Serializable]
+    public class AudioInfo:PositionsInfo//顯示的音檔
     {
 
         public string ClipAssetsPath = "";
@@ -698,7 +813,7 @@ namespace Fungus
         public float volume;
         public float pitch;
 
-        public AudioInfo(AudioSource audio) : base(audio.GetComponent<RectTransform>())
+        public AudioInfo(AudioSource audio) : base(audio.transform)
         {
             if (audio.clip) {
                 ClipAssetsPath = AssetDatabase.GetAssetPath(audio.clip);
@@ -715,7 +830,7 @@ namespace Fungus
 
         public void SetAudioSourceDataToRectTransform(AudioSource audio)
         {
-            SetDataToRectTransform(audio.GetComponent<RectTransform>());
+            SetDataToTransform(audio.transform);
             if (!ClipAssetsPath.Equals("") && !ClipAssetsPath.Equals(null))
             {
                 audio.clip = AssetDatabase.LoadAssetAtPath<AudioClip>( ClipAssetsPath);
@@ -730,7 +845,7 @@ namespace Fungus
         }
 
     }
-
+    [Serializable]
     public class ImageInfo:RectPositionsInfo//顯示的圖片
     {
 
@@ -800,17 +915,19 @@ namespace Fungus
         public Vector4 _vec4;
         public Color _color;
         public TweenTime tweenTime;
+        public BooleanData _boolData;
+        public StringData _stringData;
+        public FloatData _floatData;
+        public IntegerData _intData;
+        public ColorData _colorData;
+        public Vector2Data _vector2Data;
+        public Vector3Data _vector3Data;
+        public Vector4Data _vector4Data;
+        public AudioSourceData _audioSourceData;
 
         public bool isNull=false;
+        public string _path = "";
 
-        public void SetDataObjectValue(DataObjectValue _data) {
-        
-            _class = new List<DataObjectValue>();
-            typeName = _data.typeName;
-        
-        
-        
-        }
         
         public static void JudgeValueType(object _data,Action<DataObjectValue> _cb=null)//serializable parse class 
         {
@@ -846,8 +963,6 @@ namespace Fungus
         {
             Debug.Log("實際的值=>" + value);
 
-
-
             if (value == null)//連空類型都沒
             {
                 isNull = true;
@@ -867,11 +982,9 @@ namespace Fungus
                     field.SetValue(this,value);
 
                     Debug.Log("必須輸入的值=>" + field.GetValue(this));
-
                     return;
                 }
             }
-
 
                 bool isDefaultExecuteClass = false;
                 _string = typeName;
@@ -903,37 +1016,44 @@ namespace Fungus
                         _string = (value as View).name;
                         isDefaultExecuteClass = true;
                         break;
-                    case "Fungus.Character":
+                case "UnityEngine.UI.Image":
+                    _string = (value as Image).name;
+                    isDefaultExecuteClass = true;
+                    break;
+                case "UnityEngine.SpriteRenderer":
+                    _string = (value as SpriteRenderer).name;
+                    isDefaultExecuteClass = true;
+                    break;
+                case "Fungus.Character":
                         _string = (value as Character).name;
                         isDefaultExecuteClass = true;
                         break;
-                    case "Fungus.CharaSpine":
+                 case "Fungus.CharaSpine":
                         _string = (value as CharaSpine).name;
                         isDefaultExecuteClass = true;
                         break;
-                    case "Fungus.Block":
+                 case "Fungus.Block":
                         _string = (value as Block).BlockName;//menu 的target
                          isDefaultExecuteClass=true;
                         break;
                     case "UnityEngine.Sprite"://需要圖片路徑  可能會抓hierarchy上的
-                    //_string = (value as Sprite).name;
-                    _string = AssetDatabase.GetAssetPath( (value as UnityEngine.Object));
+                    _string = (value as Sprite).name;
+                    _path = AssetDatabase.GetAssetPath( (value as UnityEngine.Object));
                     isDefaultExecuteClass = true;
                     break;
-                    case "UnityEngine.Texture":
-                    _string = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
+                case "UnityEngine.Texture":
+                    _string = (value as Texture).name;
+                    _path = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
                     isDefaultExecuteClass = true;
                     break;
                     case "UnityEngine.Texture2D":
-                    _string = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
+                    _string = (value as Texture2D).name;
+                    _path = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
                     isDefaultExecuteClass = true;
                     break;
                 case "UnityEngine.AudioClip":
-                    _string = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
-                    isDefaultExecuteClass = true;
-                    break;
-                case "UnityEngine.SpriteRenderer":
-                    _string = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
+                    _string = (value as AudioClip).name;
+                    _path = AssetDatabase.GetAssetPath((value as UnityEngine.Object));
                     isDefaultExecuteClass = true;
                     break;
             }
@@ -1006,7 +1126,7 @@ namespace Fungus
 
 
 
-            public IEnumerator GetValueData(Flowchart parentObj=null,Action<object> value=null)
+            public IEnumerator GetValueData(Flowchart parentObj=null,Action<object> cbValue=null)
              {
             if (isNull) {
                 yield break;
@@ -1019,7 +1139,7 @@ namespace Fungus
                 if (typeName == field.FieldType.FullName && field.Name != "_class" && field.Name != "typeName")
                 {
                     Debug.Log("返回數值=>" + _string);
-                    value( field.GetValue(this));
+                    cbValue( field.GetValue(this));
                     yield break;
                 }
             }
@@ -1029,40 +1149,53 @@ namespace Fungus
             switch (typeName)
             {
                 case "UnityEngine.RectTransform":
-                    value(parentObj.mStage.GetPosition(_string));
+                    cbValue(parentObj.mStage.GetPosition(_string));
                     yield break;
                 case "Fungus.Stage":
-                    value(parentObj.mStage);
+                    cbValue(parentObj.mStage);
                     yield break;
                 case "Fungus.View":
-                    value(parentObj.mStage.GetView(_string));
+                    cbValue(parentObj.mStage.GetView(_string));
+                    yield break;
+                case "UnityEngine.UI.Image":
+                    cbValue(parentObj.mStage.GetImage(_string));
+                    yield break;
+                case "UnityEngine.SpriteRenderer":
+                    cbValue(parentObj.mStage.GetSpriteRenderer(_string));
                     yield break;
                 case "Fungus.Block":
-                    value(parentObj.FindBlock(_string));
+                    cbValue(parentObj.FindBlock(_string));
                     yield break;
                 case "Fungus.Character":
                     Character resChara = null;
                     yield return FungusResources.GetCharacter(_string, _res => { resChara = _res; });
-                    value(resChara);
+                    cbValue(resChara);
 
                     yield break;
                 case "Fungus.CharaSpine":
                     CharaSpine resSpine = null;
                     yield return FungusResources.GetCharaSpine(_string, _res => { resSpine = _res; });
-                    value(resSpine);
-
+                    cbValue(resSpine);
                    yield break;
-          /*      case "Sprite"://需要圖片路徑  可能會抓hierarchy上的
-                    break;
-                case "Texture":
-                    break;
-                case "Texture2D":
-                    break;*/
+
+                case "UnityEngine.Sprite"://需要圖片路徑  可能會抓hierarchy上的
+
+                    cbValue(AssetDatabase.LoadAssetAtPath<Sprite>(_path));
+                   yield  break;
+                case "UnityEngine.AudioClip":
+                    cbValue(AssetDatabase.LoadAssetAtPath<AudioClip>(_path));
+                    yield break;
+                case "UnityEngine.Texture":
+                    cbValue(AssetDatabase.LoadAssetAtPath<Texture>(_path));
+                    yield break;
+                case "UnityEngine.Texture2D":
+                    cbValue(AssetDatabase.LoadAssetAtPath<Texture2D>(_path));
+                    yield break;
             }
 
-            
             Debug.Log("此次獲取資料類型=====>" + typeName);
             Debug.Log("該類型=====>" + type);
+
             if (type.IsArray) {
 
                 Debug.Log("陣列的元素type=>"+ type.GetElementType());
@@ -1094,28 +1227,28 @@ namespace Fungus
                     }
                 }
                 
-                value(arr);
+                cbValue(arr);
                 yield break;
             }
             else if (type.IsEnum)
             {
                 //  Debug.Log("enum的type=>" + _enum.GetType());
                 Debug.Log("測試測試");
-                value(_string);
+                cbValue(_string);
 
             }
             else if (type.IsClass||type.IsValueType)
             {
                 Debug.Log("跑class=>"+Type.GetType(typeName));   
 
-                value(_class);
+                cbValue(_class);
                 yield break;
 
             }
             else
             {
                 Debug.LogWarning("意外的錯誤,該類別名稱=>" + typeName);
-               value( null);
+               cbValue( null);
                 yield break;
 
             }

@@ -18,13 +18,36 @@ namespace Fungus
         [SerializeField] protected Canvas portraitCanvas;
 
         public Transform CharaParent=null;
-        public Transform ImageParent = null;
+        protected Transform imageParent = null;
+
+        public Transform ImageParent
+        { 
+            get {
+                if (!imageParent) {
+                    SetImageParent();
+                }
+                return imageParent;
+            }
+        }
+
+        protected Transform audiosParent = null;
+
+        public Transform AudiosParent
+        {
+            get
+            {
+                if (!audiosParent)
+                {
+                    SetAudiosParent();
+                }
+                return audiosParent;
+            }
+        }
+
         public Transform PositionsParent = null;
 
         public Transform ViewParent = null;
 
-        public Transform AudiosParent=null;
-        public Transform ImagesParent = null;
 
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
@@ -201,7 +224,40 @@ namespace Fungus
             return null;
         }
 
+        public Image GetImage(string imageName)
+        {
+            if (imageName.Equals(null)) {
+                return null;
+            }
+            for (int i = 0; i < ImageParent.childCount; i++)
+            {
+                Image img = ImageParent.GetChild(i).GetComponent<Image>();
+                if (String.Compare(img.name, imageName, true) == 0)
+                {
+                    return img;
+                }
+            }
+            return null;
 
+
+        }
+
+        public SpriteRenderer GetSpriteRenderer(string imageName)
+        {
+            if (imageName.Equals(null))
+            {
+                return null;
+            }
+            for (int i = 0; i < ImageParent.childCount; i++)
+            {
+                SpriteRenderer sprite = ImageParent.GetChild(i).GetComponent<SpriteRenderer>();
+                if (String.Compare(sprite.name, imageName, true) == 0)
+                {
+                    return sprite;
+                }
+            }
+            return null;
+        }
 
         public void CloseOtherRaycastTarget(RectTransform tarRect) {
 
@@ -242,8 +298,34 @@ namespace Fungus
             foreach (var pos in positions) { 
             DestroyImmediate(pos.gameObject);
             }
-
             positions.Clear();
+
+            List<GameObject> childs = new List<GameObject>();
+
+            for (int i=0;i<ViewParent.childCount;i++) {
+            var child = ViewParent.GetChild(i);
+                childs.Add(child.gameObject);
+            }
+
+            for (int i = 0; i < ImageParent.childCount; i++)
+            {
+                var child = ImageParent.GetChild(i);
+                childs.Add(child.gameObject);
+            }
+
+            for (int i = 0; i <AudiosParent.childCount; i++)
+            {
+                var child = AudiosParent.GetChild(i);
+                childs.Add(child.gameObject);
+            }
+            foreach (GameObject obj in childs) {
+                DestroyImmediate(obj);
+            }
+            childs.Clear();
+
+
+
+
 
         }
 
@@ -253,6 +335,44 @@ namespace Fungus
             portraitCanvas.worldCamera = Camera.main;
             portraitCanvas.renderMode = RenderMode.WorldSpace;
               //  LayoutRebuilder.ForceRebuildLayoutImmediate
+        }
+
+        public void SetImageParent()
+        {
+            if (!imageParent) {
+                var imgPar = gameObject.transform.parent.Find("Images");
+                if (imgPar) {
+                    imageParent=imgPar;
+                }
+                else
+                {
+                    GameObject sp = new GameObject("Images");
+                    sp.transform.SetParent(transform.parent);
+                    sp.transform.position = Vector3.zero;
+                    imageParent = sp.transform;
+                }
+            }
+
+        }
+
+        public void SetAudiosParent()
+        {
+            if (!audiosParent)
+            {
+                var AudPar = gameObject.transform.parent.Find("Audios");
+                if (AudPar)
+                {
+                    audiosParent = AudPar;
+                }
+                else
+                {
+                    GameObject sp = new GameObject("Audios");
+                    sp.transform.SetParent(transform.parent);
+                    sp.transform.position = Vector3.zero;
+                    audiosParent = sp.transform;
+                }
+            }
+
         }
 
         public void CreateCanavas()

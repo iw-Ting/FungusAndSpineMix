@@ -138,7 +138,7 @@ namespace Fungus
         /// <summary>
         /// The execution state of the Block.
         /// </summary>
-        public virtual ExecutionState State { get { return executionState; } }
+        public virtual ExecutionState State { get { return executionState; } set { executionState = value; } }
 
         /// <summary>
         /// Unique identifier for the Block.
@@ -153,7 +153,7 @@ namespace Fungus
         /// <summary>
         /// Description text to display under the block node
         /// </summary>
-        public virtual string Description { get { return description; } }
+        public virtual string Description { get { return description; }set { description = value; } }
 
         /// <summary>
         /// An optional Event Handler which can execute the block when an event occurs.

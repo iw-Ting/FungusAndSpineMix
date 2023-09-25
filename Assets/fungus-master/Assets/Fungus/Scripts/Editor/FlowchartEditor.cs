@@ -96,6 +96,8 @@ namespace Fungus.EditorUtils
                 }
             }
 
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("sss"));
+
 
             EditorGUILayout.PropertyField(_StageProp);
             EditorGUILayout.PropertyField(descriptionProp);
@@ -110,6 +112,8 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(luaBindingNameProp);
             EditorGUILayout.PropertyField(_storyControlProp);
             EditorGUILayout.PropertyField(_storyEnableProp);
+
+            
 
 
             // Show list of commands to hide in Add Command menu    
@@ -134,7 +138,8 @@ namespace Fungus.EditorUtils
             if (GUILayout.Button(new GUIContent("Export Data To Json ", "Save Data To TextAsset With Json")))
             {
 
-                //flowchart.test();
+               // flowchart.test();
+
                flowchart.ClickCreateSaveData();
 
             }

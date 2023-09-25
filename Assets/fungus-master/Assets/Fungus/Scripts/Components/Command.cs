@@ -360,7 +360,7 @@ namespace Fungus
             return localizationId;
         }
 
-        public virtual void SetSaveDataToValue(string valueName,object valueData)//設置不可序列話又客製化的值 ex sprite,audioclip etc
+        public virtual void SetSaveDataToValue(string valueName,object valueData)//設置不可序列又客製化的值 ex sprite,audioclip etc
         {
         }
 
