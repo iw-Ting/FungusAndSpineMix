@@ -32,10 +32,10 @@ namespace Fungus
 
         public ExportData() { }
 
-        public void SetDataInfoToGame(Flowchart flowchart)
+        public IEnumerator SetDataInfoToGame(Flowchart flowchart)
         {
             stageSaveData.SetDataToClass(flowchart.mStage);
-            flowChartSaveData.DataSetToClass(flowchart);
+            yield return flowChartSaveData.DataSetToClass(flowchart);
 
         }
 
@@ -102,7 +102,7 @@ namespace Fungus
 
         }
         
-        public void DataSetToClass(Flowchart flowchart)
+        public IEnumerator DataSetToClass(Flowchart flowchart)
         {
             flowchart.SetOverrideData(this);
 
@@ -111,11 +111,13 @@ namespace Fungus
                blockData.SetDataToBlock(block);
             }
 
+            int finish = 0;
+
             foreach (var blockData in blockSaveDataList)
             {
-                blockData.SetBlockCommandData();
+                EditorCoroutineUtility.StartCoroutineOwnerless(blockData.SetBlockCommandData(() => { finish++; } ));
             }
-
+            yield return new WaitUntil( () => finish >= blockSaveDataList.Count );
             //礚猭结 ゼтset valueよ猭
         }
 
@@ -187,8 +189,6 @@ namespace Fungus
             block.BlockName   = blockName;
             block.Description = description;
 
-            Debug.Log("rect计=>"+nodeRect);
-
             block._NodeRect = nodeRect;
             block.State = executionState;
             block.UseCustomTint = useCustomTint;
@@ -211,12 +211,13 @@ namespace Fungus
         private void SetEventDataToBlock(Block block)//倒ぉBlock计沮
         {
             EventHandler newHandler = block.gameObject.AddComponent(Type.GetType(eventSaveData.typeName)) as EventHandler;
+
             Debug.Log("盎代block=>" + block.BlockName);
+
             Debug.Log("盎代摸=>" + eventSaveData.typeName);
 
             newHandler.ParentBlock = block;
 
-            Debug.Log("皚计秖=>" + eventSaveData.propertyValues.Count);
 
             for (int i = 0; i < eventSaveData.propertyValues.Count; i++)
             {
@@ -227,8 +228,7 @@ namespace Fungus
                     block.GetComponent<Flowchart>(),
                     res => {
                         property.SetValue(newHandler, res);
-                    }
-                    ),
+                    }),
                     this
                     );
             }
@@ -237,19 +237,19 @@ namespace Fungus
         }
 
         public Block tempBlock=null;//ノ種琌琵command皚单┮Τblock﹍てЧΘ磅︽
-        public void SetBlockCommandData()
+        
+        public IEnumerator SetBlockCommandData(Action cb=null)
         {
             if (tempBlock==null) {
                 Debug.Log("祇ネ岿粇,ゼ更┮Τblock獽更command");
             }
             foreach (var comSaveData in commandSaveDataList)
             {
-
-                EditorCoroutineUtility.StartCoroutine(SetSaveData(comSaveData, tempBlock), this);
-
+                yield return SetSaveData(comSaveData, tempBlock);
             }
-
-
+            if (cb!=null) {
+                cb();
+            }
         }
 
         private IEnumerator SetSaveData(CommandSaveData saveData, Block block)//砞竚纗戈

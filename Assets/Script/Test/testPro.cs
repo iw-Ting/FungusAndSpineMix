@@ -2,67 +2,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
+using Unity.EditorCoroutines.Editor;
+using System;
+using UnityEditor;
 
 public class testPro : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public int countDown = 0;
-
-    public Transform par;
-
-    public SkeletonGraphic skin;
-
- 
-    void Start()
+    private void Start()
     {
-        /*GameObject sp = Instantiate(skin.gameObject);
-        sp.name="lady";
-        sp.transform.SetParent(par);
-        var skele=sp.GetComponent<SkeletonGraphic>();
-        skele.startingAnimation="action";
-        skele.SetPlayAnimation();*/
+        StartCoroutine(StartCountDown());
+    }
 
-        // StartCoroutine(startRun());
+    public void TouchButton()
+    {
+        // EditorCoroutineUtility.StartCoroutineOwnerless(StartTest());
+        //   EditorCoroutineUtility.StartCoroutine(StartTest(), this);
+        //StartCoroutine(StartTest());
+
+
+       // EditorCoroutineUtility.StartCoroutineOwnerless(StartCountDown());
+           //EditorCoroutineUtility.StartCoroutine(StartCountDown(), this);
+        StartCoroutine(StartCountDown());
 
     }
 
-    public IEnumerator startRun()
+    public IEnumerator StartCountDown()
     {
+        int num = 0;
+        int finish = 0;
 
-        Debug.Log("執行開始");
+        while (num<5) {
+        num++;
 
-        StartCoroutine(testRun());
-        yield return StartCoroutine(testRun2());
-
-    }
-
-
-
-    public IEnumerator testRun()
-    {
-
-        while (countDown < 5)
-        {
-            countDown++;
-            Debug.Log("現在的數字==>" + countDown);
-            yield return new WaitForSeconds(0.3f);
+            EditorCoroutineUtility.StartCoroutineOwnerless(StartTest(num.ToString(), () => { finish++; }));
+          //  StartCoroutine(StartTest(num.ToString(), () => { finish++; }));
         }
 
+        yield return new WaitUntil(() =>finish>=5);
+        Debug.Log("全部結束");
 
     }
 
 
-    public IEnumerator testRun2()
+    public IEnumerator StartTest(string str,Action cb)
     {
+        int calcDown=0;
+        while(calcDown<5)
+        {
+            calcDown++;
+            Debug.Log("倒數計時機器"+str+"號=>"+calcDown);
+            yield return new WaitForSeconds(2);
+        }
+        cb();
 
-        Debug.Log("結束");
-        yield return null;
     }
 
-    public void OnGUI()
+}
+
+[CustomEditor ( typeof(testPro) ) ] 
+public class testProEditor:Editor
+{
+    public testPro tar;
+
+    public void OnEnable()
     {
-
-
-        // Debug.Log("測試==>" + Event.current.mousePosition);
+        tar = target as testPro;
     }
+    public override void OnInspectorGUI()
+    {
+        if (GUILayout.Button("touch")) {
+
+            tar.TouchButton();
+        
+        
+        }
+    }
+
+
+
+
+
+
+
+
 }

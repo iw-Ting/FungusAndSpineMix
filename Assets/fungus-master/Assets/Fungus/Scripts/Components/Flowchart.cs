@@ -70,9 +70,6 @@ namespace Fungus
         [SerializeField] protected string dataName = "";
 
         [HideInInspector]public Stage mStage;
-
-        
-
        
         [Range(0f, 5f)]
         [Tooltip("Adds a pause after each execution step to make it easier to visualise program flow. Editor only, has no effect in platform builds.")]
@@ -1549,56 +1546,11 @@ namespace Fungus
 
         }
 
-        /* public void testFunc()
-         {
-
-             var blocks = gameObject.GetComponents<Block>();
-
-            DestroyImmediate(blocks[0]);
-             Debug.Log("可以直接刪除");
-
-
-             Type a = typeof(Block);
-             foreach (var val in a.GetFields()) {
-                 Debug.Log("val=>" + val);
-                 Debug.Log("valName=>" + val.Name);
-             }
-
-
-             foreach (var property in a.GetProperties()) {
-                 Debug.Log("pro=>" + property);
-                 Debug.Log("proName=>" + property.Name);
-             }
-         }*/
-
-        public string[] arr = new string[0];
-        public RectTransform rect;
-
-        public TweenTime tt = new TweenTime();
-
-        public CharaSpine charaSpine;
-        public string str = "";
-        public Sprite spr;
-        public Texture obj;
-
-        public void test()
-        {
-            Debug.Log("測試1=>" + Type.GetType("GameObject"));
-            Debug.Log("測試2=>" + Type.GetType("UnityEngine.GameObject"));
-            Debug.Log("測試3=>" + Type.GetType(obj.GetType().Name));
-            Debug.Log("測試4=>" + Type.GetType(obj.GetType().FullName));
-            //Debug.Log("執行"+sss.name);
-            // Debug.Log( "顯示路徑=>"+AssetDatabase.GetAssetPath(sss));
-
-        }
-
-
 
         public void OverrideSaveData()//覆蓋存檔
         {
 
             //清理flowchart資料 刪除stage 多餘pos
-
 
                 if (!Directory.Exists(Application.dataPath + FungusResourcesPath.FlowchartSaveData))
                 {
@@ -1623,11 +1575,31 @@ namespace Fungus
                     Debug.Log("not Have File");
                 }
 
-            data.SetDataInfoToGame(this);
+              Unity.EditorCoroutines.Editor.EditorCoroutineUtility.StartCoroutineOwnerless( data.SetDataInfoToGame(this));
 
         }
 
- 
+        public string[] arr = new string[0];
+        public RectTransform rect;
+        public TweenTime tt = new TweenTime();
+        public CharaSpine charaSpine;
+        public string str = "";
+        public Sprite spr;
+        public Texture obj;
+
+        public void test()
+        {
+            Debug.Log("測試1=>" + Type.GetType("GameObject"));
+            Debug.Log("測試2=>" + Type.GetType("UnityEngine.GameObject"));
+            Debug.Log("測試3=>" + Type.GetType(obj.GetType().Name));
+            Debug.Log("測試4=>" + Type.GetType(obj.GetType().FullName));
+            //Debug.Log("執行"+sss.name);
+            // Debug.Log( "顯示路徑=>"+AssetDatabase.GetAssetPath(sss));
+
+        }
+
+
+
 
         public void SetDataNameText() {
             dataName = flowchartOverrideTextFile.name;

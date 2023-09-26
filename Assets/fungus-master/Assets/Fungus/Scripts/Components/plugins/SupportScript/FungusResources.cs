@@ -22,7 +22,7 @@ namespace Fungus {
             ResourceRequest request = Resources.LoadAsync<GameObject>(FungusResourcesPath.SpineChara + charaName);
             yield return request;
 
-            finish((request.asset as GameObject).GetComponent<CharaSpine>());
+            finish( (request.asset as GameObject).GetComponent<CharaSpine>() );
 
         }
 
