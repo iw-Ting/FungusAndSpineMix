@@ -382,13 +382,18 @@ namespace Fungus
                 else // 非 list
                 {
 
+                    if (field.FieldType == typeof(Camera)) {
+                        field.SetValue(component, Camera.main);
+                        yield break;
+                    }
+
                    yield return  saveData.fieldDataList[i].GetValueData(flowchart, res => {
 
                         if (field.FieldType == typeof(Block))
                        {
                            field.SetValue(component, (res as Block));
                        }
-                       if (field.FieldType == typeof(CharaSpine))
+                       else if (field.FieldType == typeof(CharaSpine))
                        {
                            field.SetValue(component, (res as CharaSpine));
                        }
@@ -759,7 +764,7 @@ namespace Fungus
 
             if (!assetSpritePath.Equals("") && !assetSpritePath.Equals(null))
             {
-                sprite.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetSpritePath);
+                sprite.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetSpritePath);//圖片要改成抓resources 目前只有在editor上能正常執行
             }
             sprite.color = color;
 
@@ -1143,7 +1148,6 @@ namespace Fungus
                     yield break;
                 }
             }
-
 
 
             switch (typeName)
