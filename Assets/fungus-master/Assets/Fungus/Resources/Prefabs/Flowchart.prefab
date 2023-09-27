@@ -71,7 +71,7 @@ MonoBehaviour:
   _storyEnabled: 1
   description: 'Example scene from Sherlock: The Game Is On'
   flowchartOverrideTextFile: {fileID: 0}
-  dataName: prologue
+  dataName: FlowChart
   mStage: {fileID: 5397293586041515399}
   stepPause: 0
   colorCommands: 1
@@ -89,7 +89,6 @@ MonoBehaviour:
     aFadeAniDuration: 0
     aAnimationPlayRoundTime: 0
     aFinishDuration: 0
-  charaSpine: {fileID: 0}
   str: 
   spr: {fileID: 0}
   obj: {fileID: 0}
