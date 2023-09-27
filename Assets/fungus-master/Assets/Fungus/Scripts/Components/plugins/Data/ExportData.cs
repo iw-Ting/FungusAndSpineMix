@@ -512,8 +512,10 @@ namespace Fungus
         public string defaultPosition;//recttransform
         public List<RectPositionsInfo> createAreaPositions = new List<RectPositionsInfo>();
         public List<ViewPositionsInfo> createViewPositions = new List<ViewPositionsInfo>();
-        public List<SpriteRenderInfo> spriteRenderers = new List<SpriteRenderInfo>();
-        public List<AudioInfo> audios = new List<AudioInfo>();
+
+        //public List<SpriteRenderInfo> spriteRenderers = new List<SpriteRenderInfo>();
+        public List<ImageInfo> imageList = new List<ImageInfo>();
+        public List<AudioInfo> audioList = new List<AudioInfo>();
 
         public StageSaveData(Stage stage)
         {
@@ -545,18 +547,27 @@ namespace Fungus
                 createViewPositions.Add(info);
                }
 
-            for (int i = 0; i < stage.ImageParent.childCount; i++)
+         /*   for (int i = 0; i < stage.ImageParent.childCount; i++)
             {
                 var child = stage.ImageParent.GetChild(i);
                 SpriteRenderInfo info = new SpriteRenderInfo(child.GetComponent<SpriteRenderer>());
                 spriteRenderers.Add(info);
+            }*/
+
+            for (int i = 0; i < stage.ImageParent.childCount; i++)
+            {
+                var child = stage.ImageParent.GetChild(i);
+                ImageInfo info = new ImageInfo(child.GetComponent<Image>());
+                imageList.Add(info);
             }
-            
+
+
+
             for (int i=0;i<stage.AudiosParent.childCount;i++) 
             {
                 var child=stage.AudiosParent.GetChild(i);
                 AudioInfo info = new AudioInfo(child.GetComponent<AudioSource>());
-                audios.Add(info);
+                audioList.Add(info);
              }
 
 
@@ -593,17 +604,26 @@ namespace Fungus
                 viewInfo.SetViewDataToRectTransform(spRect);
                 
             }
-            foreach (var sprite in spriteRenderers)
+       /*     foreach (var sprite in spriteRenderers)
             {
 
                 GameObject sp = new GameObject(sprite.transName, typeof(SpriteRenderer));
                 sp.transform.SetParent(stage.ImageParent, false);
                 SpriteRenderer spRect = sp.GetComponent<SpriteRenderer>();
-                sprite.SetImageDataToRectTransform(spRect);
+                sprite.SetImageDataToTransform(spRect);
+
+            }*/
+            foreach (var image in imageList)
+            {
+
+                GameObject sp = new GameObject(image.rectName,typeof(RectTransform), typeof(Image));
+                sp.transform.SetParent(stage.ImageParent, false);
+                Image spRect = sp.GetComponent<Image>();
+                image.SetImageDataToRectTransform(spRect);
 
             }
-            Debug.Log("儲存數量=>"+audios.Count);
-            foreach (var audio in audios)
+            Debug.Log("儲存數量=>"+audioList.Count);
+            foreach (var audio in audioList)
             {
 
                 GameObject sp = new GameObject(audio.transName,  typeof(AudioSource));
@@ -613,8 +633,6 @@ namespace Fungus
                 audio.SetAudioSourceDataToRectTransform(spRect);
 
             }
-
-
 
         }
 
@@ -755,7 +773,7 @@ namespace Fungus
             
 
         }
-        public void SetImageDataToRectTransform(SpriteRenderer sprite)
+        public void SetImageDataToTransform(SpriteRenderer sprite)
         {
            SetDataToTransform(sprite.transform);
 
@@ -869,12 +887,18 @@ namespace Fungus
             }
 
             color = image.color;
+
             raycastTarget = image.raycastTarget;
+
             PreserveAspect = image.preserveAspect;
+
             Canvas canvas = null;
+
             if (image.TryGetComponent<Canvas>(out canvas)) {
+
                 order = canvas.sortingOrder;
                 sortOrderName = canvas.sortingLayerName;
+
             }
 
         }

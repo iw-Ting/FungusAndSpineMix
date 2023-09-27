@@ -322,6 +322,7 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SpineCharaAni.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\StandardDescriptors\MemberDescriptors\ArrayMemberDescriptor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Tree\Statements\ForEachLoopStatement.cs" />
+    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\SetImageLayer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\LuaStateInterop\LuaState.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\VariableTypes\Vector4Variable.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\VariableTypes\StringVariable.cs" />

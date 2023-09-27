@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
@@ -18,9 +19,9 @@ namespace Fungus
         [SerializeField] protected Canvas portraitCanvas;
 
         public Transform CharaParent=null;
-        protected Transform imageParent = null;
 
-        public Transform ImageParent
+
+       /* public Transform ImageParent
         { 
             get {
                 if (!imageParent) {
@@ -28,7 +29,7 @@ namespace Fungus
                 }
                 return imageParent;
             }
-        }
+        }*/
 
         protected Transform audiosParent = null;
 
@@ -43,6 +44,8 @@ namespace Fungus
                 return audiosParent;
             }
         }
+
+        public Transform ImageParent = null;
 
         public Transform PositionsParent = null;
 
@@ -77,10 +80,17 @@ namespace Fungus
 
         protected List<GameObject> spineCharaOnStageList = new List<GameObject>();
 
-        protected static List<Stage> activeStages = new List<Stage>(); 
+        protected static List<Stage> activeStages = new List<Stage>();
+
+        private bool exe = true;
+
 
         protected virtual void OnEnable()
         {
+            Debug.Log("執行stage=>"+gameObject.name);
+            Debug.Log("執行stage的父母物件=>" + gameObject.transform.parent.name);
+
+
             if (!activeStages.Contains(this))
             {
                 activeStages.Add(this);
@@ -95,13 +105,40 @@ namespace Fungus
                 }
             }
             SetCnavasCamera();
-
+            Unity.EditorCoroutines.Editor.EditorCoroutineUtility.StartCoroutineOwnerless(DetectPosStatus());
 
         }
 
+        public IEnumerator DetectPosStatus()
+        {
+            while (exe) {
+                if (PositionsParent.childCount!=positions.Count) {
+                    positions.Clear();
+
+                    for (int i=0;i<PositionsParent.childCount;i++) {
+                          var pos = PositionsParent.GetChild(i);
+
+                        RectTransform getRect = null;
+
+                        if (pos.TryGetComponent<RectTransform>(out getRect)) {
+                            positions.Add(getRect);
+                        }
+                    
+                    }
+                
+                }
+
+                yield return null;
+            }
+        }
+
+
         protected virtual void OnDisable()
         {
+            exe = false;
+            StopAllCoroutines();
             activeStages.Remove(this);
+
         }
 
         protected virtual void Start()
@@ -339,17 +376,17 @@ namespace Fungus
 
         public void SetImageParent()
         {
-            if (!imageParent) {
+            if (!ImageParent) {
                 var imgPar = gameObject.transform.parent.Find("Images");
                 if (imgPar) {
-                    imageParent=imgPar;
+                    ImageParent=imgPar;
                 }
                 else
                 {
                     GameObject sp = new GameObject("Images");
                     sp.transform.SetParent(transform.parent);
                     sp.transform.position = Vector3.zero;
-                    imageParent = sp.transform;
+                    ImageParent = sp.transform;
                 }
             }
 

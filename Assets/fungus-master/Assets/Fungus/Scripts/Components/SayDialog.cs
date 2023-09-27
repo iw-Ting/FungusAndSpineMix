@@ -385,11 +385,17 @@ namespace Fungus
         /// <param name="character">The active speaking character.</param>
         public virtual void SetCharacter(Character character)
         {
+
             if (character == null)
             {
                 if (characterImage != null)
                 {
                     characterImage.gameObject.SetActive(false);
+                    nameImage.gameObject.SetActive(false);
+                }
+                else
+                {
+                    nameImage.gameObject.SetActive(true);
                 }
                 if (NameText != null)
                 {

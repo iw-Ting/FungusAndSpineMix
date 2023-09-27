@@ -6,21 +6,12 @@ using Fungus;
 public class TestScriptTwo : MonoBehaviour
 {
 
+    public GameObject obj = null;
 
-    public RectTransform testObj;
-
-
-    private void OnDrawGizmos()
+    public void Start()
     {
-        if (testObj==null) {
-            return;
-        
-        }
-
-        Debug.Log("ด๚ธี1=>"+testObj.position);
-        Debug.Log("ด๚ธี2=>" + testObj.anchoredPosition);
-        //Debug.Log("ด๚ธี2=>" + RectTransformUtility.screen);
-
+        obj = GameObject.Find("_CommandCopyBuffer");
+        Destroy(obj);
 
     }
 

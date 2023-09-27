@@ -17,6 +17,7 @@ namespace Fungus
         {
             if (Application.isPlaying)
             {
+                Debug.Log("§R°£ª«¥ó");
                 Destroy(this.gameObject);
             }
         }
@@ -37,7 +38,7 @@ namespace Fungus
                 if (go == null)
                 {
                     go = new GameObject("_CommandCopyBuffer");
-                    go.hideFlags = HideFlags.HideAndDontSave;
+                   // go.hideFlags = HideFlags.HideAndDontSave;
                 }
 
                 instance = go.GetComponent<CommandCopyBuffer>();
@@ -67,6 +68,13 @@ namespace Fungus
             {
                 var command = commands[i];
                 DestroyImmediate(command);
+            }
+            var Stages = GetComponents<Stage>();
+
+            for (int i = 0; i < Stages.Length; i++)
+            {
+                var stage =Stages[i];
+                DestroyImmediate(stage);
             }
         }
 

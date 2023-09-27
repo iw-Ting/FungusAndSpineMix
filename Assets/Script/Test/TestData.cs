@@ -22,5 +22,6 @@ public string Name="";
 
 public int attackValue=0;
 
+  
 
 }

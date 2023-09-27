@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Fungus
 {
@@ -17,7 +18,7 @@ namespace Fungus
     public class FadeSprite : Command
     {
         [Tooltip("Sprite object to be faded")]
-        [SerializeField] protected SpriteRenderer spriteRenderer;
+        [SerializeField] protected Image spriteRenderer;
 
         [Tooltip("Length of time to perform the fade")]
         [SerializeField] protected FloatData _duration = new FloatData(1f);

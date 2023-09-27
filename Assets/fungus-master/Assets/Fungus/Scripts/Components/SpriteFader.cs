@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 namespace Fungus
@@ -10,7 +11,7 @@ namespace Fungus
     /// Transitions a sprite from its current color to a target color.
     /// An offset can be applied to slide the sprite in while changing color.
     /// </summary>
-    [RequireComponent (typeof (SpriteRenderer))]
+    [RequireComponent (typeof (Image))]
     public class SpriteFader : MonoBehaviour 
     {
         protected float fadeDuration;
@@ -20,13 +21,13 @@ namespace Fungus
         protected Vector2 slideOffset;
         protected Vector3 endPosition;
 
-        protected SpriteRenderer spriteRenderer;
+        protected Image image;
 
         protected Action onFadeComplete;
 
         protected virtual void Start()
         {
-            spriteRenderer = GetComponent<Renderer>() as SpriteRenderer;
+            image = GetComponent<Image>();
         }
 
         protected virtual void Update() 
@@ -36,7 +37,7 @@ namespace Fungus
             if (fadeTimer > fadeDuration)
             {
                 // Snap to final values
-                spriteRenderer.color = endColor;
+                image.color = endColor;
                 if (slideOffset.magnitude > 0)
                 {
                     transform.position = endPosition;
@@ -53,7 +54,7 @@ namespace Fungus
             else
             {
                 float t = Mathf.SmoothStep(0, 1, fadeTimer / fadeDuration);
-                spriteRenderer.color = Color.Lerp(startColor, endColor, t);
+                image.color = Color.Lerp(startColor, endColor, t);
                 if (slideOffset.magnitude > 0)
                 {
                     Vector3 startPosition = endPosition;
@@ -69,20 +70,20 @@ namespace Fungus
         /// <summary>
         /// Attaches a SpriteFader component to a sprite object to transition its color over time.
         /// </summary>
-        public static void FadeSprite(SpriteRenderer spriteRenderer, Color targetColor, float duration, Vector2 slideOffset, Action onComplete = null)
+        public static void FadeSprite(Image _image, Color targetColor, float duration, Vector2 slideOffset, Action onComplete = null)
         {
-            if (spriteRenderer == null)
+            if (_image == null)
             {
                 Debug.LogError("Sprite renderer must not be null");
                 return;
             }
 
             // Fade child sprite renderers
-            var spriteRenderers = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
-            for (int i = 0; i < spriteRenderers.Length; i++)
+            var images = _image.gameObject.GetComponentsInChildren<Image>();
+            for (int i = 0; i < images.Length; i++)
             {
-                var sr = spriteRenderers[i];
-                if (sr == spriteRenderer)
+                var sr = images[i];
+                if (sr == _image)
                 {
                     continue;
                 }
@@ -90,7 +91,7 @@ namespace Fungus
             }
 
             // Destroy any existing fader component
-            SpriteFader oldSpriteFader = spriteRenderer.GetComponent<SpriteFader>();
+            SpriteFader oldSpriteFader = _image.GetComponent<SpriteFader>();
             if (oldSpriteFader != null)
             {
                 Destroy(oldSpriteFader);
@@ -99,7 +100,7 @@ namespace Fungus
             // Early out if duration is zero
             if (Mathf.Approximately(duration, 0f))
             {
-                spriteRenderer.color = targetColor;
+                _image.color = targetColor;
                 if (onComplete != null)
                 {
                     onComplete();
@@ -108,11 +109,11 @@ namespace Fungus
             }
 
             // Set up color transition to be applied during update
-            SpriteFader spriteFader = spriteRenderer.gameObject.AddComponent<SpriteFader>();
+            SpriteFader spriteFader = _image.gameObject.AddComponent<SpriteFader>();
             spriteFader.fadeDuration = duration;
-            spriteFader.startColor = spriteRenderer.color;
+            spriteFader.startColor = _image.color;
             spriteFader.endColor = targetColor;
-            spriteFader.endPosition = spriteRenderer.transform.position;
+            spriteFader.endPosition = _image.transform.position;
             spriteFader.slideOffset = slideOffset;
             spriteFader.onFadeComplete = onComplete;
         }

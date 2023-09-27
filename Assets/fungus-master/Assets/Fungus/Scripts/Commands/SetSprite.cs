@@ -4,6 +4,7 @@
 // Snippet added by ducksonthewater, 2019-01-03 - www.ducks-on-the-water.com
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 namespace Fungus
@@ -18,7 +19,7 @@ namespace Fungus
     public class SetSprite : Command 
     {
         [Tooltip("List of sprites to set the sprite property on")]
-        [SerializeField] protected List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+        [SerializeField] protected List<Image> spriteRenderers = new List<Image>();
 
         [Tooltip("The sprite set on the target sprite renderers")]
         [SerializeField] protected Sprite sprite;
