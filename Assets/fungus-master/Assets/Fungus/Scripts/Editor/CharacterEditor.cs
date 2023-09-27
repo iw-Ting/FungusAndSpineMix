@@ -3,6 +3,7 @@
 
 using UnityEditor;
 using UnityEngine;
+using Spine.Unity;
 
 namespace Fungus.EditorUtils
 {
@@ -21,6 +22,9 @@ namespace Fungus.EditorUtils
         protected SerializedProperty setSayDialogProp;
         protected SerializedProperty setCharaAvatarProp;
 
+        public SerializedProperty SpineSettingPro, SkeletonGraphicPro;//骨架陣列 
+        public SerializedProperty SkeletonSkin, SkeletonAni;
+
         protected virtual void OnEnable()
         {
             nameTextProp = serializedObject.FindProperty("nameText");
@@ -33,6 +37,10 @@ namespace Fungus.EditorUtils
             SayDialogNameColorProp = serializedObject.FindProperty("SayDialogNameColor");
             SayDialogNameSpriteProp = serializedObject.FindProperty("SayDialogNameBgSprite");
             setCharaAvatarProp = serializedObject.FindProperty("charaAvatar");
+            SpineSettingPro = serializedObject.FindProperty("mSet");
+            SkeletonGraphicPro = serializedObject.FindProperty("aSkeletonGraphic");
+            SkeletonSkin = serializedObject.FindProperty("DefaultSkin");
+            SkeletonAni = serializedObject.FindProperty("DefaultAni");
         }
 
         public override void OnInspectorGUI()
@@ -41,6 +49,9 @@ namespace Fungus.EditorUtils
 
             Character t = target as Character;
             EditorGUI.BeginChangeCheck();
+
+            EditorGUILayout.LabelField("2D角色設定",GUILayout.Height(50));
+
             EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
             EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
             EditorGUILayout.PropertyField(SayDialogNameSpriteProp, new GUIContent("NameBGSprite", "Adjust Name Sprite in the dialog"));
@@ -51,6 +62,8 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(setSayDialogProp);
             EditorGUILayout.PropertyField(setCharaAvatarProp);
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
+
+
 
             if (t.Portraits != null && t.Portraits.Count > 0)
             {
@@ -97,10 +110,63 @@ namespace Fungus.EditorUtils
 
             EditorGUILayout.Separator();
 
+
+            DisplayCharaInfo();
+
             if (EditorGUI.EndChangeCheck())
                 EditorUtility.SetDirty(t);
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+
+
+        public void DisplayCharaInfo()
+        {
+            EditorGUILayout.LabelField("Spine角色設定", GUILayout.Height(50));
+            EditorGUILayout.PropertyField(SkeletonGraphicPro);
+
+            if (SkeletonGraphicPro.objectReferenceValue == null)
+            {
+                EditorGUILayout.HelpBox(new GUIContent("Can Not Have a SkeletonGraphic"));
+                serializedObject.ApplyModifiedProperties();
+                return;
+            }
+
+            SkeletonGraphic aSkele = SkeletonGraphicPro.objectReferenceValue as SkeletonGraphic;
+
+
+            if (aSkele.skeletonDataAsset == null)
+            {
+                EditorGUILayout.HelpBox(new GUIContent("Can Not Have a skeletonDataAsset"));
+                serializedObject.ApplyModifiedProperties();
+                return;
+            }
+            else
+            {
+
+
+                EditorGUILayout.PropertyField(SpineSettingPro);
+
+
+
+                CommandEditor.StringField(SkeletonSkin,
+                                        new GUIContent("Skin", "Change representing Skin"),
+                                        new GUIContent("<None>"),
+                                        aSkele.GetSkinStrings());
+
+                CommandEditor.StringField(SkeletonAni,
+                                        new GUIContent("Ani", "Change representing Ani"),
+                                        new GUIContent("<None>"),
+                                        aSkele.GetSkeletonStrings());
+            }
+
+
+
+
+            serializedObject.ApplyModifiedProperties();
+
+
         }
 
     }

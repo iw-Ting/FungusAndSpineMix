@@ -393,10 +393,7 @@ namespace Fungus
                        {
                            field.SetValue(component, (res as Block));
                        }
-                       else if (field.FieldType == typeof(CharaSpine))
-                       {
-                           field.SetValue(component, (res as CharaSpine));
-                       }
+
                        else if (field.FieldType == typeof(Stage))
                        {
                            field.SetValue(component, (res as Stage));
@@ -1033,10 +1030,6 @@ namespace Fungus
                         _string = (value as Character).name;
                         isDefaultExecuteClass = true;
                         break;
-                 case "Fungus.CharaSpine":
-                        _string = (value as CharaSpine).name;
-                        isDefaultExecuteClass = true;
-                        break;
                  case "Fungus.Block":
                         _string = (value as Block).BlockName;//menu 的target
                          isDefaultExecuteClass=true;
@@ -1176,11 +1169,7 @@ namespace Fungus
                     cbValue(resChara);
 
                     yield break;
-                case "Fungus.CharaSpine":
-                    CharaSpine resSpine = null;
-                    yield return FungusResources.GetCharaSpine(_string, _res => { resSpine = _res; });
-                    cbValue(resSpine);
-                   yield break;
+
 
                 case "UnityEngine.Sprite"://需要圖片路徑  可能會抓hierarchy上的
 

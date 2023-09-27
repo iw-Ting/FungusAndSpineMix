@@ -57,3 +57,11 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
   charaAvatar: {fileID: 0}
   description: 
+  mSet:
+    CharaName: 
+    Scale: {x: 0.5, y: 0.5}
+    Offest: {x: 0, y: 0, z: 0}
+    Facing: 2
+  aSkeletonGraphic: {fileID: 3630250552490600157, guid: f6ff67403d326e34a97b799ca4993416, type: 3}
+  DefaultSkin: default
+  DefaultAni: 

@@ -105,7 +105,7 @@ public class SpineCharaAniEditor : CommandEditor
 
         if (aSkeletonGraphicPro.objectReferenceValue != null)
         {
-            CharaSpine cs=aSkeletonGraphicPro.objectReferenceValue as CharaSpine;
+            Character cs=aSkeletonGraphicPro.objectReferenceValue as Character;
 
             if (cs.aSkeletonGraphic==null) {
                 EditorGUILayout.HelpBox(new GUIContent("Can Not Have a Chara"));

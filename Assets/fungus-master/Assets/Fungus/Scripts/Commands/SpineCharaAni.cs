@@ -20,8 +20,7 @@ public enum ClickAeraSetting
 public class SpineCharaAni : ControlWithDisplay<DisplayType>
 {
     // Start is called before the first frame update
-    public List<List<string>> aaaa = new List<List<string>>() { new List<string>() { "gh", "hj" } };
-    public CharaSpine aTarget;
+    public Character aTarget;
     [SerializeField] protected Stage stage;
     [SerializeField] protected FacingDirection facing;
 
@@ -96,11 +95,17 @@ public class SpineCharaAni : ControlWithDisplay<DisplayType>
 
         SpineCharaAniOptions opt = new SpineCharaAniOptions();
 
-        opt._charaName = aTarget.mSet.CharaName;
+        opt._charaName = aTarget.NameText;
         opt.aTween = aTween;
         opt._SpineCharaPrefab = aTarget.aSkeletonGraphic;
         opt._offest = offest + aTarget.mSet.Offest;
-        opt._scale = aTarget.mSet.Scale;
+        if (aTarget.mSet.Scale!=Vector2.zero) {
+            opt._scale = aTarget.mSet.Scale;
+        }
+        else
+        {
+            opt._scale = Vector2.one;
+        }
         opt._OnComplete = Continue;
         opt._waitAnimationFinish = waitAnimationFinish;
         opt._spineOrder = spineOrder;

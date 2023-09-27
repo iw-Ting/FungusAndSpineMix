@@ -566,7 +566,6 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Collection\CollectionCommandElement.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Execution\VM\Processor\Processor_InstructionLoop.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Serialization\ObjectValueConverter.cs" />
-    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\Chara\CharaSpine.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Commands\InvokeEvent.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Thirdparty\MoonSharp\Interpreter\Interop\InteropAccessMode.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Thirdparty\FungusLua\Scripts\Components\LuaUtils.cs" />

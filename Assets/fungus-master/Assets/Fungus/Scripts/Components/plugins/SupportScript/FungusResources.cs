@@ -16,7 +16,7 @@ namespace Fungus {
       
         }
 
-        public static IEnumerator GetCharaSpine(string charaName, Action<CharaSpine> finish)
+     /*   public static IEnumerator GetCharaSpine(string charaName, Action<CharaSpine> finish)
         {
 
             ResourceRequest request = Resources.LoadAsync<GameObject>(FungusResourcesPath.SpineChara + charaName);
@@ -24,7 +24,7 @@ namespace Fungus {
 
             finish( (request.asset as GameObject).GetComponent<CharaSpine>() );
 
-        }
+        }*/
 
         
     }

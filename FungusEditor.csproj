@@ -75,7 +75,6 @@
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\EditorZoomArea.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\BlockEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\GameObjectVariableDrawer.cs" />
-    <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\CharaSpineEditor.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\VariableTypes\Collider2DVariableDrawer.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\BasePopupWindowContent.cs" />
     <Compile Include="Assets\fungus-master\Assets\Fungus\Scripts\Editor\PopupContent\CommandSelectorPopupWindowContent.cs" />

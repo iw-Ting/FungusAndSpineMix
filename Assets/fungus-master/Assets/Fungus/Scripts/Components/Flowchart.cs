@@ -1582,7 +1582,6 @@ namespace Fungus
         public string[] arr = new string[0];
         public RectTransform rect;
         public TweenTime tt = new TweenTime();
-        public CharaSpine charaSpine;
         public string str = "";
         public Sprite spr;
         public Texture obj;

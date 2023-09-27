@@ -5,9 +5,28 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
 using System.Globalization;
+using Spine.Unity;
+using System;
+
 
 namespace Fungus
 {
+
+    [Serializable]
+    public struct SpineSetting
+    {
+        // public Sprite DefaultSayDialogSprite;//名字底下的圖片
+
+        // public Color ColorName;
+        public Vector2 Scale;
+
+        public Vector3 Offest;
+
+        public FacingDirection Facing;
+
+    }
+
+
     /// <summary>
     /// A Character that can be used in dialogue via the Say, Conversation and Portrait commands.
     /// </summary>
@@ -45,6 +64,18 @@ namespace Fungus
         protected PortraitState portaitState = new PortraitState();
 
         protected static List<Character> activeCharacters = new List<Character>();
+
+        public SpineSetting mSet;
+        // [SerializeField] private string SkeletonAnimationPath = "";//加載資源的路徑
+
+        public SkeletonGraphic aSkeletonGraphic;//skins 因為spine裡面已經有造型選擇 造理說只會有一個
+
+
+        public string DefaultSkin = null;
+
+        public string DefaultAni = null;
+
+
 
         protected virtual void OnEnable()//開場就自動加入 static的陣列
         {
