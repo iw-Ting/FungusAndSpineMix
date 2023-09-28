@@ -87,9 +87,17 @@ namespace Fungus
 
         protected virtual void OnEnable()
         {
-            Debug.Log("執行stage=>"+gameObject.name);
+            if (!ConfirmParentComponent()) {
+                return;
+            }
             Debug.Log("執行stage的父母物件=>" + gameObject.transform.parent.name);
+            Debug.Log("執行stage=>" + gameObject.name);
 
+
+            if (gameObject.name == "_CommandCopyBuffer"|| transform.parent.name == "_CommandCopyBuffer")
+            {
+                return;
+            }
 
             if (!activeStages.Contains(this))
             {
@@ -422,6 +430,33 @@ namespace Fungus
             portraitCanvas=sp.GetComponent<Canvas>();
 
 
+
+        }
+
+        public bool ConfirmParentComponent()
+        {
+            if (gameObject.transform.parent==null) {
+                return false;
+            }
+            else
+             {
+                Flowchart flow = null;
+
+                if (transform.parent.TryGetComponent<Flowchart>(out flow)) {
+
+                        if (flow.name!= "_CommandCopyBuffer") {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
         }
 

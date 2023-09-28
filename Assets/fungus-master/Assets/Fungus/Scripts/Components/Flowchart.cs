@@ -59,7 +59,7 @@ namespace Fungus
 
        [SerializeField] protected StoryControl _storyControl=null;
 
-        [SerializeField] public bool _storyEnabled = true;
+        [SerializeField] public bool _storyEnabled = true;//
 
         [TextArea(3, 5)]
         [Tooltip("Description text displayed in the Flowchart editor window")]
@@ -150,7 +150,10 @@ namespace Fungus
         }
 
         protected virtual void Start()
-        {
+        { 
+            if (gameObject.name== "_CommandCopyBuffer") {
+                return;
+            }
             CheckEventSystem();
         }
 
@@ -158,6 +161,7 @@ namespace Fungus
         // This method will automatically instantiate one if none exists.
         protected virtual void CheckEventSystem()
         {
+            
             _storyEnabled=true;
             if (eventSystemPresent)
             {
@@ -225,10 +229,20 @@ namespace Fungus
                     }
                 }
 
+                IEnumerator a  (Action<ResourceRequest> complete) 
+                {
+                    var stagePrefab=Resources.LoadAsync<GameObject>("Prefabs/Stage");
+                    yield return new WaitUntil(() => stagePrefab.isDone);
+                    complete(stagePrefab);
+   
+                };
+
                 if (!HaveStage) {
-                    GameObject sp = Instantiate(Resources.Load<GameObject>("Prefabs/Stage"));
-                    sp.transform.SetParent(transform);
-                    sp.transform.SetSiblingIndex(0);
+                    StartCoroutine(a(complete => {
+                        GameObject sp = Instantiate(complete.asset as GameObject);
+                        sp.transform.SetParent(transform);
+                        sp.transform.SetSiblingIndex(0);
+                    }));
                 }
 
             }

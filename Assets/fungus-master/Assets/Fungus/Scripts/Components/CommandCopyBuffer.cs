@@ -30,6 +30,8 @@ namespace Fungus
         /// </summary>
         public static CommandCopyBuffer GetInstance()
         {
+
+
             if (instance == null)
             {
                 // Static variables are not serialized (e.g. when playing in the editor)

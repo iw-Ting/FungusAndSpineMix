@@ -8,10 +8,7 @@ using UnityEditor;
 
 public class testPro : MonoBehaviour
 {
-    private void Start()
-    {
-        StartCoroutine(StartCountDown());
-    }
+
 
     public void TouchButton()
     {
@@ -20,10 +17,16 @@ public class testPro : MonoBehaviour
         //StartCoroutine(StartTest());
 
 
-       // EditorCoroutineUtility.StartCoroutineOwnerless(StartCountDown());
-           //EditorCoroutineUtility.StartCoroutine(StartCountDown(), this);
-        StartCoroutine(StartCountDown());
+        // EditorCoroutineUtility.StartCoroutineOwnerless(StartCountDown());
+        //EditorCoroutineUtility.StartCoroutine(StartCountDown(), this);
+        //  StartCoroutine(StartCountDown());
+        GetParent();
+    }
 
+    public void GetParent()
+    {
+        Debug.Log("母物件=>"+gameObject.transform.parent);
+        Debug.Log("母物件算空嗎?=>" +( gameObject.transform.parent==null));
     }
 
     public IEnumerator StartCountDown()

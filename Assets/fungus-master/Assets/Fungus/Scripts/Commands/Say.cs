@@ -108,7 +108,7 @@ namespace Fungus
             var flowchart = GetFlowchart();
 
             sayDialog.SetActive(true);
-
+            
             sayDialog.SetCharacter(character);//設置對話框角色
             sayDialog.SetCharacterImage(portrait);//設置角色頭像
 
