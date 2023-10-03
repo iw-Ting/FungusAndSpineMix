@@ -118,7 +118,7 @@ namespace Fungus
                 EditorCoroutineUtility.StartCoroutineOwnerless(blockData.SetBlockCommandData(() => { finish++; } ));
             }
             yield return new WaitUntil( () => finish >= blockSaveDataList.Count );
-            //µLªk½á­È ¦]¬°¥¼§ä¨ìset valueªº¤èªk
+            //ç„¡æ³•è³¦å€¼ å› ç‚ºæœªæ‰¾åˆ°set valueçš„æ–¹æ³•
         }
 
 
@@ -208,13 +208,13 @@ namespace Fungus
 
         }
 
-        private void SetEventDataToBlock(Block block)//µ¹¤©Block¼Æ¾Ú
+        private void SetEventDataToBlock(Block block)//çµ¦äºˆBlockæ•¸æ“š
         {
             EventHandler newHandler = block.gameObject.AddComponent(Type.GetType(eventSaveData.typeName)) as EventHandler;
 
-            Debug.Log("°»´úblock¦W¦r=>" + block.BlockName);
+            Debug.Log("åµæ¸¬blockåå­—=>" + block.BlockName);
 
-            Debug.Log("°»´úÃş«¬=>" + eventSaveData.typeName);
+            Debug.Log("åµæ¸¬é¡å‹=>" + eventSaveData.typeName);
 
             newHandler.ParentBlock = block;
 
@@ -236,12 +236,12 @@ namespace Fungus
             block._EventHandler = newHandler;
         }
 
-        public Block tempBlock=null;//¥Î·N¬O¬°¤FÅıcommand°}¦Cµ¥©Ò¦³blockªì©l¤Æ§¹¦¨«á¦b°õ¦æ
+        public Block tempBlock=null;//ç”¨æ„æ˜¯ç‚ºäº†è®“commandé™£åˆ—ç­‰æ‰€æœ‰blockåˆå§‹åŒ–å®Œæˆå¾Œåœ¨åŸ·è¡Œ
         
         public IEnumerator SetBlockCommandData(Action cb=null)
         {
             if (tempBlock==null) {
-                Debug.Log("µo¥Í¿ù»~,¥¼¥[¸ü©Ò¦³block«K¥[¸ücommand");
+                Debug.Log("ç™¼ç”ŸéŒ¯èª¤,æœªåŠ è¼‰æ‰€æœ‰blockä¾¿åŠ è¼‰command");
             }
             foreach (var comSaveData in commandSaveDataList)
             {
@@ -252,10 +252,10 @@ namespace Fungus
             }
         }
 
-        private IEnumerator SetSaveData(CommandSaveData saveData, Block block)//³]¸mÀx¦s¸ê®Æ
+        private IEnumerator SetSaveData(CommandSaveData saveData, Block block)//è¨­ç½®å„²å­˜è³‡æ–™
         {
             Flowchart flowchart = block.gameObject.GetComponent<Flowchart>();
-            Debug.Log("commandÃş«¬¦WºÙ=>"+saveData.commandType);
+            Debug.Log("commandé¡å‹åç¨±=>"+saveData.commandType);
             var type = Type.GetType(saveData.commandType);
             var component = block.gameObject.AddComponent(type) as Command;
 
@@ -268,11 +268,11 @@ namespace Fungus
 
                 var field = type.GetFields(ExportData.DefaultBindingFlags)[i];
 
-                Debug.Log("¥Ø«e¦bÀò¨úªºfield­È¦WºÙ==========>" + field.Name);
+                Debug.Log("ç›®å‰åœ¨ç²å–çš„fieldå€¼åç¨±==========>" + field.Name);
 
                 if (field.FieldType.IsGenericType)
                 {
-                    if (field.FieldType == typeof(List<string>))//ªx«¬µLªk¿é¤J¦r¦êtype list<>¥u¯à±µ¨ü¦³ªx«¬ªºÃş§O ¤]¤£±µ¨ü¦^¶Çilist¸òicollect  ©Ò¥H¥u¯à«Ü¥ÕÃ¨ªº¤@¤@Ã¹¦C
+                    if (field.FieldType == typeof(List<string>))//æ³›å‹ç„¡æ³•è¼¸å…¥å­—ä¸²type list<>åªèƒ½æ¥å—æœ‰æ³›å‹çš„é¡åˆ¥ ä¹Ÿä¸æ¥å—å›å‚³ilistè·Ÿicollect  æ‰€ä»¥åªèƒ½å¾ˆç™½ç™¡çš„ä¸€ä¸€ç¾…åˆ—
                     {
 
                         List<string> list = new List<string>();
@@ -360,7 +360,7 @@ namespace Fungus
                     }
                     else
                     {
-                        Debug.Log("¥¼ª¾ªºÃş«¬=>" + field.FieldType);
+                        Debug.Log("æœªçŸ¥çš„é¡å‹=>" + field.FieldType);
                     }
                 }
                 else if (field.FieldType.IsEnum)
@@ -379,7 +379,7 @@ namespace Fungus
                     });
 
                 }
-                else // «D list
+                else // é list
                 {
 
                     if (field.FieldType == typeof(Camera)) {
@@ -422,8 +422,8 @@ namespace Fungus
                        {
                            field.SetValue(component, (res as Sprite));
                           // component.SetSaveDataToValue(field.Name, res);
-                           //sprite¦]¬°¨C­ÓcommandÀò¨úªº¥Ø¼Ğ¤£¦P,¬G»İ­n¥h¸Ócommand©³¤U¼¶¼gÀò¨ú«áªº°õ¦æ¤èªk
-                           //®Ú¾Ú­Èªº¦W¥h°µ»Î±µ ex component.setValue(field.Name,res);
+                           //spriteå› ç‚ºæ¯å€‹commandç²å–çš„ç›®æ¨™ä¸åŒ,æ•…éœ€è¦å»è©²commandåº•ä¸‹æ’°å¯«ç²å–å¾Œçš„åŸ·è¡Œæ–¹æ³•
+                           //æ ¹æ“šå€¼çš„åå»åšéŠœæ¥ ex component.setValue(field.Name,res);
                        }
                        else if (field.FieldType == typeof(AudioClip))//say show audio
                        {
@@ -437,10 +437,10 @@ namespace Fungus
                        {
                            field.SetValue(component, (res as Texture2D));
                        }
-                       else  // sturctªº­È
+                       else  // sturctçš„å€¼
                        {
-                           Debug.Log("Àò±oªº­È=>" + res);
-                           Debug.Log("¶i¨ì¹w³]ªºÄæ¦ì=>" + field.FieldType.Name);
+                           Debug.Log("ç²å¾—çš„å€¼=>" + res);
+                           Debug.Log("é€²åˆ°é è¨­çš„æ¬„ä½=>" + field.FieldType.Name);
                            field.SetValue(component, res);
                        }
 
@@ -457,7 +457,7 @@ namespace Fungus
     public class EventHandleSaveData
     {
         public string typeName;
-        public List<DataObjectValue> propertyValues = new List<DataObjectValue>();//®Ú¾Ú¤£¦PÃş§OªºÀx¦s¼Æ¾Ú,µ¹¤©¤£¦Pªº°}¦C
+        public List<DataObjectValue> propertyValues = new List<DataObjectValue>();//æ ¹æ“šä¸åŒé¡åˆ¥çš„å„²å­˜æ•¸æ“š,çµ¦äºˆä¸åŒçš„é™£åˆ—
 
 
         public EventHandleSaveData(EventHandler eventHandler)
@@ -480,7 +480,7 @@ namespace Fungus
 
 
     [Serializable]
-    public class CommandSaveData//CommandÀx¦sÀÉ®×³£¥²¶·Ä~©Ó
+    public class CommandSaveData//Commandå„²å­˜æª”æ¡ˆéƒ½å¿…é ˆç¹¼æ‰¿
     {
         public string commandType;
 
@@ -618,11 +618,12 @@ namespace Fungus
 
                 GameObject sp = new GameObject(image.rectName,typeof(RectTransform), typeof(Image));
                 sp.transform.SetParent(stage.ImageParent, false);
+                
                 Image spRect = sp.GetComponent<Image>();
                 image.SetImageDataToRectTransform(spRect);
 
             }
-            Debug.Log("Àx¦s¼Æ¶q=>"+audioList.Count);
+            Debug.Log("å„²å­˜æ•¸é‡=>"+audioList.Count);
             foreach (var audio in audioList)
             {
 
@@ -666,7 +667,7 @@ namespace Fungus
             Variable var = flowchart.gameObject.AddComponent<Variable>();
             var.Scope = variableScope;
             var.Key = key;
-            //»İ­n½á­È value  ¥Ø«e©|µLªkÀò¨ú¨ìvalueªº¦ì¸m
+            //éœ€è¦è³¦å€¼ value  ç›®å‰å°šç„¡æ³•ç²å–åˆ°valueçš„ä½ç½®
 
             return var;
         }
@@ -678,7 +679,7 @@ namespace Fungus
 
         public string rectName;
 
-        public Vector2 position;
+        public Vector3 position;
 
         public Vector2 size;
 
@@ -688,7 +689,7 @@ namespace Fungus
 
         public Vector2 anchorMax;
 
-        public RectPositionsInfo(string _rectName, Vector2 _pos, Vector2 _size, Vector2 _pivot, Vector2 _anchorMin, Vector2 _anchorMax) {
+        public RectPositionsInfo(string _rectName, Vector3 _pos, Vector2 _size, Vector2 _pivot, Vector2 _anchorMin, Vector2 _anchorMax) {
             rectName = _rectName;
             position = _pos;
             size = _size;
@@ -749,7 +750,7 @@ namespace Fungus
 
     }
     [Serializable]
-    public class SpriteRenderInfo : PositionsInfo//Åã¥Üªº¹Ï¤ù
+    public class SpriteRenderInfo : PositionsInfo//é¡¯ç¤ºçš„åœ–ç‰‡
     {
 
         public string assetSpritePath = "";
@@ -779,7 +780,7 @@ namespace Fungus
 
             if (!assetSpritePath.Equals("") && !assetSpritePath.Equals(null))
             {
-                sprite.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetSpritePath);//¹Ï¤ù­n§ï¦¨§ìresources ¥Ø«e¥u¦³¦beditor¤W¯à¥¿±`°õ¦æ
+                sprite.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetSpritePath);//åœ–ç‰‡è¦æ”¹æˆæŠ“resources ç›®å‰åªæœ‰åœ¨editorä¸Šèƒ½æ­£å¸¸åŸ·è¡Œ
             }
             sprite.color = color;
 
@@ -820,7 +821,7 @@ namespace Fungus
 
     }
     [Serializable]
-    public class AudioInfo:PositionsInfo//Åã¥Üªº­µÀÉ
+    public class AudioInfo:PositionsInfo//é¡¯ç¤ºçš„éŸ³æª”
     {
 
         public string ClipAssetsPath = "";
@@ -866,7 +867,7 @@ namespace Fungus
 
     }
     [Serializable]
-    public class ImageInfo:RectPositionsInfo//Åã¥Üªº¹Ï¤ù
+    public class ImageInfo:RectPositionsInfo//é¡¯ç¤ºçš„åœ–ç‰‡
     {
 
         public string assetSpritePath = "";
@@ -920,7 +921,7 @@ namespace Fungus
                  canvas.sortingOrder = order;
             }
         }
-        //sprite¸ê°T  ¹Ï¼h¸ê°T  ³£¥Îrect transform
+        //spriteè³‡è¨Š  åœ–å±¤è³‡è¨Š  éƒ½ç”¨rect transform
 
     }
 
@@ -931,7 +932,7 @@ namespace Fungus
         //enum  int is enum index  string is enum class name
         public string typeName="";
 
-        public List<DataObjectValue> _class ;  //class   list array ¤]¬O¦¹
+        public List<DataObjectValue> _class ;  //class   list array ä¹Ÿæ˜¯æ­¤
         public string _string="";
         public float _floatValue=0;
         public int _intValue=0;
@@ -959,12 +960,12 @@ namespace Fungus
         {
 
 
-                 Debug.Log("Åã¥Ü­È=>"+_data);
+                 Debug.Log("é¡¯ç¤ºå€¼=>"+_data);
            
                  foreach (var field in Type.GetType(_data.GetType().FullName).GetFields(ExportData.DefaultBindingFlags))
                  {
                      DataObjectValue value = new DataObjectValue();
-                     Debug.Log("Äæ¦ìªº¦WºÙ=>"+field.Name);
+                     Debug.Log("æ¬„ä½çš„åç¨±=>"+field.Name);
 
                     if (field.FieldType.IsGenericType)
                      {
@@ -987,9 +988,9 @@ namespace Fungus
 
         public void SetDataToValue( object value)
         {
-            Debug.Log("¹ê»Úªº­È=>" + value);
+            Debug.Log("å¯¦éš›çš„å€¼=>" + value);
 
-            if (value == null)//³sªÅÃş«¬³£¨S
+            if (value == null)//é€£ç©ºé¡å‹éƒ½æ²’
             {
                 isNull = true;
                 return;
@@ -1003,11 +1004,11 @@ namespace Fungus
 
                 if (typeName == field.FieldType.FullName&&field.Name!="_class"&& field.Name != "typeName")
                 {
-                    Debug.Log("­ş­Ó­È¦W?=>"+field.Name);
+                    Debug.Log("å“ªå€‹å€¼å?=>"+field.Name);
 
                     field.SetValue(this,value);
 
-                    Debug.Log("¥²¶·¿é¤Jªº­È=>" + field.GetValue(this));
+                    Debug.Log("å¿…é ˆè¼¸å…¥çš„å€¼=>" + field.GetValue(this));
                     return;
                 }
             }
@@ -1015,22 +1016,22 @@ namespace Fungus
                 bool isDefaultExecuteClass = false;
                 _string = typeName;
 
-                if (value.Equals(null))//Ãş«¬¬OªÅ
+                if (value.Equals(null))//é¡å‹æ˜¯ç©º
                 {
                     isNull = true;
                     return;
                 }
-                switch (typeName)//«ü©wprefab
+                switch (typeName)//æŒ‡å®šprefab
                 {
                     case "UnityEngine.RectTransform":
                         _string = (value as RectTransform).name;
                         isDefaultExecuteClass = true;
                         break;
-                case "UnityEngine.AudioSource"://­n§ì¨ústage¤Wªºaudio ¥²¶·¥Í¦¨¨Ãªş¤W¬ÛÃöªº¸ê°T
+                case "UnityEngine.AudioSource"://è¦æŠ“å–stageä¸Šçš„audio å¿…é ˆç”Ÿæˆä¸¦é™„ä¸Šç›¸é—œçš„è³‡è¨Š
                         _string = (value as AudioSource).name;
                          isDefaultExecuteClass = true;
                       break;
-                case "UnityEngine.Camera"://­n§ì¨ústage¤Wªºaudio ¥²¶·¥Í¦¨¨Ãªş¤W¬ÛÃöªº¸ê°T
+                case "UnityEngine.Camera"://è¦æŠ“å–stageä¸Šçš„audio å¿…é ˆç”Ÿæˆä¸¦é™„ä¸Šç›¸é—œçš„è³‡è¨Š
                       _string = (value as Camera).name;
                         isDefaultExecuteClass = true;
                     break;
@@ -1055,10 +1056,10 @@ namespace Fungus
                         isDefaultExecuteClass = true;
                         break;
                  case "Fungus.Block":
-                        _string = (value as Block).BlockName;//menu ªºtarget
+                        _string = (value as Block).BlockName;//menu çš„target
                          isDefaultExecuteClass=true;
                         break;
-                    case "UnityEngine.Sprite"://»İ­n¹Ï¤ù¸ô®|  ¥i¯à·|§ìhierarchy¤Wªº
+                    case "UnityEngine.Sprite"://éœ€è¦åœ–ç‰‡è·¯å¾‘  å¯èƒ½æœƒæŠ“hierarchyä¸Šçš„
                     _string = (value as Sprite).name;
                     _path = AssetDatabase.GetAssetPath( (value as UnityEngine.Object));
                     isDefaultExecuteClass = true;
@@ -1085,8 +1086,8 @@ namespace Fungus
                 }
                
                 if (mType.IsGenericType) {
-                    Debug.Log("¬O²M³æ=>" + typeName);
-                    Debug.Log("­È¦WºÙ=>" + value);
+                    Debug.Log("æ˜¯æ¸…å–®=>" + typeName);
+                    Debug.Log("å€¼åç¨±=>" + value);
                     DataObjectValue newValue = new DataObjectValue();
                     SetDataToValue(   mType.GetField("_items", ExportData.DefaultBindingFlags).GetValue(value)  );
                    // this = newValue;
@@ -1094,8 +1095,8 @@ namespace Fungus
                 }
                 else if(mType.IsArray){
 
-                    Debug.Log("¬O°}¦C=>" + typeName+"ªø«×=>"+(value as Array).Length);
-                    Debug.Log("­È¦WºÙ=>" + value);
+                    Debug.Log("æ˜¯é™£åˆ—=>" + typeName+"é•·åº¦=>"+(value as Array).Length);
+                    Debug.Log("å€¼åç¨±=>" + value);
                     ICollection collection = value as ICollection;
 
                     
@@ -1106,7 +1107,7 @@ namespace Fungus
                             continue;
                         }
                         if (col.GetType().IsGenericType) {
-                            Debug.Log("ÁÙ¬O²M³æ=>"+col);
+                            Debug.Log("é‚„æ˜¯æ¸…å–®=>"+col);
                             DataObjectValue newValue = new DataObjectValue();
 
                             newValue.SetDataToValue(col.GetType().GetField("_items", ExportData.DefaultBindingFlags).GetValue(col));
@@ -1115,7 +1116,7 @@ namespace Fungus
                     }
                         else
                         {
-                            Debug.Log("¿é¤J°}¦C­È=>" + col);
+                            Debug.Log("è¼¸å…¥é™£åˆ—å€¼=>" + col);
                             DataObjectValue newValue = new DataObjectValue();
                             newValue.SetDataToValue(col);
                             _class.Add(newValue);
@@ -1129,7 +1130,7 @@ namespace Fungus
                   else if(mType.IsClass|| mType.IsValueType)
                 {
                 
-                    Debug.Log("¬OÃş§O=>" + typeName+ "­È¦WºÙ=>" + value);
+                    Debug.Log("æ˜¯é¡åˆ¥=>" + typeName+ "å€¼åç¨±=>" + value);
 
                     _class = new List<DataObjectValue>();
 
@@ -1139,7 +1140,7 @@ namespace Fungus
             }
             else
             {
-                Debug.LogError("¹w®Æ¤§¥~ªºº|ºô¤§³½==>" + value);
+                Debug.LogError("é æ–™ä¹‹å¤–çš„æ¼ç¶²ä¹‹é­š==>" + value);
             }
 
 
@@ -1160,7 +1161,7 @@ namespace Fungus
 
                 if (typeName == field.FieldType.FullName && field.Name != "_class" && field.Name != "typeName")
                 {
-                    Debug.Log("ªğ¦^¼Æ­È=>" + _string);
+                    Debug.Log("è¿”å›æ•¸å€¼=>" + _string);
                     cbValue( field.GetValue(this));
                     yield break;
                 }
@@ -1195,7 +1196,7 @@ namespace Fungus
                     yield break;
 
 
-                case "UnityEngine.Sprite"://»İ­n¹Ï¤ù¸ô®|  ¥i¯à·|§ìhierarchy¤Wªº
+                case "UnityEngine.Sprite"://éœ€è¦åœ–ç‰‡è·¯å¾‘  å¯èƒ½æœƒæŠ“hierarchyä¸Šçš„
 
                     cbValue(AssetDatabase.LoadAssetAtPath<Sprite>(_path));
                    yield  break;
@@ -1210,25 +1211,25 @@ namespace Fungus
                     yield break;
             }
 
-            Debug.Log("¦¹¦¸Àò¨ú¸ê®ÆÃş«¬=====>" + typeName);
-            Debug.Log("¸ÓÃş«¬=====>" + type);
+            Debug.Log("æ­¤æ¬¡ç²å–è³‡æ–™é¡å‹=====>" + typeName);
+            Debug.Log("è©²é¡å‹=====>" + type);
 
             if (type.IsArray) {
 
-                Debug.Log("°}¦Cªº¤¸¯Àtype=>"+ type.GetElementType());
+                Debug.Log("é™£åˆ—çš„å…ƒç´ type=>"+ type.GetElementType());
 
                 Array arr = Array.CreateInstance(type.GetElementType(), _class.Count);
                 
-                //¤¸¯À¬O²M³æ  ¦ı¹w³]ªğ¦^ªº³£¬Oarray
+                //å…ƒç´ æ˜¯æ¸…å–®  ä½†é è¨­è¿”å›çš„éƒ½æ˜¯array
                 
                 // list<list<string>>
                 for (int i=0;i<arr.Length;i++) {
                     object resVal = null;
                     yield return _class[i].GetValueData(parentObj, val => { resVal = val; });
 
-                    Debug.Log("¦^¶Çªº¼Æ­È=>" + resVal);
-                   // Debug.Log("¦^¶Çªº¼Æ­ÈÃş«¬=>"+resVal.GetType());
-                   // Debug.Log("°}¦Cªº¤¸¯Àtype=>" + type.GetElementType());
+                    Debug.Log("å›å‚³çš„æ•¸å€¼=>" + resVal);
+                   // Debug.Log("å›å‚³çš„æ•¸å€¼é¡å‹=>"+resVal.GetType());
+                   // Debug.Log("é™£åˆ—çš„å…ƒç´ type=>" + type.GetElementType());
                    if ( type.GetElementType().IsGenericType)
                     {
                         if (type.GetElementType()==typeof(List<string>)) {
@@ -1249,14 +1250,14 @@ namespace Fungus
             }
             else if (type.IsEnum)
             {
-                //  Debug.Log("enumªºtype=>" + _enum.GetType());
-                Debug.Log("´ú¸Õ´ú¸Õ");
+                //  Debug.Log("enumçš„type=>" + _enum.GetType());
+                Debug.Log("æ¸¬è©¦æ¸¬è©¦");
                 cbValue(_string);
 
             }
             else if (type.IsClass||type.IsValueType)
             {
-                Debug.Log("¶]class=>"+Type.GetType(typeName));   
+                Debug.Log("è·‘class=>"+Type.GetType(typeName));   
 
                 cbValue(_class);
                 yield break;
@@ -1264,7 +1265,7 @@ namespace Fungus
             }
             else
             {
-                Debug.LogWarning("·N¥~ªº¿ù»~,¸ÓÃş§O¦WºÙ=>" + typeName);
+                Debug.LogWarning("æ„å¤–çš„éŒ¯èª¤,è©²é¡åˆ¥åç¨±=>" + typeName);
                cbValue( null);
                 yield break;
 

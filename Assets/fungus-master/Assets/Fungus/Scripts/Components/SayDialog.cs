@@ -12,6 +12,10 @@ namespace Fungus
     /// <summary>
     /// Display story text in a visual novel style dialog box.
     /// </summary>
+    /// 
+
+
+
     public class SayDialog : MonoBehaviour//對話框本身的腳本
     {
         [Tooltip("Duration to fade dialogue in/out")]
@@ -393,10 +397,7 @@ namespace Fungus
                     characterImage.gameObject.SetActive(false);
                     nameImage.gameObject.SetActive(false);
                 }
-                else
-                {
-                    nameImage.gameObject.SetActive(true);
-                }
+
                 if (NameText != null)
                 {
                     NameText = "";
@@ -405,6 +406,8 @@ namespace Fungus
             }
             else
             {
+
+                nameImage.gameObject.SetActive(true);
                 var prevSpeakingCharacter = speakingCharacter;
                 speakingCharacter = character;
 
@@ -482,6 +485,7 @@ namespace Fungus
                 StoryText != null &&
                 characterImage.gameObject.activeSelf)
             {
+
                 if (Mathf.Approximately(startStoryTextWidth, 0f))
                 {
                     startStoryTextWidth = StoryTextRectTrans.rect.width;
@@ -501,6 +505,8 @@ namespace Fungus
                         startStoryTextInset,
                         startStoryTextWidth - characterImage.rectTransform.rect.width);
                 }
+
+
             }
         }
 

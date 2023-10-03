@@ -11,7 +11,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using System.IO;
-using System.Linq;
+
 
 
 namespace Fungus
@@ -201,6 +201,10 @@ namespace Fungus
 
         protected virtual void OnEnable()
         {
+            if (gameObject.name == "_CommandCopyBuffer")
+            {
+                return;
+            }
             if (!cachedFlowcharts.Contains(this))
             {
                 cachedFlowcharts.Add(this);
@@ -218,7 +222,7 @@ namespace Fungus
 
             if (mStage==null) {
                 Stage stage=null;
-
+                
                 bool HaveStage = false;
                 if (gameObject.transform.Find("Stage"))
                 {
@@ -1498,7 +1502,6 @@ namespace Fungus
 
         private static readonly string FileDataExportFormat = ".json";
 
-
         public void ClickCreateSaveData()
         {
             StartCoroutine(CreateSaveData());
@@ -1510,44 +1513,49 @@ namespace Fungus
                 dataName = "UnNameData";
             }
 
-            if (!Directory.Exists(Application.dataPath + FungusResourcesPath.FlowchartSaveData))
+            string[] filePaths = AssetDatabase.FindAssets("FlowchartStoryData");
+            string FilePath = "";
+
+            if (filePaths.Length!=1) {
+                FilePath =  FungusResourcesPath.FlowchartSaveData;
+            }
+            else
             {
-                Directory.CreateDirectory(Application.dataPath + FungusResourcesPath.FlowchartSaveData);
+                FilePath = AssetDatabase.GUIDToAssetPath(filePaths[0]).Remove(0,6)+"/";
+            }
+
+            string assetPath = Application.dataPath + FilePath;
+
+            if (!Directory.Exists(assetPath))
+            {
+                Directory.CreateDirectory(assetPath);
 
             }
 
-            string path = Application.dataPath + FungusResourcesPath.FlowchartSaveData;
             int fileNo = 1;
-
-
 
             ExportData saveData = new ExportData(this);
 
-            if (!File.Exists(path+dataName+FileDataExportFormat)) {
 
+            if (!File.Exists(assetPath + dataName+FileDataExportFormat)) {
+                
 
-                yield return File.WriteAllTextAsync(path + dataName + FileDataExportFormat, JsonUtility.ToJson(saveData));
+                yield return File.WriteAllTextAsync(assetPath + dataName + FileDataExportFormat, JsonUtility.ToJson(saveData));
 
                 AssetDatabase.Refresh();
-                flowchartOverrideTextFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets" + FungusResourcesPath.FlowchartSaveData + dataName  + FileDataExportFormat);
+                flowchartOverrideTextFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets" + FilePath + dataName  + FileDataExportFormat);
             }
             else
             {
                 bool HaveName = true;
                 while (HaveName) 
                 {
-                    if (!File.Exists(path + dataName+ "_"+fileNo.ToString()+FileDataExportFormat  )) {
+                    if (!File.Exists(assetPath + dataName+ "_"+fileNo.ToString()+FileDataExportFormat  )) {
                         HaveName = false;
 
-                        // File.WriteAllText(path + dataName + "_" + fileNo.ToString() + FileDataExportFormat, JsonUtility.ToJson(data));
-
-                        yield return File.WriteAllTextAsync(path + dataName + "_" + fileNo.ToString() + FileDataExportFormat, JsonUtility.ToJson(saveData));
+                        yield return File.WriteAllTextAsync(assetPath + dataName + "_" + fileNo.ToString() + FileDataExportFormat, JsonUtility.ToJson(saveData));
                         AssetDatabase.Refresh();
-
-                           
-  
-                        flowchartOverrideTextFile=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets" + FungusResourcesPath.FlowchartSaveData + dataName+"_"+fileNo.ToString() + FileDataExportFormat);
-
+                        flowchartOverrideTextFile=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets" + FilePath + dataName+"_"+fileNo.ToString() + FileDataExportFormat);
 
                     }
                     else
@@ -1563,14 +1571,26 @@ namespace Fungus
 
         public void OverrideSaveData()//覆蓋存檔
         {
+            string[] filePaths = AssetDatabase.FindAssets("FlowchartStoryData");
+            string FilePath = "";
 
+            if (filePaths.Length != 1)
+            {
+                FilePath =  FungusResourcesPath.FlowchartSaveData;
+            }
+            else
+            {
+                FilePath = AssetDatabase.GUIDToAssetPath(filePaths[0]).Remove(0, 6)+"/";
+            }
+
+            string assetPath = Application.dataPath + FilePath;
             //清理flowchart資料 刪除stage 多餘pos
 
-                if (!Directory.Exists(Application.dataPath + FungusResourcesPath.FlowchartSaveData))
+            if (!Directory.Exists(assetPath))
                 {
-                    Directory.CreateDirectory(Application.dataPath + FungusResourcesPath.FlowchartSaveData);
+                    Directory.CreateDirectory(assetPath);
                 }
-                string path = Application.dataPath + FungusResourcesPath.FlowchartSaveData;
+
 
                 ExportData data = new ExportData();
 
@@ -1578,10 +1598,10 @@ namespace Fungus
                 {
                     data = JsonUtility.FromJson<ExportData>(flowchartOverrideTextFile.text);
                 }
-                else if (File.Exists(path + dataName + FileDataExportFormat))
+                else if (File.Exists(assetPath + dataName + FileDataExportFormat))
                 {
 
-                    data = JsonUtility.FromJson<ExportData>(File.ReadAllText(path + dataName + FileDataExportFormat));
+                    data = JsonUtility.FromJson<ExportData>(File.ReadAllText(assetPath + dataName + FileDataExportFormat));
 
                 }
                 else

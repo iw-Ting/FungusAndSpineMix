@@ -8,7 +8,6 @@ using Fungus;
 using System;
 [CustomEditor(typeof(SpineCharaAni))]
 
-
 //flow command editor
 public class SpineCharaAniEditor : CommandEditor
 {
